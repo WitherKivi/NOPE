@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "id": "ios",
+  "name": "iOS",
+  "variants": {
+    "light": {
+      "palette": {
+        "background": "#d1d3d9",
+        "foreground": "#17171a",
+        "key": "#ffffff",
+        "special": "#adb2bd",
+        "accent": "#1465b4",
+        "selectedInk": "#ffffff",
+        "shadow": "#777982",
+        "outline": "#e6e6e8"
+      },
+      "radiusDp": 5,
+      "depthDp": 1
+    },
+    "dark": {
+      "palette": {
+        "background": "#2b2b2f",
+        "foreground": "#fafafa",
+        "key": "#626267",
+        "special": "#444449",
+        "accent": "#1267b5",
+        "selectedInk": "#ffffff",
+        "shadow": "#151518",
+        "outline": "#444449"
+      },
+      "radiusDp": 5,
+      "depthDp": 1
+    }
+  },
+  "keys": {},
+  "perspective": {
+    "rotationX": 0,
+    "cameraHeightFactor": 2,
+    "target": "background"
+  },
+  "layers": []
+}

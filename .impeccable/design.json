@@ -1,0 +1,1888 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-20",
+  "title": "Design System: NOPE 输入法",
+  "extensions": {
+    "colorMeta": {
+      "system-light-background": {
+        "role": "neutral",
+        "displayName": "system-light-background",
+        "tonalRamp": [
+          "oklch(15% 0.00289 264.542)",
+          "oklch(26% 0.00289 264.542)",
+          "oklch(38% 0.00289 264.542)",
+          "oklch(49% 0.00289 264.542)",
+          "oklch(61% 0.00289 264.542)",
+          "oklch(72% 0.00289 264.542)",
+          "oklch(84% 0.00289 264.542)",
+          "oklch(95% 0.00289 264.542)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "system-light-foreground": {
+        "role": "neutral",
+        "displayName": "system-light-foreground",
+        "tonalRamp": [
+          "oklch(15% 0.00583 285.899)",
+          "oklch(26% 0.00583 285.899)",
+          "oklch(38% 0.00583 285.899)",
+          "oklch(49% 0.00583 285.899)",
+          "oklch(61% 0.00583 285.899)",
+          "oklch(72% 0.00583 285.899)",
+          "oklch(84% 0.00583 285.899)",
+          "oklch(95% 0.00583 285.899)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "system-light-key": {
+        "role": "neutral",
+        "displayName": "system-light-key",
+        "tonalRampSource": "Updated in0.9.0; exact values in DESIGN.md frontmatter and SkinPalette.java; no synthesized ramp."
+      },
+      "system-light-special": {
+        "role": "neutral",
+        "displayName": "system-light-special",
+        "tonalRampSource": "Updated in0.9.0; exact values in DESIGN.md frontmatter and SkinPalette.java; no synthesized ramp."
+      },
+      "system-light-accent": {
+        "role": "primary",
+        "displayName": "system-light-accent",
+        "tonalRamp": [
+          "oklch(15% 0.11158 355.266)",
+          "oklch(26% 0.11158 355.266)",
+          "oklch(38% 0.11158 355.266)",
+          "oklch(49% 0.11158 355.266)",
+          "oklch(61% 0.11158 355.266)",
+          "oklch(72% 0.11158 355.266)",
+          "oklch(84% 0.11158 355.266)",
+          "oklch(95% 0.11158 355.266)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "system-light-selected-ink": {
+        "role": "neutral",
+        "displayName": "system-light-selected-ink",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "system-light-shadow": {
+        "role": "neutral",
+        "displayName": "system-light-shadow",
+        "tonalRamp": [
+          "oklch(15% 0.00905 264.514)",
+          "oklch(26% 0.00905 264.514)",
+          "oklch(38% 0.00905 264.514)",
+          "oklch(49% 0.00905 264.514)",
+          "oklch(61% 0.00905 264.514)",
+          "oklch(72% 0.00905 264.514)",
+          "oklch(84% 0.00905 264.514)",
+          "oklch(95% 0.00905 264.514)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "system-light-outline": {
+        "role": "neutral",
+        "displayName": "system-light-outline",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "system-dark-background": {
+        "role": "neutral",
+        "displayName": "system-dark-background",
+        "tonalRamp": [
+          "oklch(15% 0.00384 286.084)",
+          "oklch(26% 0.00384 286.084)",
+          "oklch(38% 0.00384 286.084)",
+          "oklch(49% 0.00384 286.084)",
+          "oklch(61% 0.00384 286.084)",
+          "oklch(72% 0.00384 286.084)",
+          "oklch(84% 0.00384 286.084)",
+          "oklch(95% 0.00384 286.084)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "system-dark-foreground": {
+        "role": "neutral",
+        "displayName": "system-dark-foreground",
+        "tonalRamp": [
+          "oklch(15% 0.00264 286.351)",
+          "oklch(26% 0.00264 286.351)",
+          "oklch(38% 0.00264 286.351)",
+          "oklch(49% 0.00264 286.351)",
+          "oklch(61% 0.00264 286.351)",
+          "oklch(72% 0.00264 286.351)",
+          "oklch(84% 0.00264 286.351)",
+          "oklch(95% 0.00264 286.351)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "system-dark-key": {
+        "role": "neutral",
+        "displayName": "system-dark-key",
+        "tonalRamp": [
+          "oklch(15% 0.00353 286.192)",
+          "oklch(26% 0.00353 286.192)",
+          "oklch(38% 0.00353 286.192)",
+          "oklch(49% 0.00353 286.192)",
+          "oklch(61% 0.00353 286.192)",
+          "oklch(72% 0.00353 286.192)",
+          "oklch(84% 0.00353 286.192)",
+          "oklch(95% 0.00353 286.192)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "system-dark-special": {
+        "role": "neutral",
+        "displayName": "system-dark-special",
+        "tonalRampSource": "Updated in0.9.0; exact values in DESIGN.md frontmatter and SkinPalette.java; no synthesized ramp."
+      },
+      "system-dark-accent": {
+        "role": "primary",
+        "displayName": "system-dark-accent",
+        "tonalRamp": [
+          "oklch(15% 0.13306 348.425)",
+          "oklch(26% 0.13306 348.425)",
+          "oklch(38% 0.13306 348.425)",
+          "oklch(49% 0.13306 348.425)",
+          "oklch(61% 0.13306 348.425)",
+          "oklch(72% 0.13306 348.425)",
+          "oklch(84% 0.13306 348.425)",
+          "oklch(95% 0.13306 348.425)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "system-dark-selected-ink": {
+        "role": "neutral",
+        "displayName": "system-dark-selected-ink",
+        "tonalRamp": [
+          "oklch(15% 0.01027 285.293)",
+          "oklch(26% 0.01027 285.293)",
+          "oklch(38% 0.01027 285.293)",
+          "oklch(49% 0.01027 285.293)",
+          "oklch(61% 0.01027 285.293)",
+          "oklch(72% 0.01027 285.293)",
+          "oklch(84% 0.01027 285.293)",
+          "oklch(95% 0.01027 285.293)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "system-dark-shadow": {
+        "role": "neutral",
+        "displayName": "system-dark-shadow",
+        "tonalRamp": [
+          "oklch(15% 0.00213 286.131)",
+          "oklch(26% 0.00213 286.131)",
+          "oklch(38% 0.00213 286.131)",
+          "oklch(49% 0.00213 286.131)",
+          "oklch(61% 0.00213 286.131)",
+          "oklch(72% 0.00213 286.131)",
+          "oklch(84% 0.00213 286.131)",
+          "oklch(95% 0.00213 286.131)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "system-dark-outline": {
+        "role": "neutral",
+        "displayName": "system-dark-outline",
+        "tonalRampSource": "Updated in0.9.0; exact values in DESIGN.md frontmatter and SkinPalette.java; no synthesized ramp."
+      },
+      "cloud-background": {
+        "role": "neutral",
+        "displayName": "cloud-background",
+        "tonalRamp": [
+          "oklch(15% 0.00290 264.541)",
+          "oklch(26% 0.00290 264.541)",
+          "oklch(38% 0.00290 264.541)",
+          "oklch(49% 0.00290 264.541)",
+          "oklch(61% 0.00290 264.541)",
+          "oklch(72% 0.00290 264.541)",
+          "oklch(84% 0.00290 264.541)",
+          "oklch(95% 0.00290 264.541)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "cloud-foreground": {
+        "role": "neutral",
+        "displayName": "cloud-foreground",
+        "tonalRamp": [
+          "oklch(15% 0.01212 252.943)",
+          "oklch(26% 0.01212 252.943)",
+          "oklch(38% 0.01212 252.943)",
+          "oklch(49% 0.01212 252.943)",
+          "oklch(61% 0.01212 252.943)",
+          "oklch(72% 0.01212 252.943)",
+          "oklch(84% 0.01212 252.943)",
+          "oklch(95% 0.01212 252.943)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "cloud-key": {
+        "role": "neutral",
+        "displayName": "cloud-key",
+        "tonalRamp": [
+          "oklch(15% 0.00170 247.839)",
+          "oklch(26% 0.00170 247.839)",
+          "oklch(38% 0.00170 247.839)",
+          "oklch(49% 0.00170 247.839)",
+          "oklch(61% 0.00170 247.839)",
+          "oklch(72% 0.00170 247.839)",
+          "oklch(84% 0.00170 247.839)",
+          "oklch(95% 0.00170 247.839)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "cloud-special": {
+        "role": "neutral",
+        "displayName": "cloud-special",
+        "tonalRamp": [
+          "oklch(15% 0.00344 247.859)",
+          "oklch(26% 0.00344 247.859)",
+          "oklch(38% 0.00344 247.859)",
+          "oklch(49% 0.00344 247.859)",
+          "oklch(61% 0.00344 247.859)",
+          "oklch(72% 0.00344 247.859)",
+          "oklch(84% 0.00344 247.859)",
+          "oklch(95% 0.00344 247.859)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "cloud-accent": {
+        "role": "primary",
+        "displayName": "cloud-accent",
+        "tonalRamp": [
+          "oklch(15% 0.04082 248.717)",
+          "oklch(26% 0.04082 248.717)",
+          "oklch(38% 0.04082 248.717)",
+          "oklch(49% 0.04082 248.717)",
+          "oklch(61% 0.04082 248.717)",
+          "oklch(72% 0.04082 248.717)",
+          "oklch(84% 0.04082 248.717)",
+          "oklch(95% 0.04082 248.717)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "cloud-selected-ink": {
+        "role": "neutral",
+        "displayName": "cloud-selected-ink",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "cloud-shadow": {
+        "role": "neutral",
+        "displayName": "cloud-shadow",
+        "tonalRamp": [
+          "oklch(15% 0.00909 247.945)",
+          "oklch(26% 0.00909 247.945)",
+          "oklch(38% 0.00909 247.945)",
+          "oklch(49% 0.00909 247.945)",
+          "oklch(61% 0.00909 247.945)",
+          "oklch(72% 0.00909 247.945)",
+          "oklch(84% 0.00909 247.945)",
+          "oklch(95% 0.00909 247.945)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "cloud-outline": {
+        "role": "neutral",
+        "displayName": "cloud-outline",
+        "tonalRamp": [
+          "oklch(15% 0.00252 228.783)",
+          "oklch(26% 0.00252 228.783)",
+          "oklch(38% 0.00252 228.783)",
+          "oklch(49% 0.00252 228.783)",
+          "oklch(61% 0.00252 228.783)",
+          "oklch(72% 0.00252 228.783)",
+          "oklch(84% 0.00252 228.783)",
+          "oklch(95% 0.00252 228.783)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "mono-background": {
+        "role": "neutral",
+        "displayName": "mono-background",
+        "tonalRamp": [
+          "oklch(15% 0.00756 260.732)",
+          "oklch(26% 0.00756 260.732)",
+          "oklch(38% 0.00756 260.732)",
+          "oklch(49% 0.00756 260.732)",
+          "oklch(61% 0.00756 260.732)",
+          "oklch(72% 0.00756 260.732)",
+          "oklch(84% 0.00756 260.732)",
+          "oklch(95% 0.00756 260.732)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "mono-foreground": {
+        "role": "neutral",
+        "displayName": "mono-foreground",
+        "tonalRamp": [
+          "oklch(15% 0.00753 274.676)",
+          "oklch(26% 0.00753 274.676)",
+          "oklch(38% 0.00753 274.676)",
+          "oklch(49% 0.00753 274.676)",
+          "oklch(61% 0.00753 274.676)",
+          "oklch(72% 0.00753 274.676)",
+          "oklch(84% 0.00753 274.676)",
+          "oklch(95% 0.00753 274.676)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "mono-key": {
+        "role": "neutral",
+        "displayName": "mono-key",
+        "tonalRamp": [
+          "oklch(15% 0.00442 264.456)",
+          "oklch(26% 0.00442 264.456)",
+          "oklch(38% 0.00442 264.456)",
+          "oklch(49% 0.00442 264.456)",
+          "oklch(61% 0.00442 264.456)",
+          "oklch(72% 0.00442 264.456)",
+          "oklch(84% 0.00442 264.456)",
+          "oklch(95% 0.00442 264.456)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "mono-special": {
+        "role": "neutral",
+        "displayName": "mono-special",
+        "tonalRamp": [
+          "oklch(15% 0.00837 264.390)",
+          "oklch(26% 0.00837 264.390)",
+          "oklch(38% 0.00837 264.390)",
+          "oklch(49% 0.00837 264.390)",
+          "oklch(61% 0.00837 264.390)",
+          "oklch(72% 0.00837 264.390)",
+          "oklch(84% 0.00837 264.390)",
+          "oklch(95% 0.00837 264.390)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "mono-accent": {
+        "role": "primary",
+        "displayName": "mono-accent",
+        "tonalRamp": [
+          "oklch(15% 0.19292 21.689)",
+          "oklch(26% 0.19292 21.689)",
+          "oklch(38% 0.19292 21.689)",
+          "oklch(49% 0.19292 21.689)",
+          "oklch(61% 0.19292 21.689)",
+          "oklch(72% 0.19292 21.689)",
+          "oklch(84% 0.19292 21.689)",
+          "oklch(95% 0.19292 21.689)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "mono-selected-ink": {
+        "role": "neutral",
+        "displayName": "mono-selected-ink",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "mono-shadow": {
+        "role": "neutral",
+        "displayName": "mono-shadow",
+        "tonalRamp": [
+          "oklch(15% 0.00714 255.504)",
+          "oklch(26% 0.00714 255.504)",
+          "oklch(38% 0.00714 255.504)",
+          "oklch(49% 0.00714 255.504)",
+          "oklch(61% 0.00714 255.504)",
+          "oklch(72% 0.00714 255.504)",
+          "oklch(84% 0.00714 255.504)",
+          "oklch(95% 0.00714 255.504)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "mono-outline": {
+        "role": "neutral",
+        "displayName": "mono-outline",
+        "tonalRamp": [
+          "oklch(15% 0.00583 258.348)",
+          "oklch(26% 0.00583 258.348)",
+          "oklch(38% 0.00583 258.348)",
+          "oklch(49% 0.00583 258.348)",
+          "oklch(61% 0.00583 258.348)",
+          "oklch(72% 0.00583 258.348)",
+          "oklch(84% 0.00583 258.348)",
+          "oklch(95% 0.00583 258.348)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "metal-background": {
+        "role": "neutral",
+        "displayName": "metal-background",
+        "tonalRamp": [
+          "oklch(15% 0.01001 242.895)",
+          "oklch(26% 0.01001 242.895)",
+          "oklch(38% 0.01001 242.895)",
+          "oklch(49% 0.01001 242.895)",
+          "oklch(61% 0.01001 242.895)",
+          "oklch(72% 0.01001 242.895)",
+          "oklch(84% 0.01001 242.895)",
+          "oklch(95% 0.01001 242.895)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "metal-foreground": {
+        "role": "neutral",
+        "displayName": "metal-foreground",
+        "tonalRamp": [
+          "oklch(15% 0.01915 262.101)",
+          "oklch(26% 0.01915 262.101)",
+          "oklch(38% 0.01915 262.101)",
+          "oklch(49% 0.01915 262.101)",
+          "oklch(61% 0.01915 262.101)",
+          "oklch(72% 0.01915 262.101)",
+          "oklch(84% 0.01915 262.101)",
+          "oklch(95% 0.01915 262.101)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "metal-key": {
+        "role": "neutral",
+        "displayName": "metal-key",
+        "tonalRamp": [
+          "oklch(15% 0.01915 262.101)",
+          "oklch(26% 0.01915 262.101)",
+          "oklch(38% 0.01915 262.101)",
+          "oklch(49% 0.01915 262.101)",
+          "oklch(61% 0.01915 262.101)",
+          "oklch(72% 0.01915 262.101)",
+          "oklch(84% 0.01915 262.101)",
+          "oklch(95% 0.01915 262.101)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "metal-special": {
+        "role": "neutral",
+        "displayName": "metal-special",
+        "tonalRamp": [
+          "oklch(15% 0.01621 256.828)",
+          "oklch(26% 0.01621 256.828)",
+          "oklch(38% 0.01621 256.828)",
+          "oklch(49% 0.01621 256.828)",
+          "oklch(61% 0.01621 256.828)",
+          "oklch(72% 0.01621 256.828)",
+          "oklch(84% 0.01621 256.828)",
+          "oklch(95% 0.01621 256.828)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "metal-accent": {
+        "role": "primary",
+        "displayName": "metal-accent",
+        "tonalRamp": [
+          "oklch(15% 0.10407 232.195)",
+          "oklch(26% 0.10407 232.195)",
+          "oklch(38% 0.10407 232.195)",
+          "oklch(49% 0.10407 232.195)",
+          "oklch(61% 0.10407 232.195)",
+          "oklch(72% 0.10407 232.195)",
+          "oklch(84% 0.10407 232.195)",
+          "oklch(95% 0.10407 232.195)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "metal-selected-ink": {
+        "role": "neutral",
+        "displayName": "metal-selected-ink",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "metal-shadow": {
+        "role": "neutral",
+        "displayName": "metal-shadow",
+        "tonalRamp": [
+          "oklch(15% 0.01277 248.143)",
+          "oklch(26% 0.01277 248.143)",
+          "oklch(38% 0.01277 248.143)",
+          "oklch(49% 0.01277 248.143)",
+          "oklch(61% 0.01277 248.143)",
+          "oklch(72% 0.01277 248.143)",
+          "oklch(84% 0.01277 248.143)",
+          "oklch(95% 0.01277 248.143)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "metal-outline": {
+        "role": "neutral",
+        "displayName": "metal-outline",
+        "tonalRamp": [
+          "oklch(15% 0.03056 257.074)",
+          "oklch(26% 0.03056 257.074)",
+          "oklch(38% 0.03056 257.074)",
+          "oklch(49% 0.03056 257.074)",
+          "oklch(61% 0.03056 257.074)",
+          "oklch(72% 0.03056 257.074)",
+          "oklch(84% 0.03056 257.074)",
+          "oklch(95% 0.03056 257.074)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "line-background": {
+        "role": "neutral",
+        "displayName": "line-background",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "line-foreground": {
+        "role": "neutral",
+        "displayName": "line-foreground",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "line-key": {
+        "role": "neutral",
+        "displayName": "line-key",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "line-special": {
+        "role": "neutral",
+        "displayName": "line-special",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "line-accent": {
+        "role": "primary",
+        "displayName": "line-accent",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "line-selected-ink": {
+        "role": "neutral",
+        "displayName": "line-selected-ink",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "line-shadow": {
+        "role": "neutral",
+        "displayName": "line-shadow",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "line-outline": {
+        "role": "neutral",
+        "displayName": "line-outline",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "color-light-background": {
+        "role": "neutral",
+        "displayName": "color-light-background",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "color-light-foreground": {
+        "role": "neutral",
+        "displayName": "color-light-foreground",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "color-light-key": {
+        "role": "neutral",
+        "displayName": "color-light-key",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "color-light-special": {
+        "role": "neutral",
+        "displayName": "color-light-special",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "color-light-accent": {
+        "role": "primary",
+        "displayName": "color-light-accent",
+        "tonalRamp": [
+          "oklch(15% 0.19594 5.239)",
+          "oklch(26% 0.19594 5.239)",
+          "oklch(38% 0.19594 5.239)",
+          "oklch(49% 0.19594 5.239)",
+          "oklch(61% 0.19594 5.239)",
+          "oklch(72% 0.19594 5.239)",
+          "oklch(84% 0.19594 5.239)",
+          "oklch(95% 0.19594 5.239)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "color-light-selected-ink": {
+        "role": "neutral",
+        "displayName": "color-light-selected-ink",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "color-light-shadow": {
+        "role": "neutral",
+        "displayName": "color-light-shadow",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "color-light-outline": {
+        "role": "neutral",
+        "displayName": "color-light-outline",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "color-dark-background": {
+        "role": "neutral",
+        "displayName": "color-dark-background",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "color-dark-foreground": {
+        "role": "neutral",
+        "displayName": "color-dark-foreground",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "color-dark-key": {
+        "role": "neutral",
+        "displayName": "color-dark-key",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "color-dark-special": {
+        "role": "neutral",
+        "displayName": "color-dark-special",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "color-dark-accent": {
+        "role": "primary",
+        "displayName": "color-dark-accent",
+        "tonalRamp": [
+          "oklch(15% 0.19594 5.239)",
+          "oklch(26% 0.19594 5.239)",
+          "oklch(38% 0.19594 5.239)",
+          "oklch(49% 0.19594 5.239)",
+          "oklch(61% 0.19594 5.239)",
+          "oklch(72% 0.19594 5.239)",
+          "oklch(84% 0.19594 5.239)",
+          "oklch(95% 0.19594 5.239)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "color-dark-selected-ink": {
+        "role": "neutral",
+        "displayName": "color-dark-selected-ink",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "color-dark-shadow": {
+        "role": "neutral",
+        "displayName": "color-dark-shadow",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "color-dark-outline": {
+        "role": "neutral",
+        "displayName": "color-dark-outline",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "ios-light-background": {
+        "role": "neutral",
+        "displayName": "ios-light-background",
+        "tonalRamp": [
+          "oklch(15% 0.00852 271.316)",
+          "oklch(26% 0.00852 271.316)",
+          "oklch(38% 0.00852 271.316)",
+          "oklch(49% 0.00852 271.316)",
+          "oklch(61% 0.00852 271.316)",
+          "oklch(72% 0.00852 271.316)",
+          "oklch(84% 0.00852 271.316)",
+          "oklch(95% 0.00852 271.316)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "ios-light-foreground": {
+        "role": "neutral",
+        "displayName": "ios-light-foreground",
+        "tonalRamp": [
+          "oklch(15% 0.00589 285.871)",
+          "oklch(26% 0.00589 285.871)",
+          "oklch(38% 0.00589 285.871)",
+          "oklch(49% 0.00589 285.871)",
+          "oklch(61% 0.00589 285.871)",
+          "oklch(72% 0.00589 285.871)",
+          "oklch(84% 0.00589 285.871)",
+          "oklch(95% 0.00589 285.871)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "ios-light-key": {
+        "role": "neutral",
+        "displayName": "ios-light-key",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "ios-light-special": {
+        "role": "neutral",
+        "displayName": "ios-light-special",
+        "tonalRamp": [
+          "oklch(15% 0.01665 266.246)",
+          "oklch(26% 0.01665 266.246)",
+          "oklch(38% 0.01665 266.246)",
+          "oklch(49% 0.01665 266.246)",
+          "oklch(61% 0.01665 266.246)",
+          "oklch(72% 0.01665 266.246)",
+          "oklch(84% 0.01665 266.246)",
+          "oklch(95% 0.01665 266.246)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "ios-light-accent": {
+        "role": "primary",
+        "displayName": "ios-light-accent",
+        "tonalRamp": [
+          "oklch(15% 0.14478 252.993)",
+          "oklch(26% 0.14478 252.993)",
+          "oklch(38% 0.14478 252.993)",
+          "oklch(49% 0.14478 252.993)",
+          "oklch(61% 0.14478 252.993)",
+          "oklch(72% 0.14478 252.993)",
+          "oklch(84% 0.14478 252.993)",
+          "oklch(95% 0.14478 252.993)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "ios-light-selected-ink": {
+        "role": "neutral",
+        "displayName": "ios-light-selected-ink",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "ios-light-shadow": {
+        "role": "neutral",
+        "displayName": "ios-light-shadow",
+        "tonalRamp": [
+          "oklch(15% 0.01392 275.939)",
+          "oklch(26% 0.01392 275.939)",
+          "oklch(38% 0.01392 275.939)",
+          "oklch(49% 0.01392 275.939)",
+          "oklch(61% 0.01392 275.939)",
+          "oklch(72% 0.01392 275.939)",
+          "oklch(84% 0.01392 275.939)",
+          "oklch(95% 0.01392 275.939)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "ios-light-outline": {
+        "role": "neutral",
+        "displayName": "ios-light-outline",
+        "tonalRamp": [
+          "oklch(15% 0.00268 286.347)",
+          "oklch(26% 0.00268 286.347)",
+          "oklch(38% 0.00268 286.347)",
+          "oklch(49% 0.00268 286.347)",
+          "oklch(61% 0.00268 286.347)",
+          "oklch(72% 0.00268 286.347)",
+          "oklch(84% 0.00268 286.347)",
+          "oklch(95% 0.00268 286.347)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "ios-dark-background": {
+        "role": "neutral",
+        "displayName": "ios-dark-background",
+        "tonalRamp": [
+          "oklch(15% 0.00720 285.943)",
+          "oklch(26% 0.00720 285.943)",
+          "oklch(38% 0.00720 285.943)",
+          "oklch(49% 0.00720 285.943)",
+          "oklch(61% 0.00720 285.943)",
+          "oklch(72% 0.00720 285.943)",
+          "oklch(84% 0.00720 285.943)",
+          "oklch(95% 0.00720 285.943)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "ios-dark-foreground": {
+        "role": "neutral",
+        "displayName": "ios-dark-foreground",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "ios-dark-key": {
+        "role": "neutral",
+        "displayName": "ios-dark-key",
+        "tonalRamp": [
+          "oklch(15% 0.00786 286.111)",
+          "oklch(26% 0.00786 286.111)",
+          "oklch(38% 0.00786 286.111)",
+          "oklch(49% 0.00786 286.111)",
+          "oklch(61% 0.00786 286.111)",
+          "oklch(72% 0.00786 286.111)",
+          "oklch(84% 0.00786 286.111)",
+          "oklch(95% 0.00786 286.111)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "ios-dark-special": {
+        "role": "neutral",
+        "displayName": "ios-dark-special",
+        "tonalRamp": [
+          "oklch(15% 0.00837 286.004)",
+          "oklch(26% 0.00837 286.004)",
+          "oklch(38% 0.00837 286.004)",
+          "oklch(49% 0.00837 286.004)",
+          "oklch(61% 0.00837 286.004)",
+          "oklch(72% 0.00837 286.004)",
+          "oklch(84% 0.00837 286.004)",
+          "oklch(95% 0.00837 286.004)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "ios-dark-accent": {
+        "role": "primary",
+        "displayName": "ios-dark-accent",
+        "tonalRamp": [
+          "oklch(15% 0.14417 252.112)",
+          "oklch(26% 0.14417 252.112)",
+          "oklch(38% 0.14417 252.112)",
+          "oklch(49% 0.14417 252.112)",
+          "oklch(61% 0.14417 252.112)",
+          "oklch(72% 0.14417 252.112)",
+          "oklch(84% 0.14417 252.112)",
+          "oklch(95% 0.14417 252.112)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "ios-dark-selected-ink": {
+        "role": "neutral",
+        "displayName": "ios-dark-selected-ink",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "ios-dark-shadow": {
+        "role": "neutral",
+        "displayName": "ios-dark-shadow",
+        "tonalRamp": [
+          "oklch(15% 0.00596 285.840)",
+          "oklch(26% 0.00596 285.840)",
+          "oklch(38% 0.00596 285.840)",
+          "oklch(49% 0.00596 285.840)",
+          "oklch(61% 0.00596 285.840)",
+          "oklch(72% 0.00596 285.840)",
+          "oklch(84% 0.00596 285.840)",
+          "oklch(95% 0.00596 285.840)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "ios-dark-outline": {
+        "role": "neutral",
+        "displayName": "ios-dark-outline",
+        "tonalRamp": [
+          "oklch(15% 0.00837 286.004)",
+          "oklch(26% 0.00837 286.004)",
+          "oklch(38% 0.00837 286.004)",
+          "oklch(49% 0.00837 286.004)",
+          "oklch(61% 0.00837 286.004)",
+          "oklch(72% 0.00837 286.004)",
+          "oklch(84% 0.00837 286.004)",
+          "oklch(95% 0.00837 286.004)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "mono-metal-key-ink": {
+        "role": "neutral",
+        "displayName": "mono-metal-key-ink",
+        "tonalRamp": [
+          "oklch(15% 0.00265 286.350)",
+          "oklch(26% 0.00265 286.350)",
+          "oklch(38% 0.00265 286.350)",
+          "oklch(49% 0.00265 286.350)",
+          "oklch(61% 0.00265 286.350)",
+          "oklch(72% 0.00265 286.350)",
+          "oklch(84% 0.00265 286.350)",
+          "oklch(95% 0.00265 286.350)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "color-function-ink": {
+        "role": "neutral",
+        "displayName": "color-function-ink",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      },
+      "color-row-track": {
+        "role": "neutral",
+        "displayName": "color-row-track",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.876)",
+          "oklch(26% 0.00000 89.876)",
+          "oklch(38% 0.00000 89.876)",
+          "oklch(49% 0.00000 89.876)",
+          "oklch(61% 0.00000 89.876)",
+          "oklch(72% 0.00000 89.876)",
+          "oklch(84% 0.00000 89.876)",
+          "oklch(95% 0.00000 89.876)"
+        ],
+        "tonalRampSource": "Synthesized same-chroma OKLCH panel strip; not Android palette tokens or approved intermediate states."
+      }
+    },
+    "typographyMeta": {
+      "key-letter": {
+        "displayName": "key-letter",
+        "purpose": "Actual Android request size; inspect Typography section for role and adaptive-fit limits."
+      },
+      "key-letter-cloud": {
+        "displayName": "key-letter-cloud",
+        "purpose": "Actual Android request size; inspect Typography section for role and adaptive-fit limits."
+      },
+      "key-multi": {
+        "displayName": "key-multi",
+        "purpose": "Actual Android request size; inspect Typography section for role and adaptive-fit limits."
+      },
+      "key-number": {
+        "displayName": "key-number",
+        "purpose": "Actual Android request size; inspect Typography section for role and adaptive-fit limits."
+      },
+      "candidate": {
+        "displayName": "candidate",
+        "purpose": "Actual Android request size; inspect Typography section for role and adaptive-fit limits."
+      },
+      "mode-normal": {
+        "displayName": "mode-normal",
+        "purpose": "Actual Android request size; inspect Typography section for role and adaptive-fit limits."
+      },
+      "mode-code": {
+        "displayName": "mode-code",
+        "purpose": "Actual Android request size; inspect Typography section for role and adaptive-fit limits."
+      },
+      "brand": {
+        "displayName": "brand",
+        "purpose": "Actual Android request size; inspect Typography section for role and adaptive-fit limits."
+      },
+      "tool-clipboard": {
+        "displayName": "tool-clipboard",
+        "purpose": "Actual Android request size; inspect Typography section for role and adaptive-fit limits."
+      },
+      "skin-option": {
+        "displayName": "skin-option",
+        "purpose": "Actual Android request size; inspect Typography section for role and adaptive-fit limits."
+      },
+      "emoji-category": {
+        "displayName": "emoji-category",
+        "purpose": "Actual Android request size; inspect Typography section for role and adaptive-fit limits."
+      },
+      "emoji-cell": {
+        "displayName": "emoji-cell",
+        "purpose": "Actual Android request size; inspect Typography section for role and adaptive-fit limits."
+      },
+      "variant-option": {
+        "displayName": "variant-option",
+        "purpose": "Actual Android request size; inspect Typography section for role and adaptive-fit limits."
+      },
+      "code-navigation": {
+        "displayName": "code-navigation",
+        "purpose": "Actual Android request size; inspect Typography section for role and adaptive-fit limits."
+      },
+      "code-profile": {
+        "displayName": "code-profile",
+        "purpose": "Actual Android request size; inspect Typography section for role and adaptive-fit limits."
+      }
+    },
+    "shadows": [
+      {
+        "name": "native-keycap",
+        "value": "Canvas offset using each palette.depth; no View elevation",
+        "purpose": "Structural lower cap layer. Geometry and palette references in materials."
+      },
+      {
+        "name": "native-popover",
+        "value": "PopupWindow elevation 10dp",
+        "purpose": "Source-anchored menus and hints; CSS component shadow is illustrative."
+      },
+      {
+        "name": "native-generic-surface",
+        "value": "LayerDrawable lower shadow-mix 65%, cap bottom inset 1dp",
+        "purpose": "Choice popover or hint fallback."
+      }
+    ],
+    "motion": [
+      {
+        "name": "key-state",
+        "value": "immediate down; 100ms release; cubic(0.23,1,0.32,1)",
+        "purpose": "Normal keys translate1dp/scale.97; S4U translate2dp/scale1. System animation off resets instantly. Candidate and clipboard excluded."
+      },
+      {
+        "name": "letter-preview",
+        "value": "immediate show; 100ms release hold; no popup animation",
+        "purpose": "Owner+generation protects rapid taps; clamp to keyboard/screen; gestures/private fields dismiss."
+      },
+      {
+        "name": "popup-state",
+        "value": "animationStyle=0",
+        "purpose": "Source anchored variant menus retain direct tracking."
+      }
+    ],
+    "breakpoints": [],
+    "materials": {
+      "system-light": {
+        "skinId": "system",
+        "nightBranch": false,
+        "fillRole": "colors.system-light-key",
+        "inkRole": "colors.system-light-foreground",
+        "capBounds": "left+1dp, top+1dp, right-1dp-depth/2, bottom-1dp-depth",
+        "shadowOffset": "0dp 2dp",
+        "capStroke": "0.7dp",
+        "gradient": {
+          "axis": "vertical",
+          "stops": [
+            0,
+            0.7,
+            1
+          ],
+          "topMixWhite": 0.12,
+          "bottomMixShadow": 0.07
+        }
+      },
+      "system-dark": {
+        "skinId": "system",
+        "nightBranch": true,
+        "fillRole": "colors.system-dark-key",
+        "inkRole": "colors.system-dark-foreground",
+        "capBounds": "left+1dp, top+1dp, right-1dp-depth/2, bottom-1dp-depth",
+        "shadowOffset": "0dp 2dp",
+        "capStroke": "0.7dp",
+        "gradient": {
+          "axis": "vertical",
+          "stops": [
+            0,
+            0.7,
+            1
+          ],
+          "topMixWhite": 0.08,
+          "bottomMixShadow": 0.07
+        }
+      },
+      "cloud": {
+        "skinId": "cloud",
+        "nightBranch": false,
+        "fillRole": "colors.cloud-key",
+        "inkRole": "colors.cloud-foreground",
+        "capBounds": "left+1dp, top+1dp, right-1dp-depth/2, bottom-1dp-depth",
+        "shadowOffset": "0dp 4dp",
+        "capStroke": "0.7dp",
+        "gradient": {
+          "axis": "vertical",
+          "stops": [
+            0,
+            0.7,
+            1
+          ],
+          "topMixWhite": 0.12,
+          "bottomMixShadow": 0.17
+        }
+      },
+      "mono": {
+        "skinId": "mono",
+        "nightBranch": false,
+        "fillRole": "colors.mono-key",
+        "inkRole": "colors.mono-metal-key-ink",
+        "capBounds": "left+1dp, top+1dp, right-1dp-depth/2, bottom-1dp-depth",
+        "shadowOffset": "0dp 2dp",
+        "capStroke": "0.7dp",
+        "gradient": null
+      },
+      "metal": {
+        "skinId": "metal",
+        "nightBranch": false,
+        "fillRole": "colors.metal-key",
+        "inkRole": "colors.mono-metal-key-ink",
+        "capBounds": "left+1dp, top+1dp, right-1dp-depth/2, bottom-1dp-depth",
+        "shadowOffset": "0dp 3dp",
+        "capStroke": "0.7dp",
+        "gradient": {
+          "axis": "vertical",
+          "stops": [
+            0,
+            0.7,
+            1
+          ],
+          "topMixWhite": 0.12,
+          "bottomMixShadow": 0.07
+        }
+      },
+      "line": {
+        "skinId": "line",
+        "nightBranch": false,
+        "fillRole": "colors.line-key",
+        "inkRole": "colors.line-foreground",
+        "capBounds": "left+1dp, top+1dp, right-1dp-depth/2, bottom-1dp-depth",
+        "shadowOffset": "3dp 3dp",
+        "capStroke": "1.25dp",
+        "gradient": null
+      },
+      "color-light": {
+        "skinId": "color",
+        "nightBranch": false,
+        "fillRole": "colors.color-light-key",
+        "inkRole": "colors.color-light-foreground",
+        "capBounds": "left+1dp, top+1dp, right-1dp-depth/2, bottom-1dp-depth",
+        "shadowOffset": "0dp 0dp",
+        "capStroke": "0.7dp",
+        "gradient": null
+      },
+      "color-dark": {
+        "skinId": "color",
+        "nightBranch": true,
+        "fillRole": "colors.color-dark-key",
+        "inkRole": "colors.color-dark-foreground",
+        "capBounds": "left+1dp, top+1dp, right-1dp-depth/2, bottom-1dp-depth",
+        "shadowOffset": "0dp 0dp",
+        "capStroke": "0.7dp",
+        "gradient": null
+      },
+      "ios-light": {
+        "skinId": "ios",
+        "nightBranch": false,
+        "fillRole": "colors.ios-light-key",
+        "inkRole": "colors.ios-light-foreground",
+        "capBounds": "left+1dp, top+1dp, right-1dp-depth/2, bottom-1dp-depth",
+        "shadowOffset": "0dp 1dp",
+        "capStroke": "none",
+        "gradient": null
+      },
+      "ios-dark": {
+        "skinId": "ios",
+        "nightBranch": true,
+        "fillRole": "colors.ios-dark-key",
+        "inkRole": "colors.ios-dark-foreground",
+        "capBounds": "left+1dp, top+1dp, right-1dp-depth/2, bottom-1dp-depth",
+        "shadowOffset": "0dp 1dp",
+        "capStroke": "none",
+        "gradient": null
+      },
+      "systemSheen": {
+        "source": "app/src/main/java/app/msime/offline/SkinKeyDrawable.java",
+        "keys": "Q/W/E/R/T, any letter case; resting only",
+        "axis": "cap-left/top to cap-right/bottom",
+        "argb": [
+          "0x18dc8eb7",
+          "0x1293aeea",
+          "0x30e989b9"
+        ]
+      },
+      "cloudShadow": {
+        "api": "Paint.setShadowLayer",
+        "radius": "3dp",
+        "dx": "0dp",
+        "dy": "2dp",
+        "argb": "0x35747e88",
+        "deviceVerified": false
+      },
+      "metalBackground": {
+        "source": "app/src/main/java/app/msime/offline/MetalBackground.java",
+        "axis": "horizontal",
+        "colors": [
+          "#969ca2",
+          "#c2c7cb",
+          "#959ca3",
+          "#b4bac0"
+        ],
+        "lineStep": "max(1,bounds.height/240) physical px",
+        "lineStroke": "1 physical px",
+        "lineColorsArgb": [
+          "0x12ffffff",
+          "0x100d1822"
+        ],
+        "selection": "(y*17%5)<2"
+      },
+      "systemBlur": {
+        "source": "app/src/main/java/app/msime/offline/GlassWindow.java",
+        "apiLevelMinimum": 31,
+        "radius": "64 physical px",
+        "condition": "system blur enabled AND decor window height <= keyboard height + 2 physical px",
+        "systemBackgroundAlpha": "242/255 only if blur applied; otherwise 255/255",
+        "deviceVerified": false
+      },
+      "retro": {
+        "skinId": "retro",
+        "nightBranch": false,
+        "name": "S4U",
+        "background": "#c4b499",
+        "key": "#eee2c9",
+        "special": "#d9c6a8",
+        "ink": "#49372a",
+        "candidateFill": "#304237",
+        "candidateInk": "#dde8b9",
+        "geometry": "background-only7deg projection;flat standard key/candidate dimensions;7dp key bevel/2dp pressed",
+        "brand": "CD player only in S4U; all other skins and launcher retain N/ope",
+        "glyphs": "13.6KB original TTF via native TextView;CJK fallback;PixelGlyphs only for bubbles"
+      }
+    },
+    "interaction": {
+      "roles": {
+        "selectedShift": {
+          "fill": "palette.key",
+          "ink": "palette.keyInk()"
+        },
+        "selectedOther": {
+          "fill": "palette.accent",
+          "ink": "palette.selectedInk"
+        },
+        "unselectedFunction": {
+          "fill": "palette.special",
+          "ink": "palette.functionInk()"
+        },
+        "unselectedKey": {
+          "fill": "palette.key",
+          "ink": "palette.keyInk()"
+        }
+      },
+      "press": {
+        "skinKey": "RGB mix(fill,accent,0.35)",
+        "chrome": "foreground alpha 24/255",
+        "genericSurface": "RGB mix(fill,foreground, dark ? 0.14 : 0.09)",
+        "retro": "integer-pixel depth4dp→1dp; translate2dp; normal skins translate1dp/scale.97; release100ms; system animation off immediate"
+      },
+      "haptics": "KeyButton ACTION_DOWN invokes one pulse; independent of press animation and preview.",
+      "focus": "No custom native focus ring or hover state defined; browser focus-visible outlines are preview-only.",
+      "v090": {
+        "candidateSp": 22,
+        "clipboardSp": [
+          12,
+          15
+        ],
+        "clipboardRecentSp": [
+          12,
+          16
+        ],
+        "clipboardMaxPreviewCodePoints": 384,
+        "clipboardPaste": "full original text",
+        "brandScope": "S4U CD only, others N/ope"
+      },
+      "v092": {
+        "brand": "square N over ope, confirmed structure preserved; S4U CD retained",
+        "toolbar": "dark green LCD with clipboard/emoji/settings light green icons",
+        "backgroundPerspectiveOnly": true
+      }
+    },
+    "platform": {
+      "name": "android",
+      "units": "dp geometry / sp font requests / specified Canvas px",
+      "layoutSource": "app/src/layout/java/app/msime/offline/KeyboardMetrics.java",
+      "webBreakpoints": "None; do not infer phone CSS breakpoints from native height formulas."
+    },
+    "sources": [
+      {
+        "path": "app/src/skin/java/app/msime/offline/SkinPalette.java",
+        "authority": "current implementation"
+      },
+      {
+        "path": "app/src/skin/java/app/msime/offline/IosTheme.java",
+        "authority": "current implementation"
+      },
+      {
+        "path": "app/src/skin/java/app/msime/offline/SkinKeyDrawable.java",
+        "authority": "current implementation"
+      },
+      {
+        "path": "app/src/skin/java/app/msime/offline/MetalBackground.java",
+        "authority": "current implementation"
+      },
+      {
+        "path": "app/src/layout/java/app/msime/offline/KeyButton.java",
+        "authority": "current implementation"
+      },
+      {
+        "path": "app/src/features/java/app/msime/offline/EmojiCell.java",
+        "authority": "current implementation"
+      },
+      {
+        "path": "app/src/main/java/app/msime/offline/OfflineImeService.java",
+        "authority": "current implementation"
+      },
+      {
+        "path": "app/src/layout/java/app/msime/offline/KeyboardMetrics.java",
+        "authority": "current implementation"
+      },
+      {
+        "path": "app/src/layout/java/app/msime/offline/KeyboardIcon.java",
+        "authority": "current implementation"
+      },
+      {
+        "path": "app/src/layout/java/app/msime/offline/VariantPanel.java",
+        "authority": "current implementation"
+      },
+      {
+        "path": "app/src/skin/java/app/msime/offline/GlassWindow.java",
+        "authority": "current implementation"
+      },
+      {
+        "path": "PRODUCT.md",
+        "authority": "product constraints"
+      },
+      {
+        "path": "docs/nope-skin-brief.md",
+        "authority": "user-locked visual families; no new workshop required"
+      },
+      {
+        "path": "app/src/skin/java/app/msime/offline/RetroDrawable.java",
+        "authority": "S4U native implementation"
+      },
+      {
+        "path": "app/src/layout/java/app/msime/offline/KeyPreview.java",
+        "authority": "preview feedback and lifecycle"
+      },
+      {
+        "path": "app/src/features/java/app/msime/offline/ClipboardText.java",
+        "authority": "bounded display only; paste full original"
+      },
+      {
+        "path": "app/src/skin/java/app/msime/offline/SkinStack.java",
+        "authority": "all-skin layer order and region geometry"
+      },
+      {
+        "path": "app/src/skin/java/app/msime/offline/SkinConfig.java",
+        "authority": "version1 config validation and overrides"
+      },
+      {
+        "path": "scripts/build_s4u_font.py",
+        "authority": "original pixel font generation"
+      }
+    ],
+    "evidence": {
+      "nativeVisualApproval": false,
+      "connectedDevice": false,
+      "emulatorAvailable": false,
+      "verifiedScope": "Code-derived tokens, geometry, roles and explicit interaction states only; release checks are separately recorded by finish review.",
+      "pending": [
+        "Native font fallback and font scaling",
+        "Emoji glyph support and no empty cells",
+        "Portrait/narrow/landscape rendered geometry",
+        "Two-finger rapid input and touch bounds",
+        "Host editor composition and editing gestures",
+        "Termux Ctrl/Alt/Tab behavior",
+        "System blur safety and appearance",
+        "Device haptic strength/duration",
+        "TalkBack variant choice reachability"
+      ],
+      "sidecarPreviews": "Browser-only HTML/CSS illustrations; Android dp/sp mapped to px for panel preview. Not Android render evidence.",
+      "nativeEngine": "PLZ110 actual JNI nihao→你好 and nihon→日本 passed; final font/perspective/layering changes pending reconnection"
+    },
+    "imageProvenance": [
+      {
+        "path": "docs/nope-skins-preview.png",
+        "kind": "static-palette-layout-schematic",
+        "generator": "scripts/render_skins.py",
+        "renderer": "Pillow",
+        "tokenSource": "app/src/main/java/app/msime/offline/SkinPalette.java",
+        "tokenExporter": "tests/SkinTokens.java",
+        "font": "C:/Windows/Fonts/msyh.ttc",
+        "nativeScreenshot": false,
+        "shippingKeyboardAsset": false,
+        "limitations": "Exports actual palettes, key/function ink and layout family, approximates gradients, metal, geometry and glyphs. Does not reproduce complete Android typography/material/touch state."
+      },
+      {
+        "path": "docs/ios-keyboard-preview.png",
+        "kind": "historical-static-schematic",
+        "generator": "scripts/render_ios_preview.py",
+        "renderer": "Pillow",
+        "historicalVersion": "0.5 iOS draft",
+        "nativeScreenshot": false,
+        "shippingKeyboardAsset": false,
+        "authority": "Historical documentation only; not 0.6 current token spec or native evidence."
+      },
+      {
+        "kind": "user-supplied-reference-images-and-video",
+        "purpose": "Authorized skin direction only",
+        "bundledInApk": false,
+        "shippingKeyboardAsset": false
+      },
+      {
+        "kind": "app-keyboard-materials",
+        "representation": "Native Canvas/Drawable geometry, not keyboard raster files",
+        "keyboardBitmapsBundled": false
+      },
+      {
+        "path": "docs/reference/S4U-approved-concept.png",
+        "kind": "user-approved generated style reference",
+        "includedInApk": false
+      }
+    ],
+    "skinContract": {
+      "version": 1,
+      "configDirectory": "app/src/resources/assets/skins",
+      "schema": "app/src/resources/assets/skins/schema-v1.json",
+      "guide": "docs/skin-standard-v1.md",
+      "layers": {
+        "0": "background",
+        "5": "underlay",
+        "10": "keycaps",
+        "20": "labels/icons",
+        "30": "overlay",
+        "40": "feedback"
+      },
+      "regions": [
+        "frame",
+        "header",
+        "body",
+        "keys",
+        "footer",
+        "key:letter",
+        "key:number",
+        "key:function",
+        "key:space",
+        "key:mode",
+        "key:candidate",
+        "key:toolbar",
+        "key:other"
+      ],
+      "imports": "settings ACTION_OPEN_DOCUMENT, private override, restore available",
+      "perspectiveScope": "background View and frame decorations only; keyboard/content/LCD/touch geometry unchanged"
+    },
+    "nopeV100": {
+      "skin": "lavender",
+      "material": "native static frosted gradients with pixel rim",
+      "geometry": "standard KeyboardMetrics, no preview bitmap at runtime",
+      "quickLanguages": "Chinese/English default; configurable cycle",
+      "tab": "leftmost Code control and numeric column",
+      "deviceUiVerified": false
+    }
+  },
+  "components": [
+    {
+      "name": "系统浅色字母键",
+      "kind": "button",
+      "refersTo": "key-system-light",
+      "description": "原生 QWERT 高光键帽的浏览器示意；不可用此预览验收 Android sheen。",
+      "html": "<button class=\"ds-key\" aria-label=\"输入 Q\">Q</button>",
+      "css": ".ds-key{display:inline-flex;align-items:center;justify-content:center;font-family:system-ui,sans-serif;letter-spacing:0;border:0;padding:0 2px;width:38px;height:52px;font-size:26px;}.ds-key{color:#19191c;background:#f8f8fa;border:0.7px solid #ffffff;border-radius:14px;box-shadow:0 2px 0 #bcbfc5;background:linear-gradient(135deg,#dc8eb718,#93aeea12,#e989b930),linear-gradient(to bottom,#f9f9fb 0%,#f8f8fa 70%,#f4f4f6 100%);}.ds-key:active{background:#d5b9c6}.ds-key:focus-visible{outline:auto;outline-offset:2px}.ds-key:hover{cursor:pointer}",
+      "previewOnly": true,
+      "translation": "Android dp/sp mapped to CSS px at scale 1, system-ui fallback; illustrative, not native screenshot. Hover has no material change; browser focus outline is preview accessibility only.",
+      "source": "app/src/main/java/app/msime/offline/OfflineImeService.java"
+    },
+    {
+      "name": "简约 color 功能键",
+      "kind": "button",
+      "refersTo": "function-color-light",
+      "description": "浅色 color 中黑色功能键使用浅墨色，遵循 functionInk。",
+      "html": "<button class=\"ds-key\" aria-label=\"切换到符号\">123</button>",
+      "css": ".ds-key{display:inline-flex;align-items:center;justify-content:center;font-family:system-ui,sans-serif;letter-spacing:0;border:0;padding:0 2px;width:38px;height:52px;font-size:26px;}.ds-key{color:#f7f7f7;background:#181818;border:0.7px solid #080808;border-radius:14px;box-shadow:0 0px 0 #080808;font-size:16px;}.ds-key:active{background:#4f132d}.ds-key:focus-visible{outline:auto;outline-offset:2px}.ds-key:hover{cursor:pointer}",
+      "previewOnly": true,
+      "translation": "Android dp/sp mapped to CSS px at scale 1, system-ui fallback; illustrative, not native screenshot. Hover has no material change; browser focus outline is preview accessibility only.",
+      "source": "app/src/main/java/app/msime/offline/OfflineImeService.java"
+    },
+    {
+      "name": "当前模式中",
+      "kind": "button",
+      "refersTo": "mode-system-light",
+      "description": "非 Shift 选中键 accent/selectedInk；中/EN 模式加粗。",
+      "html": "<button class=\"ds-key\" aria-pressed=\"true\">中</button>",
+      "css": ".ds-key{display:inline-flex;align-items:center;justify-content:center;font-family:system-ui,sans-serif;letter-spacing:0;border:0;padding:0 2px;width:38px;height:52px;font-size:26px;}.ds-key{color:#ffffff;background:#934566;border:0.7px solid #ffffff;border-radius:14px;box-shadow:0 2px 0 #bcbfc5;font-size:17px;font-weight:700;}.ds-key:active{background:#934566}.ds-key:focus-visible{outline:auto;outline-offset:2px}.ds-key:hover{cursor:pointer}",
+      "previewOnly": true,
+      "translation": "Android dp/sp mapped to CSS px at scale 1, system-ui fallback; illustrative, not native screenshot. Hover has no material change; browser focus outline is preview accessibility only.",
+      "source": "app/src/main/java/app/msime/offline/OfflineImeService.java"
+    },
+    {
+      "name": "简约 color 选中 Shift",
+      "kind": "button",
+      "refersTo": "shift-selected-color-light",
+      "description": "Shift 选中仍 key/keyInk，矢量填实；保留浅色对比度修复。",
+      "html": "<button class=\"ds-key\" aria-label=\"Shift 已开启\" aria-pressed=\"true\"><svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M3 12L12 3L21 12H16V21H8V12Z\" fill=\"currentColor\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linejoin=\"round\"/></svg></button>",
+      "css": ".ds-key{display:inline-flex;align-items:center;justify-content:center;font-family:system-ui,sans-serif;letter-spacing:0;border:0;padding:0 2px;width:38px;height:52px;font-size:26px;}.ds-key{color:#141414;background:#eeeeee;border:0.7px solid #080808;border-radius:14px;box-shadow:0 0px 0 #080808;}.ds-key:active{background:#da9eb8}.ds-key:focus-visible{outline:auto;outline-offset:2px}.ds-key:hover{cursor:pointer}",
+      "previewOnly": true,
+      "translation": "Android dp/sp mapped to CSS px at scale 1, system-ui fallback; illustrative, not native screenshot. Hover has no material change; browser focus outline is preview accessibility only.",
+      "source": "app/src/main/java/app/msime/offline/OfflineImeService.java"
+    },
+    {
+      "name": "候选与分隔",
+      "kind": "nav",
+      "refersTo": "candidate-system-light",
+      "description": "横向候选透明 chrome、48dp 高、1×22dp 分隔，单行文本。",
+      "html": "<div class=\"ds-strip\"><button class=\"ds-key\">你好</button><span class=\"ds-divider\"></span><button class=\"ds-key\">拟好</button></div>",
+      "css": ".ds-key{display:inline-flex;align-items:center;justify-content:center;font-family:system-ui,sans-serif;letter-spacing:0;border:0;padding:0 2px;width:38px;height:52px;font-size:26px;}.ds-strip{display:flex;align-items:center;background:#ecedef;height:48px}.ds-key{width:auto;height:48px;font-size:17px;padding:0 14px;color:#19191c;background:transparent;border-radius:5px}.ds-divider{height:22px;width:1px;background:#19191c2d}.ds-key:active{background:#19191c18}.ds-key:focus-visible{outline:auto;outline-offset:2px}.ds-key:hover{cursor:pointer}",
+      "previewOnly": true,
+      "translation": "Android dp/sp mapped to CSS px at scale 1, system-ui fallback; illustrative, not native screenshot. Hover has no material change; browser focus outline is preview accessibility only.",
+      "source": "app/src/main/java/app/msime/offline/OfflineImeService.java"
+    },
+    {
+      "name": "工具操作",
+      "kind": "button",
+      "refersTo": "tool-system-light",
+      "description": "工具面板三列操作的单项，64dp 行扣去上下 margin。",
+      "html": "<button class=\"ds-key\">剪贴板</button>",
+      "css": ".ds-key{display:inline-flex;align-items:center;justify-content:center;font-family:system-ui,sans-serif;letter-spacing:0;border:0;padding:0 2px;width:38px;height:52px;font-size:26px;}.ds-key{color:#19191c;background:#f8f8fa;border:0.7px solid #ffffff;border-radius:14px;box-shadow:0 2px 0 #bcbfc5;width:110px;height:60px;font-size:15px;}.ds-key:active{background:#d5b9c6}.ds-key:focus-visible{outline:auto;outline-offset:2px}.ds-key:hover{cursor:pointer}",
+      "previewOnly": true,
+      "translation": "Android dp/sp mapped to CSS px at scale 1, system-ui fallback; illustrative, not native screenshot. Hover has no material change; browser focus outline is preview accessibility only.",
+      "source": "app/src/main/java/app/msime/offline/OfflineImeService.java"
+    },
+    {
+      "name": "皮肤选项",
+      "kind": "button",
+      "refersTo": "skin-option-system-light",
+      "description": "皮肤项默认状态；选中时由 faceFill/faceInk 切换 accent/selectedInk 并带 ✓。",
+      "html": "<button class=\"ds-key\">浮云</button>",
+      "css": ".ds-key{display:inline-flex;align-items:center;justify-content:center;font-family:system-ui,sans-serif;letter-spacing:0;border:0;padding:0 2px;width:38px;height:52px;font-size:26px;}.ds-key{color:#19191c;background:#f8f8fa;border:0.7px solid #ffffff;border-radius:14px;box-shadow:0 2px 0 #bcbfc5;width:260px;height:52px;justify-content:flex-start;font-size:17px;padding:0 16px;}.ds-key:active{background:#d5b9c6}.ds-key:focus-visible{outline:auto;outline-offset:2px}.ds-key:hover{cursor:pointer}",
+      "previewOnly": true,
+      "translation": "Android dp/sp mapped to CSS px at scale 1, system-ui fallback; illustrative, not native screenshot. Hover has no material change; browser focus outline is preview accessibility only.",
+      "source": "app/src/main/java/app/msime/offline/OfflineImeService.java"
+    },
+    {
+      "name": "emoji 单元",
+      "kind": "button",
+      "refersTo": "emoji-cell",
+      "description": "Canvas EmojiCell 的示意；浏览器 emoji fallback 与原生测量不同，不能验收字形。",
+      "html": "<button class=\"ds-key\" aria-label=\"输入表情：笑脸\">😀</button>",
+      "css": ".ds-key{display:inline-flex;align-items:center;justify-content:center;font-family:system-ui,sans-serif;letter-spacing:0;border:0;padding:0 2px;width:38px;height:52px;font-size:26px;}.ds-key{width:48px;height:48px;font-size:27px;color:#000000;background:transparent;border-radius:5px}.ds-key:active{background:#19191c18}.ds-key:focus-visible{outline:auto;outline-offset:2px}.ds-key:hover{cursor:pointer}",
+      "previewOnly": true,
+      "translation": "Android dp/sp mapped to CSS px at scale 1, system-ui fallback; illustrative, not native screenshot. Hover has no material change; browser focus outline is preview accessibility only.",
+      "source": "app/src/main/java/app/msime/offline/OfflineImeService.java"
+    },
+    {
+      "name": "剪贴板卡片",
+      "kind": "card",
+      "refersTo": "clipboard-system-light",
+      "description": "最多两行的剪贴板条目，尺寸和 padding 取原生实现。",
+      "html": "<button class=\"ds-key\"><span class=\"ds-copy\">复制的文字保存在本机<br>长按置顶或删除</span></button>",
+      "css": ".ds-key{display:inline-flex;align-items:center;justify-content:center;font-family:system-ui,sans-serif;letter-spacing:0;border:0;padding:0 2px;width:38px;height:52px;font-size:26px;}.ds-key{color:#19191c;background:#f8f8fa;border:0.7px solid #ffffff;border-radius:14px;box-shadow:0 2px 0 #bcbfc5;width:180px;height:76px;justify-content:flex-start;text-align:left;font-size:15px;padding:10px 12px}.ds-copy{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}.ds-key:active{background:#d5b9c6}.ds-key:focus-visible{outline:auto;outline-offset:2px}.ds-key:hover{cursor:pointer}",
+      "previewOnly": true,
+      "translation": "Android dp/sp mapped to CSS px at scale 1, system-ui fallback; illustrative, not native screenshot. Hover has no material change; browser focus outline is preview accessibility only.",
+      "source": "app/src/main/java/app/msime/offline/OfflineImeService.java"
+    },
+    {
+      "name": "源键变体浮窗",
+      "kind": "custom",
+      "description": "12dp 容器、8dp padding、25sp 选项的示意；真实选择由原生触摸坐标驱动。",
+      "html": "<div class=\"ds-variant\"><button class=\"ds-option\" aria-pressed=\"true\">a</button><button class=\"ds-option\">á</button><button class=\"ds-option\">à</button></div>",
+      "css": ".ds-variant{display:inline-flex;background:#f8f8fa;padding:8px;border-radius:12px;box-shadow:0 10px 15px #00000026}.ds-option{width:48px;height:48px;border:0;background:transparent;color:#19191c;border-radius:6px;font:25px system-ui,sans-serif}.ds-option[aria-pressed=\"true\"],.ds-option:active{background:#934566;color:#ffffff}.ds-option:hover{cursor:pointer}.ds-option:focus-visible{outline:auto}",
+      "previewOnly": true,
+      "translation": "Native PopupWindow elevation has no exact CSS shadow equivalent; browser shadow is illustrative only.",
+      "source": "app/src/main/java/app/msime/offline/VariantPanel.java"
+    }
+  ],
+  "narrative": {
+    "northStar": "同一键位，多种触感",
+    "overview": "NOPE0.9.2。S4U透视只作用于背景机壳和frame装饰，键盘、候选文字、触摸区域保持标准尺寸与平面布局。墨绿LCD快捷栏保留剪贴板、表情与设置。NOPE保留N/ope上下结构，字形改为简约方正；S4U继续唱片。统一皮肤v1层级和原生完整资源契约保留，本版真机视觉待重连验收。",
+    "keyCharacteristics": [
+      "同一输入语义与各语言原有键位。",
+      "S4U原生像素材质，其他皮肤保留原材质与N/ope。",
+      "输入即时执行，动效100ms复位，气泡所有权防竞态。",
+      "候选22sp；长剪贴板12–15sp两行，粘贴完整原文。",
+      "静态示意不等于Android设备验收。"
+    ],
+    "rules": [
+      {
+        "name": "角色先于材质",
+        "body": "按键填充与文字统一使用 palette.faceFill / palette.faceInk；选中 Shift 使用普通键面与普通键墨色，其他选中键使用 accent 与 selectedInk。",
+        "section": "colors"
+      },
+      {
+        "name": "字号按角色",
+        "body": "记录初始请求字号与实际自适应字号的区别；不把所有标签合并成同一个文字 token。",
+        "section": "typography"
+      },
+      {
+        "name": "即时反馈",
+        "body": "按下即时替换drawable，启用时立即下沉，松开100ms复位；动效可关闭并遵守系统设置，不延迟输入。",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do 复用 palette.faceFill / faceInk 的选中、Shift、功能键角色；color 浅色功能键使用浅墨色。",
+      "Do 按皮肤保留原有材质和形状，沿用同一键位、N 身份与原生矢量图标。",
+      "Do 保留按下即时反馈、候选分隔、空白空格和加粗中/EN 模式标记。",
+      "Do 按实际角色使用 sp 字号、dp 几何，并保留单字符和 emoji 的尺寸自适应。",
+      "Do 将 Android 截图、字体、触摸、编辑宿主与触感验收明确记录为待完成。"
+    ],
+    "donts": [
+      "Don't 用 token 示意图、浏览器侧录预览或旧版文档宣称本版原生视觉已通过。",
+      "Don't 增加输入延迟、弹簧晃动或超出100ms的复位装饰；遵守系统动画开关。",
+      "Don't 把固定外观皮肤改成自动明暗；只有 system、color、ios 随系统夜间模式分支。",
+      "Don't 复制第三方品牌、光栅键盘或网络素材，也不要将代码中没有的字体、组件或状态写成规范。",
+      "Don't 让候选、工具或皮肤选择叠成持续遮挡键盘的底部浮层；这些内容复用现有 top/body。"
+    ]
+  }
+}

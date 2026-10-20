@@ -1,0 +1,233 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "NOPE Skin v1",
+  "type": "object",
+  "required": [
+    "version",
+    "id"
+  ],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "id": {
+      "enum": [
+        "system",
+        "cloud",
+        "mono",
+        "metal",
+        "line",
+        "color",
+        "ios",
+        "retro",
+        "lavender"
+      ]
+    },
+    "name": {
+      "type": "string"
+    },
+    "variants": {
+      "type": "object",
+      "properties": {
+        "light": {
+          "type": "object",
+          "properties": {
+            "palette": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "pattern": "^#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?$"
+              }
+            },
+            "radiusDp": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 32
+            },
+            "depthDp": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 12
+            }
+          }
+        },
+        "dark": {
+          "type": "object",
+          "properties": {
+            "palette": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "pattern": "^#[0-9A-Fa-f]{6}([0-9A-Fa-f]{2})?$"
+              }
+            },
+            "radiusDp": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 32
+            },
+            "depthDp": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 12
+            }
+          }
+        }
+      }
+    },
+    "keys": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "fill": {
+            "type": "string"
+          },
+          "ink": {
+            "type": "string"
+          },
+          "font": {
+            "enum": [
+              "system",
+              "pixel"
+            ]
+          },
+          "textScale": {
+            "type": "number",
+            "minimum": 0.6,
+            "maximum": 1.8
+          },
+          "radiusDp": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 32
+          },
+          "depthDp": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 12
+          }
+        }
+      }
+    },
+    "perspective": {
+      "type": "object",
+      "properties": {
+        "rotationX": {
+          "type": "number",
+          "minimum": -12,
+          "maximum": 12
+        },
+        "cameraHeightFactor": {
+          "type": "number",
+          "minimum": 1.5,
+          "maximum": 8
+        },
+        "target": {
+          "const": "background",
+          "default": "background"
+        }
+      },
+      "description": "Background/cabinet plane only. Does not change keyboard or touch geometry."
+    },
+    "layers": {
+      "type": "array",
+      "maxItems": 64,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "z",
+          "region",
+          "type"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "z": {
+            "enum": [
+              5,
+              30
+            ]
+          },
+          "order": {
+            "type": "integer"
+          },
+          "region": {
+            "enum": [
+              "frame",
+              "header",
+              "body",
+              "keys",
+              "footer",
+              "key:letter",
+              "key:number",
+              "key:function",
+              "key:space",
+              "key:mode",
+              "key:candidate",
+              "key:toolbar",
+              "key:other"
+            ]
+          },
+          "type": {
+            "enum": [
+              "rect",
+              "text",
+              "dots",
+              "rivet"
+            ]
+          },
+          "x": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "y": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "width": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "height": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "widthDp": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 512
+          },
+          "heightDp": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 512
+          },
+          "text": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "textSp": {
+            "type": "number",
+            "minimum": 6,
+            "maximum": 48
+          },
+          "stepDp": {
+            "type": "number",
+            "minimum": 3,
+            "maximum": 64
+          },
+          "color": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "id": "color",
+  "name": "简约 color",
+  "variants": {
+    "light": {
+      "palette": {
+        "background": "#e5e5e5",
+        "foreground": "#141414",
+        "key": "#eeeeee",
+        "special": "#181818",
+        "accent": "#b40953",
+        "selectedInk": "#ffffff",
+        "shadow": "#080808",
+        "outline": "#080808"
+      },
+      "radiusDp": 14,
+      "depthDp": 0
+    },
+    "dark": {
+      "palette": {
+        "background": "#222222",
+        "foreground": "#f7f7f7",
+        "key": "#303030",
+        "special": "#181818",
+        "accent": "#b40953",
+        "selectedInk": "#ffffff",
+        "shadow": "#050505",
+        "outline": "#080808"
+      },
+      "radiusDp": 14,
+      "depthDp": 0
+    }
+  },
+  "keys": {},
+  "perspective": {
+    "rotationX": 0,
+    "cameraHeightFactor": 2,
+    "target": "background"
+  },
+  "layers": []
+}

@@ -1,0 +1,1 @@
+S4U Pixel is an original NOPE bitmap-outline font. Source glyphs: PixelGlyphs.java and scripts/build_s4u_font.py. Licensed with the project under GPL-3.0. No external commercial font was copied. FontTools is a build-only dependency, not bundled in the application.

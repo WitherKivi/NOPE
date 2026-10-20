@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "id": "metal",
+  "name": "mac 拟物",
+  "variants": {
+    "light": {
+      "palette": {
+        "background": "#9da3a8",
+        "foreground": "#171c25",
+        "key": "#171c25",
+        "special": "#10151c",
+        "accent": "#08729a",
+        "selectedInk": "#ffffff",
+        "shadow": "#444a50",
+        "outline": "#606c7d"
+      },
+      "radiusDp": 3,
+      "depthDp": 3
+    }
+  },
+  "keys": {},
+  "perspective": {
+    "rotationX": 0,
+    "cameraHeightFactor": 2,
+    "target": "background"
+  },
+  "layers": []
+}

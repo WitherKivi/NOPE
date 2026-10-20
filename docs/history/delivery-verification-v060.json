@@ -1,0 +1,46 @@
+{
+  "apk": "NOPE-输入法-0.6.0.apk",
+  "bytes": 97014908,
+  "sha256": "5190694a07e3c3bb0ba2738072889918645a9a8a53243751ec30cfdea466b756",
+  "package": "app.msime.offline",
+  "version": "0.6.0-offline",
+  "min_android_api": 28,
+  "abi": [
+    "arm64-v8a"
+  ],
+  "requested_permissions": [
+    "android.permission.VIBRATE"
+  ],
+  "verified_original_assets": 12,
+  "emoji_version": "17.0",
+  "emoji_categories": 9,
+  "emoji_catalog_entries": 3944,
+  "label": "NOPE 输入法",
+  "opencc_original_files_verified": 5,
+  "native_dependencies": {
+    "libc++_shared.so": [
+      "libc.so",
+      "libm.so",
+      "libdl.so"
+    ],
+    "libmsime_android.so": [
+      "libmsime_host_api.so",
+      "libdl.so",
+      "libc++_shared.so",
+      "libm.so",
+      "libc.so"
+    ],
+    "libmsime_host_api.so": [
+      "libaaudio.so",
+      "libdl.so",
+      "liblog.so",
+      "libm.so",
+      "libc.so"
+    ]
+  },
+  "signature_verified": true,
+  "zip_alignment_16k_verified": true,
+  "device_runtime_verified": false,
+  "certificate_matches_version": "0.4.0",
+  "certificate_sha256": "38d3fa67598ddd3566c3f8f22a9581c8d1d45a52538024beb1fda510c5de38ea"
+}

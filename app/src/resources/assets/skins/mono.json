@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "id": "mono",
+  "name": "简约黑白",
+  "variants": {
+    "light": {
+      "palette": {
+        "background": "#dadde2",
+        "foreground": "#25262a",
+        "key": "#101113",
+        "special": "#191b1f",
+        "accent": "#c62738",
+        "selectedInk": "#ffffff",
+        "shadow": "#73767a",
+        "outline": "#3b3d40"
+      },
+      "radiusDp": 7,
+      "depthDp": 2
+    }
+  },
+  "keys": {},
+  "perspective": {
+    "rotationX": 0,
+    "cameraHeightFactor": 2,
+    "target": "background"
+  },
+  "layers": []
+}

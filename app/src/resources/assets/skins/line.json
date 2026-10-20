@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "id": "line",
+  "name": "简约线条",
+  "variants": {
+    "light": {
+      "palette": {
+        "background": "#fdfdfd",
+        "foreground": "#151515",
+        "key": "#ffffff",
+        "special": "#f3f3f3",
+        "accent": "#202020",
+        "selectedInk": "#ffffff",
+        "shadow": "#151515",
+        "outline": "#151515"
+      },
+      "radiusDp": 6,
+      "depthDp": 3
+    }
+  },
+  "keys": {},
+  "perspective": {
+    "rotationX": 0,
+    "cameraHeightFactor": 2,
+    "target": "background"
+  },
+  "layers": []
+}

@@ -1,0 +1,14 @@
+* text=auto
+*.java text eol=lf
+*.py text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.kts text eol=lf
+*.so binary
+*.db binary
+*.bin binary
+*.dat binary
+*.safetensors binary
+*.ttf binary
+*.png binary
+*.gz binary

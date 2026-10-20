@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "id": "system",
+  "name": "跟随系统",
+  "variants": {
+    "light": {
+      "palette": {
+        "background": "#ecedef",
+        "foreground": "#19191c",
+        "key": "#f9f1f5",
+        "special": "#f0cbdc",
+        "accent": "#934566",
+        "selectedInk": "#ffffff",
+        "shadow": "#bcbfc5",
+        "outline": "#ffffff"
+      },
+      "radiusDp": 14,
+      "depthDp": 2
+    },
+    "dark": {
+      "palette": {
+        "background": "#1b1b1d",
+        "foreground": "#f8f8fa",
+        "key": "#303032",
+        "special": "#48323f",
+        "accent": "#c46698",
+        "selectedInk": "#101015",
+        "shadow": "#0a0a0b",
+        "outline": "#655060"
+      },
+      "radiusDp": 14,
+      "depthDp": 2
+    }
+  },
+  "keys": {},
+  "perspective": {
+    "rotationX": 0,
+    "cameraHeightFactor": 2,
+    "target": "background"
+  },
+  "layers": []
+}

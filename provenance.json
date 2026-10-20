@@ -1,0 +1,31 @@
+{
+  "apk_version": "0.3.1",
+  "apk_sha256": "971289421564cb7f17078179d0375cd6bf316a24636a5b8d61ed095dac5e39bf",
+  "native_source_repository": "https://github.com/metasequoiaime/msime",
+  "native_source_ref": "android-v0.3.1",
+  "native_source_commit": "b5c1b46ad049480420c9501e3bd85ac7fbc2ed26",
+  "host_helpers_base_commit": "87baa4ba78d2d780d8b43d6931e9bdef9032f778",
+  "host_helpers_local_additions": [
+    "CodingCompletion",
+    "CodingInput",
+    "CodingKeyMap",
+    "CodingLayout"
+  ],
+  "dictionary_source_commit": "1f8a2c83cfc09769bac74e0f891ff0b1b82419a0",
+  "native_binaries_reused_not_recompiled": true,
+  "files_sha256": {
+    "msime-pinyin.db": "495f9c5a736a70ed03369c80b0be556094ae44a3a673788ae32036174f63d154",
+    "msime-wubi.db": "851ed68211311a76847fe6a26096702747abbaab8dffb141698e0365143b31c1",
+    "msime-english.db": "eb3d38c21908a00af1a6936b3d456b05dbc4b5651f77ecc93f9da20eed8c75c7",
+    "msime-scowl_Copyright.txt": "586063cc4345559d5347c6cdb73fbb4d1261118bb009a03530754df004419193",
+    "msime-bigram.bin": "d9a9bf0f51d5d981c73d9c9b6dbfd2b9f8bb0bfe32b85ab25567618df2e342a7",
+    "msime-trigram.bin": "8001a88fb34a24416aa88d6d22598ed1c3573d87e0c1b98ad437b8ee7637c8c9",
+    "msime-others.db": "9f3cae5b407038e0e4536c40582a0bc0feb732657f0ae2d38196374cede52f94",
+    "msime-dictionary-manifest.json": "8602d3cfde2bba9200b077b8c66b4d5fc306be359c2b7ccf8a33ef477e3b46c3",
+    "sentence-model.safetensors": "86ac529510cb3b4968a5e6ade83ec8080f5b34a0a681e75c362accbbd387d1c1",
+    "libc++_shared.so": "cd61762848882a16c8244c964a6f396c0caa0b440588a210ce9cc4ab0e6d9f0c",
+    "libmsime_android.so": "8aaed40ccfea6c3e0414bd8456f456062aa1f925cdddc276453350db4dc33c48",
+    "libmsime_host_api.so": "16a6bdafd12e221ed94a4589df29800c5ef2e333953065783ef4cf00bfabbcad"
+  },
+  "omitted_runtime_assets": {}
+}

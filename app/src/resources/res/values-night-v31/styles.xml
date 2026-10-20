@@ -1,0 +1,9 @@
+<resources>
+    <style name="OfflineTheme" parent="android:style/Theme.Material.NoActionBar">
+        <item name="android:colorAccent">#0066D6</item>
+        <item name="android:windowBackground">#303238</item>
+        <item name="android:navigationBarColor">#303238</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+</resources>

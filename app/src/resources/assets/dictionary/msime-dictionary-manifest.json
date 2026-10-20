@@ -1,0 +1,136 @@
+{
+  "manifest_version": 1,
+  "profile": "desktop",
+  "format_version": 1,
+  "engine_compatibility": {
+    "dictionary_format": 1,
+    "japanese_model_magic": "MSJPDT1"
+  },
+  "source": {
+    "repository": "metasequoiaime/msime",
+    "path": "resources/dictionary-sources",
+    "commit": "1f8a2c83cfc09769bac74e0f891ff0b1b82419a0",
+    "dirty": false
+  },
+  "sqlite_journal_mode": "delete",
+  "format_contract_commit": "1f8a2c83cfc09769bac74e0f891ff0b1b82419a0",
+  "custom_dictionary_commit": "84b5239f98dfb5a4a8df8d92217aabb37cfa8db1",
+  "custom_dictionary_repository": "metasequoiaime/msime-dictionary",
+  "custom_dictionary_path": "custom",
+  "references": {
+    "98wubi-tables": {
+      "repository": "https://github.com/yanhuacuo/98wubi-tables.git",
+      "commit": "6b8b6fb9d3c34e0d5e3b17211e1f1c100e7eb697"
+    },
+    "ECDICT": {
+      "repository": "https://github.com/skywind3000/ECDICT.git",
+      "commit": "bc015ed2e24a7abef49fc6dbbb7fe32c1dadaf8b"
+    },
+    "McBopomofo": {
+      "repository": "https://github.com/openvanilla/McBopomofo.git",
+      "commit": "be6564acad6c4d3265c34a2e1a872d80f9db6068"
+    },
+    "SCOWL": {
+      "repository": "https://github.com/en-wl/wordlist.git",
+      "commit": "7e99edab8e32f9f9ea2b15f249ca8d4d67237410"
+    },
+    "fcitx5-table-extra": {
+      "repository": "https://github.com/fcitx/fcitx5-table-extra.git",
+      "commit": "dbc7154a7f0b9fc04313160ae8066ed4d8cbc446"
+    },
+    "hkcancor": {
+      "repository": "https://github.com/fcbond/hkcancor.git",
+      "commit": "39aeadf920e0b5ca93d0ad7792c59e740e7bdd65"
+    },
+    "libchewing-data": {
+      "repository": "https://github.com/chewing/libchewing-data.git",
+      "commit": "c44e81aef24b06f1509f19e1be54c99812d0c43f"
+    },
+    "libhangul": {
+      "repository": "https://github.com/libhangul/libhangul.git",
+      "commit": "717409ce61524bb3d8426060a384822f21354c62"
+    },
+    "msime-dictionary": {
+      "repository": "https://github.com/metasequoiaime/msime-dictionary.git",
+      "commit": "84b5239f98dfb5a4a8df8d92217aabb37cfa8db1"
+    },
+    "rime-cantonese": {
+      "repository": "https://github.com/rime/rime-cantonese.git",
+      "commit": "259f0e48bba840c3a2e0d117539e96937f3d89bc"
+    },
+    "rime-ice": {
+      "repository": "https://github.com/iDvel/rime-ice.git",
+      "commit": "9e66b0729083b37d217312294f6d516c8d7234be"
+    },
+    "rime-ice-supplement": {
+      "repository": "https://github.com/iDvel/rime-ice.git",
+      "commit": "3aea6d3694fb3d94ec663641f021f788822897ad"
+    },
+    "rime-stroke": {
+      "repository": "https://github.com/rime/rime-stroke.git",
+      "commit": "1e8fff9b9494ddec23b0cbc526bcfd8171a6fd48"
+    }
+  },
+  "mozc_revision": "9fbd649bea4c5e99cd8ad5e487213b26a953a376",
+  "features": [
+    "pinyin",
+    "wubi",
+    "quick_phrases",
+    "english",
+    "emoji",
+    "kaomoji",
+    "symbols",
+    "japanese"
+  ],
+  "licensing": {
+    "includes_unlicensed_inputs": false,
+    "excluded_inputs": [
+      "sources/unlicensed/custom-pinyin-dictionary-part1.txt",
+      "sources/unlicensed/custom-pinyin-dictionary-part2.txt",
+      "sources/unlicensed/single-char-whitelist.txt",
+      "sources/unlicensed/oaldpe-words.txt"
+    ]
+  },
+  "files": {
+    "msime-pinyin.db": {
+      "sha256": "495f9c5a736a70ed03369c80b0be556094ae44a3a673788ae32036174f63d154",
+      "size": 73711616
+    },
+    "msime-wubi.db": {
+      "sha256": "851ed68211311a76847fe6a26096702747abbaab8dffb141698e0365143b31c1",
+      "size": 14536704
+    },
+    "msime-english.db": {
+      "sha256": "eb3d38c21908a00af1a6936b3d456b05dbc4b5651f77ecc93f9da20eed8c75c7",
+      "size": 4526080
+    },
+    "msime-others.db": {
+      "sha256": "9f3cae5b407038e0e4536c40582a0bc0feb732657f0ae2d38196374cede52f94",
+      "size": 1314816
+    },
+    "msime-japanese.dat": {
+      "sha256": "83e093c5697ee81e3ccde63856e9131446e373d452854b4012ad34eb6efbe469",
+      "size": 66547565
+    },
+    "msime-bigram.bin": {
+      "sha256": "d9a9bf0f51d5d981c73d9c9b6dbfd2b9f8bb0bfe32b85ab25567618df2e342a7",
+      "size": 12000016
+    },
+    "msime-trigram.bin": {
+      "sha256": "8001a88fb34a24416aa88d6d22598ed1c3573d87e0c1b98ad437b8ee7637c8c9",
+      "size": 12000016
+    },
+    "msime-mozc_dictionary_oss_README.txt": {
+      "sha256": "6b1de66bc6fa30e0b45dc45b8c8f6c57bd78aff923c261a3efffac8eb86f7bac",
+      "size": 5750
+    },
+    "msime-mozc_LICENSE.txt": {
+      "sha256": "44cdd923b91ea9199293abecc2762c70c87dbf1e581c027a94c416368d1a648c",
+      "size": 5734
+    },
+    "msime-scowl_Copyright.txt": {
+      "sha256": "586063cc4345559d5347c6cdb73fbb4d1261118bb009a03530754df004419193",
+      "size": 4028
+    }
+  }
+}

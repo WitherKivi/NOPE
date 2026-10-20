@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "id": "cloud",
+  "name": "浮云",
+  "variants": {
+    "light": {
+      "palette": {
+        "background": "#e7e8ea",
+        "foreground": "#41464c",
+        "key": "#fafbfc",
+        "special": "#eef0f2",
+        "accent": "#485c70",
+        "selectedInk": "#ffffff",
+        "shadow": "#aeb3b8",
+        "outline": "#f8fafb"
+      },
+      "radiusDp": 12,
+      "depthDp": 4
+    }
+  },
+  "keys": {},
+  "perspective": {
+    "rotationX": 0,
+    "cameraHeightFactor": 2,
+    "target": "background"
+  },
+  "layers": []
+}

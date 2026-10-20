@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "id": "retro",
+  "name": "S4U",
+  "variants": {
+    "light": {
+      "palette": {
+        "background": "#c4b499",
+        "foreground": "#49372a",
+        "key": "#eee2c9",
+        "special": "#d9c6a8",
+        "accent": "#45594a",
+        "selectedInk": "#e6edc3",
+        "shadow": "#826e56",
+        "outline": "#705a43"
+      },
+      "radiusDp": 3,
+      "depthDp": 7
+    }
+  },
+  "keys": {},
+  "perspective": {
+    "rotationX": 7,
+    "cameraHeightFactor": 2,
+    "target": "background"
+  },
+  "layers": [
+    {
+      "id": "cabinet-stipple",
+      "z": 5,
+      "order": 0,
+      "region": "frame",
+      "type": "dots",
+      "x": 0,
+      "y": 0,
+      "width": 1,
+      "height": 1,
+      "stepDp": 6,
+      "color": "#cfbfa3"
+    },
+    {
+      "id": "case-screw-0",
+      "z": 30,
+      "order": 10,
+      "region": "frame",
+      "type": "rivet",
+      "x": 0.014,
+      "y": 0.015,
+      "widthDp": 5,
+      "heightDp": 5,
+      "color": "@outline"
+    },
+    {
+      "id": "case-screw-1",
+      "z": 30,
+      "order": 10,
+      "region": "frame",
+      "type": "rivet",
+      "x": 0.97,
+      "y": 0.015,
+      "widthDp": 5,
+      "heightDp": 5,
+      "color": "@outline"
+    },
+    {
+      "id": "case-screw-2",
+      "z": 30,
+      "order": 10,
+      "region": "frame",
+      "type": "rivet",
+      "x": 0.014,
+      "y": 0.973,
+      "widthDp": 5,
+      "heightDp": 5,
+      "color": "@outline"
+    },
+    {
+      "id": "case-screw-3",
+      "z": 30,
+      "order": 10,
+      "region": "frame",
+      "type": "rivet",
+      "x": 0.97,
+      "y": 0.973,
+      "widthDp": 5,
+      "heightDp": 5,
+      "color": "@outline"
+    }
+  ]
+}
