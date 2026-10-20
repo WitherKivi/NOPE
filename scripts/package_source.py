@@ -5,7 +5,7 @@ import zipfile
 
 from project_paths import ROOT as root, VERSION
 destination = root / f"dist/NOPE-输入法-{VERSION}-source.zip"
-files = [root / name for name in ("VERSION", "README.md", "PRODUCT.md", "DESIGN.md", ".impeccable/design.json", "LICENSE", "provenance.json", ".gitignore", ".gitattributes",
+files = [root / name for name in ("VERSION", "README.md", ".impeccable/design.json", "LICENSE", "provenance.json", ".gitignore", ".gitattributes",
                                  "settings.gradle.kts", "build.gradle.kts", "gradle.properties", "app/build.gradle.kts")]
 for directory in ("app/src", "scripts", "tests", "docs", "vendor"):
     files.extend(path for path in (root / directory).rglob("*") if path.is_file() and "__pycache__" not in path.parts)

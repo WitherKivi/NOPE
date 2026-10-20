@@ -1,0 +1,32 @@
+{
+  "name": "NET.",
+  "font_license": "OFL-1.1; see licenses/NET-Nunito-OFL.txt",
+  "texture": "imagegen generated fixed pale lavender frosted satin surface; diffuse pink/periwinkle patches, fine even matte grain, no UI/text/frame",
+  "icons": "authored transparent raster resources; source in scripts/build_net_assets.py",
+  "files": {
+    "brand.png": {
+      "bytes": 2608,
+      "sha256": "8c16f30613f42820bd67304f0ac65d4f46a50e100a689bdf6fbaa8945b3f08ac"
+    },
+    "clipboard.png": {
+      "bytes": 406,
+      "sha256": "c7991e39daaf02d1f95c246770b0c1eb7c2ab19bad08401b12f29ab1a1f5bdfd"
+    },
+    "emoji.png": {
+      "bytes": 680,
+      "sha256": "8e0066c1b4ca7ecd6d223e1fcd482b4ff6c53c791f9c9293496d0a648d480463"
+    },
+    "frosted-background.png": {
+      "bytes": 2789111,
+      "sha256": "fbf09d233f507eb2672e47b9a20c4cbe6ad89a51a2bb5b71b65579e79d8015e1"
+    },
+    "net-rounded.ttf": {
+      "bytes": 44736,
+      "sha256": "e616cca7e0d0f2ffcfb7474fdae3d49f918782be32d6e18de83aabc43b2af9c6"
+    },
+    "settings.png": {
+      "bytes": 962,
+      "sha256": "eadf806ad8530f56298a01a876e25ba5dfc777574317f3dbd59f28212702638a"
+    }
+  }
+}

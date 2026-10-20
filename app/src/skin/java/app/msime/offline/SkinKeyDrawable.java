@@ -19,7 +19,7 @@ final class SkinKeyDrawable extends Drawable {
         this.label=label;
         material=theme.palette.configured(java.util.Map.of(),theme.config.keySize(role,"radiusDp",theme.palette.radius),theme.config.keySize(role,"depthDp",theme.palette.depth));
         retro=theme.palette.id.equals("retro")?new RetroDrawable(material,RetroDrawable.Surface.KEY,pressed,color,density):null;
-        pixelGlass=theme.palette.id.equals("lavender")?new PixelGlassDrawable(PixelGlassDrawable.Surface.KEY,color,pressed,density):null;
+        pixelGlass=theme.palette.id.equals("lavender")?new PixelGlassDrawable(theme,PixelGlassDrawable.Surface.KEY,color,pressed,material.radius,role.equals("letter")?label:""):null;
     }
     @Override public void draw(Canvas canvas) {
         if(retro!=null){retro.setBounds(getBounds());retro.draw(canvas);return;}

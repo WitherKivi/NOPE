@@ -7,7 +7,7 @@ android {
         testInstrumentationRunner = "app.msime.offline.NopeDeviceSmoke"
         minSdk = 28
         targetSdk = 35
-        versionCode = 12
+        versionCode = 15
         versionName = rootProject.file("VERSION").readText().trim() + "-offline"
         ndk { abiFilters += "arm64-v8a" }
     }

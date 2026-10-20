@@ -62,7 +62,7 @@ final class SkinConfig {
             if(!Set.of("letter","number","function","space","mode","candidate","toolbar","other").contains(role))throw new IllegalArgumentException("未知按键区域");
             JSONObject key=keys.getJSONObject(role);for(String color:new String[]{"fill","ink"})if(key.has(color))Color.parseColor(key.getString(color));
             range(key,"radiusDp",0,32);range(key,"depthDp",0,12);range(key,"textScale",.6,1.8);
-            if(key.has("font")&&!Set.of("system","pixel").contains(key.getString("font")))throw new IllegalArgumentException("不支持的字体");
+            if(key.has("font")&&!Set.of("system","pixel","rounded").contains(key.getString("font")))throw new IllegalArgumentException("不支持的字体");
         }
         JSONObject perspective=json.optJSONObject("perspective");if(perspective!=null){
             if(perspective.has("target")&&!perspective.getString("target").equals("background"))throw new IllegalArgumentException("透视只能用于背景，不能改变键盘尺寸");

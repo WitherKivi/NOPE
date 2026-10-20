@@ -12,13 +12,16 @@ final class IosTheme {
     final int keyInk, functionInk,candidateInk,candidateFill;
     final int background, foreground, key, special, accent, selectedInk, shadow;
     final boolean dark;
-    final float density;
+    final float density, scaledDensity;
+    final NetAssets net;
     IosTheme(Context context) {
         density = context.getResources().getDisplayMetrics().density;
+        scaledDensity = context.getResources().getDisplayMetrics().scaledDensity;
         SkinPalette base = SkinPalette.of(context.getSharedPreferences("offline", Context.MODE_PRIVATE).getString("skin", "system"),
             (context.getResources().getConfiguration().uiMode & 0x30) == 0x20);
         config=SkinConfig.load(context,base.id,base.dark);
         palette=config.palette(base);
+        net=palette.id.equals("lavender")?NetAssets.get(context):null;
         dark = palette.dark;
         background = palette.background;
         key = palette.key; special = palette.special; foreground = palette.foreground;
@@ -27,7 +30,7 @@ final class IosTheme {
         candidateInk=config.keyColor("candidate","ink",palette.candidateInk());candidateFill=config.keyColor("candidate","fill",palette.candidateFill());
     }
     android.graphics.drawable.Drawable material(boolean blur) {
-        if (palette.id.equals("lavender")) return new PixelGlassDrawable(PixelGlassDrawable.Surface.FRAME,background,false,density);
+        if (palette.id.equals("lavender")) return new PixelGlassDrawable(this,PixelGlassDrawable.Surface.FRAME,background,false);
         if (palette.id.equals("retro")) return new RetroDrawable(palette, RetroDrawable.Surface.FRAME, false, background, density);
         if(palette.id.equals("metal")) return new MetalBackground();
         GradientDrawable fill = new GradientDrawable();

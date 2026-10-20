@@ -4,7 +4,7 @@ package app.msime.offline;
 public final class SkinPalette {
     public static final int RETRO_LCD=0xff304237,RETRO_LCD_INK=0xffdde8b9;
     public static final String[] IDS = {"system", "cloud", "mono", "metal", "line", "color", "ios", "retro", "lavender"};
-    public static final String[] NAMES = {"跟随系统", "浮云", "简约黑白", "mac 拟物", "简约线条", "简约 color", "iOS", "S4U", "淡紫像素"};
+    public static final String[] NAMES = {"跟随系统", "浮云", "简约黑白", "mac 拟物", "简约线条", "简约 color", "iOS", "S4U", "NET."};
     public final int background, foreground, key, special, accent, selectedInk, shadow, outline;
     public final int radius, depth;
     public final String id;
@@ -37,7 +37,7 @@ public final class SkinPalette {
     public static SkinPalette of(String requested, boolean night) {
         String id=IDS[index(requested)];
         return switch(id) {
-            case "lavender" -> new SkinPalette(id,false,0xffe5dcf6,0xff30206f,0xfff0eafa,0xffe7daf7,0xff5540ac,0xffffffff,0xffac91d2,0xff5142ce,1,2);
+            case "lavender" -> new SkinPalette(id,false,0xffe5dcf6,0xff30206f,0xfff0eafa,0xffe7daf7,0xff5540ac,0xffffffff,0xffac91d2,0xff5142ce,7,2);
             case "retro" -> new SkinPalette(id,false,0xffc4b499,0xff49372a,0xffeee2c9,0xffd9c6a8,0xff45594a,0xffe6edc3,0xff826e56,0xff705a43,3,4);
             case "cloud" -> new SkinPalette(id,false,0xffe7e8ea,0xff41464c,0xfffafbfc,0xffeef0f2,0xff485c70,0xffffffff,0xffaeb3b8,0xfff8fafb,12,4);
             case "mono" -> new SkinPalette(id,false,0xffdadde2,0xff25262a,0xff101113,0xff191b1f,0xffc62738,0xffffffff,0xff73767a,0xff3b3d40,7,2);

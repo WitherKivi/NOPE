@@ -127,6 +127,9 @@ with zipfile.ZipFile(apk) as package:
         for asset in (root/"app/src/resources/assets"/directory).rglob("*"):
             if asset.is_file() and package.read("assets/"+asset.relative_to(root/"app/src/resources/assets").as_posix())!=asset.read_bytes():
                 raise RuntimeError("皮肤配置或字体未正确打包："+asset.name)
+    license_name="licenses/NET-Nunito-OFL.txt"
+    if package.read("assets/"+license_name)!=(root/"app/src/resources/assets"/license_name).read_bytes():
+        raise RuntimeError("NET. 字体许可未正确打包")
 
 signature = run("apksigner.bat", "verify", "--verbose", "--print-certs", apk)
 certificate = re.search(r"Signer #1 certificate SHA-256 digest: ([0-9a-f]+)", signature).group(1)
@@ -149,6 +152,7 @@ report = {
     "runtime_dictionary_profile_verified": True,
     "native_full_bootstrap_contract_verified": True,
     "skin_v1_configs_and_pixel_font_verified": True,
+    "net_frost_png_icons_rounded_font_and_license_verified": True,
     "emoji_version": emoji["version"], "emoji_categories": 9, "emoji_catalog_entries": 3944,
     "label": "NOPE 输入法", "opencc_original_files_verified": 5,
     "native_dependencies": dependencies,

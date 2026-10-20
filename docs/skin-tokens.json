@@ -188,7 +188,7 @@
   },
   {
     "id": "lavender",
-    "name": "淡紫像素",
+    "name": "NET.",
     "dark": false,
     "background": 4293254390,
     "foreground": 4281344111,
@@ -200,7 +200,7 @@
     "outline": 4283515598,
     "keyInk": -13623185,
     "functionInk": -13623185,
-    "radius": 1,
+    "radius": 7,
     "depth": 2
   }
 ]

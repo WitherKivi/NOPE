@@ -89,7 +89,8 @@
           "font": {
             "enum": [
               "system",
-              "pixel"
+              "pixel",
+              "rounded"
             ]
           },
           "textScale": {

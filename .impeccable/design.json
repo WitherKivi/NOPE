@@ -1730,6 +1730,17 @@
       "quickLanguages": "Chinese/English default; configurable cycle",
       "tab": "leftmost Code control and numeric column",
       "deviceUiVerified": false
+    },
+    "nopeV101": {
+      "skinName": "NET.",
+      "id": "lavender",
+      "radiusDp": 7,
+      "material": "fixed matte texture; independent from system or host blur",
+      "font": "NOPE NET Rounded; Nunito subset, OFL-1.1",
+      "icons": "transparent PNG N/ope, clipboard, emoji, settings",
+      "topDigits": "painted 1-0 on Q-P keycap material",
+      "geometry": "existing KeyboardMetrics and touch bounds",
+      "deviceUiVerified": false
     }
   },
   "components": [

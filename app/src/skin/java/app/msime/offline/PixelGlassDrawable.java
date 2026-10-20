@@ -3,54 +3,75 @@ package app.msime.offline;
 import android.graphics.*;
 import android.graphics.drawable.Drawable;
 
-/** 静态原生毛玻璃材质；不采样宿主画面，不改变任何布局或触摸边界。 */
+/** NET. 固定雾面纹理、圆润玻璃键帽与烘绘数字，不依赖跨窗口模糊。 */
 final class PixelGlassDrawable extends Drawable {
     enum Surface { FRAME, PANEL, KEY }
     private final Surface surface;
+    private final IosTheme theme;
     private final int color;
     private final boolean pressed;
-    private final float d;
-    private final Paint paint = new Paint();
-    PixelGlassDrawable(Surface surface, int color, boolean pressed, float density) {
-        this.surface=surface;this.color=color;this.pressed=pressed;d=density;
+    private final float d,radius;
+    private final String number;
+    private final Paint paint=new Paint(Paint.ANTI_ALIAS_FLAG|Paint.FILTER_BITMAP_FLAG);
+    private final Path clip=new Path();
+    PixelGlassDrawable(IosTheme theme,Surface surface,int color,boolean pressed) {
+        this(theme,surface,color,pressed,theme.palette.radius,"");
     }
-    private void box(Canvas canvas,float l,float t,float r,float b,int color) {
-        paint.setShader(null);paint.setColor(color);canvas.drawRect(l,t,r,b,paint);
+    PixelGlassDrawable(IosTheme theme,Surface surface,int color,boolean pressed,float radiusDp,String label) {
+        this.theme=theme;this.surface=surface;this.color=color;this.pressed=pressed;d=theme.density;radius=radiusDp*d;
+        int index=label.length()==1?"QWERTYUIOP".indexOf(label.toUpperCase(java.util.Locale.ROOT)):-1;
+        number=index<0?"":String.valueOf("1234567890".charAt(index));
+    }
+    private void stroke(Canvas canvas,RectF bounds,float radius,float width,int color) {
+        paint.setShader(null);paint.setColor(color);paint.setStyle(Paint.Style.STROKE);paint.setStrokeWidth(width);
+        canvas.drawRoundRect(bounds,radius,radius,paint);paint.setStyle(Paint.Style.FILL);
     }
     @Override public void draw(Canvas canvas) {
-        Rect bounds=getBounds();float l=bounds.left,t=bounds.top,r=bounds.right,b=bounds.bottom;
-        if(bounds.isEmpty())return;
+        if(getBounds().isEmpty())return;
+        RectF bounds=new RectF(getBounds());paint.setShader(null);paint.setAlpha(255);
         if(surface==Surface.FRAME) {
-            paint.setShader(new LinearGradient(l,t,r,b,new int[]{0xffeee7fb,color,0xffded4f4},null,Shader.TileMode.CLAMP));
-            canvas.drawRect(bounds,paint);
-            // Diffuse color under the frosted surface is deterministic and inexpensive.
-            paint.setShader(new RadialGradient(l+bounds.width()*.2f,t+bounds.height()*.35f,Math.max(1,bounds.width()*.7f),new int[]{0x65f4a9df,0x00f4a9df},null,Shader.TileMode.CLAMP));canvas.drawRect(bounds,paint);
-            paint.setShader(new RadialGradient(l+bounds.width()*.8f,t+bounds.height()*.8f,Math.max(1,bounds.width()*.6f),new int[]{0x558e9def,0x008e9def},null,Shader.TileMode.CLAMP));canvas.drawRect(bounds,paint);
-            // Three crisp rim bands give a pink/violet glow without a blur pass.
-            edge(canvas,l,t,r,b,2*d,0x60d27beb);edge(canvas,l+2*d,t+2*d,r-2*d,b-2*d,d,0xffb37ae9);
-            edge(canvas,l+3*d,t+3*d,r-3*d,b-3*d,d,0xfffdf4ff);
+            // The image contains material only; key geometry remains entirely native.
+            canvas.drawBitmap(theme.net.frost,null,bounds,paint);
+            bounds.inset(2*d,2*d);stroke(canvas,bounds,5*d,4*d,0x65d778ec);
+            bounds.inset(d,d);stroke(canvas,bounds,4*d,d,0xffa56ee3);
+            bounds.inset(d,d);stroke(canvas,bounds,3*d,d,0xfffaf5ff);
             return;
         }
-        float depth=surface==Surface.KEY?2*d:0;
-        l+=d;t+=d;r-=d;b-=d;
-        if(r<=l||b<=t+depth)return;
-        if(depth>0)box(canvas,l,t+depth,r,b,0xffac91d2);
-        b-=depth;
-        int base=pressed?IosTheme.mix(color,0xffbf8fea,.28f):color;
-        int top=IosTheme.mix(base,Color.WHITE,surface==Surface.PANEL?.42f:.35f);
-        paint.setShader(new LinearGradient(l,t,r,b,new int[]{top,base,IosTheme.mix(base,0xffd7c6f4,.25f)},null,Shader.TileMode.CLAMP));canvas.drawRect(l,t,r,b,paint);
-        edge(canvas,l,t,r,b,d,0xff6553cb);
-        box(canvas,l+d,t+d,r-d,t+2*d,0xfffdfaff);
-        box(canvas,l+d,t+d,l+2*d,b-d,0xfffdfaff);
-        box(canvas,l+2*d,b-d,r-d,b,pressed?0xff9e6cce:0xffcc8ee7);
-        box(canvas,r-2*d,t+2*d,r-d,b-d,0xffb8a3e1);
-        // Sparse pixel highlights stay clear of the text center.
-        box(canvas,l+3*d,t+3*d,l+5*d,t+4*d,0x90ffffff);
-        box(canvas,l+3*d,t+4*d,l+4*d,t+6*d,0x70ffffff);
-    }
-    private void edge(Canvas canvas,float l,float t,float r,float b,float width,int color) {
-        box(canvas,l,t,r,t+width,color);box(canvas,l,b-width,r,b,color);
-        box(canvas,l,t,l+width,b,color);box(canvas,r-width,t,r,b,color);
+        float depth=surface==Surface.KEY?Math.min(2*d,bounds.height()*.04f):0;
+        bounds.inset(d,d);
+        if(bounds.width()<=0||bounds.height()<=depth)return;
+        float rounding=Math.min(radius,Math.min(bounds.width(),bounds.height())*.24f);
+        if(depth>0) {
+            RectF shadow=new RectF(bounds);shadow.offset(0,depth);
+            paint.setColor(0x328878b6);canvas.drawRoundRect(shadow,rounding,rounding,paint);
+            shadow.inset(d,d);paint.setColor(0x457e66b8);canvas.drawRoundRect(shadow,rounding,rounding,paint);
+        }
+        bounds.bottom-=depth;
+        int base=pressed?IosTheme.mix(color,0xffa485d1,.18f):color;
+        boolean dark=Color.red(base)+Color.green(base)+Color.blue(base)<400;
+        int save=canvas.save();clip.reset();clip.addRoundRect(bounds,rounding,rounding,Path.Direction.CW);canvas.clipPath(clip);
+        paint.setAlpha(255);paint.setShader(new LinearGradient(bounds.left,bounds.top,bounds.right,bounds.bottom,
+            new int[]{IosTheme.mix(base,Color.WHITE,dark?.06f:.24f),base,IosTheme.mix(base,0xffcdb8ed,.15f)},null,Shader.TileMode.CLAMP));
+        canvas.drawRect(bounds,paint);paint.setShader(null);
+        paint.setAlpha(dark?22:100);canvas.drawBitmap(theme.net.frost,null,bounds,paint);paint.setAlpha(255);
+        paint.setShader(new RadialGradient(bounds.left+3*d,bounds.top+3*d,Math.max(1,bounds.height()*.9f),
+            new int[]{dark?0x20ffffff:0x85ffffff,0x00ffffff},null,Shader.TileMode.CLAMP));
+        canvas.drawRect(bounds,paint);paint.setShader(null);
+        if(pressed){paint.setColor(0x16835aaa);canvas.drawRect(bounds,paint);}
+        canvas.restoreToCount(save);
+        stroke(canvas,bounds,rounding,.75f*d,IosTheme.alpha(theme.palette.outline,180));
+        RectF inner=new RectF(bounds);inner.inset(d,d);
+        stroke(canvas,inner,Math.max(0,rounding-d),.75f*d,dark?0x509f8ed0:0xdafaf6ff);
+        RectF rim=new RectF(bounds);rim.inset(.5f*d,.5f*d);
+        paint.setShader(new LinearGradient(rim.left,rim.top,rim.right,rim.bottom,new int[]{0x00db86e3,0x00db86e3,0xc0d897eb},new float[]{0,.6f,1},Shader.TileMode.CLAMP));
+        paint.setStyle(Paint.Style.STROKE);paint.setStrokeWidth(d);canvas.drawRoundRect(rim,rounding,rounding,paint);
+        paint.setShader(null);paint.setStyle(Paint.Style.FILL);
+        if(surface==Surface.KEY&&!number.isEmpty()) {
+            // Same material draw as the cap, so font fitting cannot hide the numeric legend.
+            paint.setTypeface(theme.net.rounded);paint.setTextAlign(Paint.Align.CENTER);
+            paint.setTextSize(Math.min(10*theme.scaledDensity,bounds.height()*.23f));paint.setColor(theme.foreground);
+            canvas.drawText(number,bounds.centerX(),bounds.top+2*d-paint.ascent(),paint);
+        }
     }
     @Override public void setAlpha(int alpha) { }
     @Override public void setColorFilter(ColorFilter filter) { }

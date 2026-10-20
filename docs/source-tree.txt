@@ -1,0 +1,245 @@
+mobile-ime-offline/
+├── .gitattributes
+├── .gitignore
+├── .gradle/  本机构建缓存（Git忽略）
+├── LICENSE
+├── README.md
+├── VERSION
+├── app/
+│   ├── build/  Android 构建产物（Git忽略）
+│   ├── build.gradle.kts
+│   └── src/
+│       ├── androidTest/
+│       │   └── java/
+│       │       └── app/
+│       │           └── msime/
+│       │               └── offline/
+│       │                   └── NopeDeviceSmoke.java
+│       ├── engine/
+│       │   ├── java/
+│       │   │   └── app/
+│       │   │       └── msime/
+│       │   │           ├── android/
+│       │   │           │   ├── BoundsPolicy.java
+│       │   │           │   ├── NativeClient.java
+│       │   │           │   └── SelectionEchoTracker.java
+│       │   │           └── offline/
+│       │   │               ├── ChineseConversion.java
+│       │   │               ├── EditorTransition.java
+│       │   │               ├── EngineInstall.java
+│       │   │               ├── FieldPolicy.java
+│       │   │               └── JapaneseInput.java
+│       │   └── jniLibs/
+│       │       └── arm64-v8a/
+│       │           ├── libc++_shared.so
+│       │           ├── libmsime_android.so
+│       │           └── libmsime_host_api.so
+│       ├── features/
+│       │   └── java/
+│       │       └── app/
+│       │           └── msime/
+│       │               └── offline/
+│       │                   ├── ClipboardPolicy.java
+│       │                   ├── ClipboardRetention.java
+│       │                   ├── ClipboardSettings.java
+│       │                   ├── ClipboardStore.java
+│       │                   ├── ClipboardSuggestion.java
+│       │                   ├── ClipboardText.java
+│       │                   ├── EmojiCatalog.java
+│       │                   └── EmojiCell.java
+│       ├── layout/
+│       │   └── java/
+│       │       └── app/
+│       │           └── msime/
+│       │               ├── android/
+│       │               │   ├── CodingCompletion.java
+│       │               │   ├── CodingInput.java
+│       │               │   ├── CodingKeyMap.java
+│       │               │   ├── CodingLayout.java
+│       │               │   ├── KeyboardGapPolicy.java
+│       │               │   └── KeyboardKeyArea.java
+│       │               └── offline/
+│       │                   ├── ArrowButton.java
+│       │                   ├── CandidateList.java
+│       │                   ├── CandidatePageSwipe.java
+│       │                   ├── CandidateRequest.java
+│       │                   ├── CandidateRows.java
+│       │                   ├── CandidateStrip.java
+│       │                   ├── DeleteSwipe.java
+│       │                   ├── EditingSwipe.java
+│       │                   ├── HapticStrength.java
+│       │                   ├── HintKey.java
+│       │                   ├── InputTouchPolicy.java
+│       │                   ├── KeyButton.java
+│       │                   ├── KeyFeedback.java
+│       │                   ├── KeyPreview.java
+│       │                   ├── KeyPreviewState.java
+│       │                   ├── KeyboardIcon.java
+│       │                   ├── KeyboardMetrics.java
+│       │                   ├── KeyboardText.java
+│       │                   ├── QuickLanguages.java
+│       │                   ├── SymbolLayouts.java
+│       │                   ├── VariantPanel.java
+│       │                   └── VariantSelection.java
+│       ├── main/
+│       │   ├── AndroidManifest.xml
+│       │   └── java/
+│       │       └── app/
+│       │           └── msime/
+│       │               └── offline/
+│       │                   ├── OfflineImeService.java
+│       │                   └── SetupActivity.java
+│       ├── resources/
+│       │   ├── assets/
+│       │   │   ├── client-LICENSE.txt
+│       │   │   ├── desktop-dictionary.lock.json
+│       │   │   ├── dictionary/
+│       │   │   │   ├── msime-bigram.bin
+│       │   │   │   ├── msime-dictionary-manifest.json
+│       │   │   │   ├── msime-english.db
+│       │   │   │   ├── msime-japanese.dat
+│       │   │   │   ├── msime-mozc_LICENSE.txt
+│       │   │   │   ├── msime-mozc_dictionary_oss_README.txt
+│       │   │   │   ├── msime-others.db
+│       │   │   │   ├── msime-pinyin.db
+│       │   │   │   ├── msime-scowl_Copyright.txt
+│       │   │   │   ├── msime-trigram.bin
+│       │   │   │   ├── msime-wubi.db
+│       │   │   │   └── sentence-model.safetensors
+│       │   │   ├── emoji/
+│       │   │   │   └── catalog.json
+│       │   │   ├── japanese-dictionary.lock.json
+│       │   │   ├── licenses/
+│       │   │   │   ├── NET-Nunito-OFL.txt
+│       │   │   │   └── UNICODE-LICENSE.txt
+│       │   │   ├── native-notices/
+│       │   │   │   └── arm64-v8a/
+│       │   │   │       ├── ewts.txt
+│       │   │   │       ├── libchewing-data.txt
+│       │   │   │       ├── libhangul-hanja.txt
+│       │   │   │       ├── ndk-sysroot.txt
+│       │   │   │       ├── ndk-toolchain.txt
+│       │   │   │       ├── nlohmann-json.txt
+│       │   │   │       ├── onnxruntime-third-party.txt
+│       │   │   │       ├── onnxruntime.txt
+│       │   │   │       ├── rime-cantonese.txt
+│       │   │   │       ├── rime-stroke.txt
+│       │   │   │       ├── sherpa-onnx.txt
+│       │   │   │       └── vi.txt
+│       │   │   ├── opencc/
+│       │   │   │   ├── CJK_Compatibility_Ideographs.txt
+│       │   │   │   ├── LICENSE
+│       │   │   │   ├── NOTICE.txt
+│       │   │   │   ├── STCharacters.txt
+│       │   │   │   ├── STPhrases.txt
+│       │   │   │   └── STPhrases_GeneratedFromRegionalPhrases.txt
+│       │   │   ├── provenance.json
+│       │   │   ├── runtime-dictionary.lock.json
+│       │   │   ├── skin/
+│       │   │   │   ├── S4U-FONT-NOTICE.txt
+│       │   │   │   ├── net/
+│       │   │   │   │   ├── assets.json
+│       │   │   │   │   ├── brand.png
+│       │   │   │   │   ├── clipboard.png
+│       │   │   │   │   ├── emoji.png
+│       │   │   │   │   ├── frosted-background.png
+│       │   │   │   │   ├── net-rounded.ttf
+│       │   │   │   │   └── settings.png
+│       │   │   │   └── s4u-keycaps.ttf
+│       │   │   └── skins/
+│       │   │       ├── cloud.json
+│       │   │       ├── color.json
+│       │   │       ├── ios.json
+│       │   │       ├── lavender.json
+│       │   │       ├── line.json
+│       │   │       ├── metal.json
+│       │   │       ├── mono.json
+│       │   │       ├── retro.json
+│       │   │       ├── schema-v1.json
+│       │   │       └── system.json
+│       │   └── res/
+│       │       ├── drawable/
+│       │       │   └── ic_keyboard.xml
+│       │       ├── values/
+│       │       │   ├── ids.xml
+│       │       │   ├── strings.xml
+│       │       │   └── styles.xml
+│       │       ├── values-night/
+│       │       │   └── styles.xml
+│       │       ├── values-night-v31/
+│       │       │   └── styles.xml
+│       │       ├── values-v31/
+│       │       │   └── styles.xml
+│       │       └── xml/
+│       │           ├── data_extraction_rules.xml
+│       │           └── method.xml
+│       └── skin/
+│           └── java/
+│               └── app/
+│                   └── msime/
+│                       └── offline/
+│                           ├── BrandMark.java
+│                           ├── BrandSymbols.java
+│                           ├── GlassWindow.java
+│                           ├── IosTheme.java
+│                           ├── MetalBackground.java
+│                           ├── NetAssets.java
+│                           ├── PixelGlassDrawable.java
+│                           ├── PixelGlyphs.java
+│                           ├── RetroDrawable.java
+│                           ├── RetroRecordDrawable.java
+│                           ├── RetroTypeface.java
+│                           ├── SettingsMaterial.java
+│                           ├── SkinConfig.java
+│                           ├── SkinFiles.java
+│                           ├── SkinKeyDrawable.java
+│                           ├── SkinPalette.java
+│                           └── SkinStack.java
+├── build/  根构建产物（Git忽略）
+├── build.gradle.kts
+├── dist/  安装包、源码包和摘要（Git忽略）
+├── docs/  示意图、源码导览与历史核验 JSON
+├── gradle.properties
+├── provenance.json
+├── scripts/
+│   ├── build_net_assets.py
+│   ├── build_s4u_font.py
+│   ├── extract_msime.py
+│   ├── import_emoji.py
+│   ├── import_japanese.py
+│   ├── import_net_font.py
+│   ├── package_release.py
+│   ├── package_source.py
+│   ├── project_paths.py
+│   ├── render_net.py
+│   ├── render_settings.py
+│   ├── render_skins.py
+│   ├── resource_profile.py
+│   ├── source_map.py
+│   ├── test_local.py
+│   └── verify_apk.py
+├── settings.gradle.kts
+├── target/  本机测试与工具缓存（Git忽略）
+├── tests/
+│   ├── CandidateExpansionSmoke.java
+│   ├── ClipboardTextSmoke.java
+│   ├── CodingKeyboardSmoke.java
+│   ├── EditorTransitionSmoke.java
+│   ├── FeedbackUpgradeSmoke.java
+│   ├── FieldPolicySmoke.java
+│   ├── JapaneseInputSmoke.java
+│   ├── KeyboardUpgradeSmoke.java
+│   ├── NopeUpgradeSmoke.java
+│   ├── QuickLanguagesSmoke.java
+│   ├── SkinTokens.java
+│   ├── emoji_catalog_test.py
+│   ├── japanese_assets_test.py
+│   ├── net_assets_test.py
+│   ├── resource_profile_test.py
+│   └── skin_contract_test.py
+└── vendor/  上游完整源码、字体源和原始数据
+    ├── msime-android-v0.3.1-source.tar.gz
+    ├── net-font/
+    │   ├── Nunito-Variable.ttf
+    │   └── provenance.json
+    └── unicode-17-emoji-test.txt

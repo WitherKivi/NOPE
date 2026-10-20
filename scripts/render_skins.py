@@ -37,6 +37,21 @@ def glyph(x,y,kind,color):
         mark([(2.5,17),(7.5,17),(7.5,22),(2.5,22),(2.5,17)],1.35)
         mark([(10,23),(10,17),(14.5,17),(14.5,20.5),(10,20.5)],1.35)
         mark([(22,22),(17,22),(17,17),(22,17),(22,19.5),(17,19.5)],1.35)
+    elif kind=='cloud':
+        path([(-10,5),(-11,0),(-7,-4),(-4,-4),(-4,-8),(0,-10),(5,-8),(7,-4),(10,-4),(12,0),(11,5),(8,7),(3,7),(-1,8),(-6,7),(-10,5)])
+    elif kind=='command':
+        for cx,cy in [(-7,-7),(7,-7),(-7,7),(7,7)]:
+            d.ellipse(((x+cx-3)*scale,(y+cy-3)*scale,(x+cx+3)*scale,(y+cy+3)*scale),outline=color,width=3)
+        path([(-4,-7),(-4,7)]);path([(4,-7),(4,7)]);path([(-7,-4),(7,-4)]);path([(-7,4),(7,4)])
+    elif kind=='pear':
+        shape=Image.new('RGBA',img.size);sd=ImageDraw.Draw(shape)
+        sd.polygon([((x+a)*scale,(y+b)*scale) for a,b in [(-2,-8),(-5,-5),(-5,-1),(-9,5),(-8,9),(-4,12),(3,12),(8,9),(9,5),(5,-1),(4,-6),(2,-8)]],fill=color)
+        sd.ellipse(((x+5)*scale,(y-6)*scale,(x+12)*scale,(y+1)*scale),fill=(0,0,0,0))
+        sd.polygon([((x+a)*scale,(y+b)*scale) for a,b in [(0,-9),(3,-13),(8,-13),(5,-9)]],fill=color)
+        img.paste(shape,(0,0),shape)
+    elif kind=='retro-settings':
+        for yy in [-6,0,6]:path([(-9,yy),(9,yy)])
+        for xx,yy in [(-4,-6),(4,0),(-2,6)]:path([(xx,yy-3),(xx,yy+3)])
     elif kind=='record':
         rect((x-11,y-11,x+11,y+11),'#eee2c9',1,'#705a43',1)
         d.ellipse(((x-9)*scale,(y-8)*scale,(x+5)*scale,(y+6)*scale),fill='#b0b6ad')
@@ -56,6 +71,7 @@ def glyph(x,y,kind,color):
         path([(math.cos(i*math.pi/8)*(10 if i%2==0 else 7),math.sin(i*math.pi/8)*(10 if i%2==0 else 7)) for i in range(17)])
         d.ellipse(((x-3)*scale,(y-3)*scale,(x+3)*scale,(y+3)*scale),outline=color,width=3)
 def cap(p,x,y,w,h,label,role=False,sheen=False):
+    if p['id']=='retro':x-=1;w+=2
     color=p['accent'] if role=='lang' else p['special'] if role else p['key']
     ink=p['selectedInk'] if role=='lang' else p['functionInk'] if role else p['keyInk']
     if p['id']=='retro' and role=='lang':color=p['special'];ink=p['foreground']
@@ -101,22 +117,24 @@ for i,p in enumerate(cards):
         d.polygon([((x+11)*scale,y*scale),((x+w-11)*scale,y*scale),((x+w)*scale,(y+h)*scale),(x*scale,(y+h)*scale)],fill=rgb(p['background']),outline=rgb(p['outline']),width=scale)
 
     if p['id']=='lavender':
-        rect((x,y,x+w,y+h),None,1,'#c184e9',2)
-        rect((x+3,y+3,x+w-3,y+43),'#e9e6f0',0,'#5142ce',1)
+        net=Image.open(root/'docs/net-material-preview.png').crop((50,110,1229,950))
+        img.paste(net.resize((round(w*scale),round(h*scale)),Image.Resampling.LANCZOS),(round(x*scale),round(y*scale)))
+        continue
     if p['id']=='metal':
         for row in range(y,y+h,2):d.line((x*scale,row*scale,(x+w)*scale,row*scale),fill='#aeb4b9')
     for j,label in enumerate(['brand','clip','emoji','settings','down'] if p['id']!='retro' else []):
-        if j==0:glyph(x+(j+.5)*w/5,y+23,'record' if p['id']=='retro' else label,rgb(p['accent']))
+        if j==0:glyph(x+(j+.5)*w/5,y+23,{'cloud':'cloud','metal':'command','ios':'pear'}.get(p['id'],label),rgb(p['accent']))
         else:glyph(x+(j+.5)*w/5,y+23,label,rgb(p['foreground']))
     if p['id']=='retro':
+        rect((x,y+43,x+w,y+48),'#a18c6f')
+        rect((x,y+43,x+w,y+44),'#f5e7cb')
         glyph(x+23,y+23,'record',rgb(p['foreground']))
         rect((x+45,y+5,x+w-47,y+42),'#705a43',0)
         rect((x+48,y+8,x+w-50,y+39),'#304237',0)
         if p.get('preview')=='idle':
-            for j,kind in enumerate(['clip','emoji','settings']):glyph(x+90+j*95,y+24,kind,'#dde8b9')
+            for j,kind in enumerate(['clip','emoji','settings']):glyph(x+90+j*95,y+24,'retro-settings' if kind=='settings' else kind,'#dde8b9')
         else:
-            text(x+62,y+24,'nihao',17,'#dde8b9','lm',pixel=True)
-            text(x+158,y+24,'你好   你   拟好',17,'#dde8b9','lm')
+            text(x+62,y+24,'你好    你    拟好',20,'#dde8b9','lm')
         glyph(x+w-23,y+23,'down',rgb(p['foreground']))
     for r,letters in enumerate(['QWERTYUIOP' ,'ASDFGHJKL','ZXCVBNM']):
         yy=y+48+r*55

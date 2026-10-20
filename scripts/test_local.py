@@ -11,8 +11,8 @@ java, javac = home / "bin/java.exe", home / "bin/javac.exe"
 native = ("CodingCompletion", "CodingInput", "CodingKeyMap", "CodingLayout", "SelectionEchoTracker", "BoundsPolicy")
 host = ("FieldPolicy", "EditorTransition", "KeyboardMetrics", "DeleteSwipe", "ClipboardPolicy", "SymbolLayouts",
         "VariantSelection", "ClipboardSuggestion", "HapticStrength", "CandidatePageSwipe", "EditingSwipe",
-        "ClipboardText", "KeyPreviewState", "JapaneseInput", "ChineseConversion", "ClipboardRetention", "SkinPalette", "InputTouchPolicy", "KeyboardText", "QuickLanguages")
-tests = ("CodingKeyboardSmoke", "FieldPolicySmoke", "EditorTransitionSmoke", "KeyboardUpgradeSmoke", "NopeUpgradeSmoke", "JapaneseInputSmoke", "FeedbackUpgradeSmoke", "ClipboardTextSmoke", "QuickLanguagesSmoke")
+        "ClipboardText", "KeyPreviewState", "JapaneseInput", "ChineseConversion", "ClipboardRetention", "SkinPalette", "InputTouchPolicy", "KeyboardText", "QuickLanguages", "CandidateRows", "CandidateRequest")
+tests = ("CodingKeyboardSmoke", "FieldPolicySmoke", "EditorTransitionSmoke", "KeyboardUpgradeSmoke", "NopeUpgradeSmoke", "JapaneseInputSmoke", "FeedbackUpgradeSmoke", "ClipboardTextSmoke", "QuickLanguagesSmoke", "CandidateExpansionSmoke")
 files = [java_source(f"app/msime/android/{name}.java") for name in native]
 files += [java_source(f"app/msime/offline/{name}.java") for name in host]
 files += [root / f"tests/{name}.java" for name in tests]
@@ -30,3 +30,4 @@ subprocess.run([sys.executable, str(root / "tests/japanese_assets_test.py")], ch
 subprocess.run([sys.executable, str(root / "tests/resource_profile_test.py")], check=True)
 
 subprocess.run([sys.executable, str(root / "tests/skin_contract_test.py")], check=True)
+subprocess.run([sys.executable, str(root / "tests/net_assets_test.py")], check=True)

@@ -10,7 +10,7 @@ import android.graphics.drawable.Drawable;
 
 /** S4U 的机壳、键帽与液晶槽共用整像素网格，无位图纹理或平滑渐变。 */
 final class RetroDrawable extends Drawable {
-    enum Surface { FRAME, KEY, DISPLAY }
+    enum Surface { FRAME, KEY, DISPLAY, HEADER, SOCKET }
     static final int LCD = SkinPalette.RETRO_LCD, LCD_INK = SkinPalette.RETRO_LCD_INK;
     private final SkinPalette palette;
     private final Surface surface;
@@ -42,6 +42,22 @@ final class RetroDrawable extends Drawable {
     }
     @Override public void draw(Canvas canvas) {
         Rect b = getBounds(); float p = Math.max(1, Math.round(density));
+        if(surface==Surface.HEADER){
+            cap(canvas,b.left,b.top,b.right,b.bottom,p,palette.outline);
+            cap(canvas,b.left+p,b.top+p,b.right-p,b.bottom-p,p,0xffdbcbb0);
+            box(canvas,b.left+2*p,b.top+2*p,b.right-2*p,b.bottom-5*p,palette.background);
+            box(canvas,b.left+3*p,b.top+p,b.right-3*p,b.top+2*p,0xfffff2db);
+            plane(canvas,0xffa18c6f,b.left+p,b.bottom-5*p,b.right-p,b.bottom-5*p,b.right-2*p,b.bottom-p,b.left+2*p,b.bottom-p);
+            box(canvas,b.left+2*p,b.bottom-5*p,b.right-2*p,b.bottom-4*p,0xfff5e7cb);
+            for(float x=b.left+3*p;x<b.right-3*p;x+=4*p)box(canvas,x,b.bottom-3*p,x+p,b.bottom-2*p,0xffb09b7d);
+            return;
+        }
+        if(surface==Surface.SOCKET){
+            float l=b.left+3*p,t=b.top+6*p,r=b.right-3*p,bottom=b.bottom-6*p;
+            box(canvas,l,t,r,bottom,palette.outline);box(canvas,l+p,t+p,r-p,bottom-p,0xfff5e9d2);
+            box(canvas,l+2*p,t+2*p,r-2*p,bottom-2*p,0xffaa9a81);
+            box(canvas,l+3*p,t+3*p,r-3*p,bottom-3*p,0xffddd0b9);return;
+        }
         if (surface == Surface.DISPLAY) {
             box(canvas, b.left, b.top, b.right, b.bottom, palette.outline);
             box(canvas, b.left+p, b.top+p, b.right-p, b.bottom-p, 0xfff7ead2);
@@ -70,7 +86,7 @@ final class RetroDrawable extends Drawable {
         cap(canvas,l+p,t,r-p,bottom-p,p,palette.shadow);
         int face=pressed?IosTheme.mix(fill,palette.shadow,.09f):fill;
         // Broad lower slope and asymmetric side bevels match the physical cream keycaps.
-        float faceBottom=bottom-depth,left=l+3*p,right=r-3*p,top=t+2*p;
+        float faceBottom=bottom-depth,left=l+2*p,right=r-2*p,top=t+2*p;
         plane(canvas,0xfff6e9cf,l+p,t+4*p,left,top,left,faceBottom,l+p,bottom-2*p);
         plane(canvas,IosTheme.mix(face,palette.shadow,.35f),right,top,r-p,t+4*p,r-p,bottom-2*p,right,faceBottom);
         plane(canvas,IosTheme.mix(face,palette.shadow,.30f),left,faceBottom,right,faceBottom,r-p,bottom-2*p,l+p,bottom-2*p);

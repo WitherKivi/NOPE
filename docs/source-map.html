@@ -1,0 +1,247 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NOPE 源码导览</title><style>
+body{max-width:1200px;margin:40px auto;padding:0 20px;background:#fafafa;color:#24232a;font:16px/1.65 system-ui,"Microsoft YaHei",sans-serif}h1{font-size:30px}p{max-width:900px}input{width:min(96%,800px);padding:13px;border:1px solid #aaa;border-radius:10px;font:inherit}table{width:100%;border-collapse:collapse;margin-top:20px}th,td{text-align:left;padding:12px 10px;border-bottom:1px solid #ddd;vertical-align:top}td:first-child{width:48%;font:13px/1.6 monospace;overflow-wrap:anywhere}td:last-child{white-space:nowrap;color:#666}a{color:#4c438e}small{display:block;color:#a35817}pre{overflow:auto;padding:20px;background:#efedf3;font:13px/1.6 monospace}summary{cursor:pointer;padding:12px 0}tr[hidden]{display:none}@media(prefers-color-scheme:dark){body{background:#202024;color:#eeedf3}pre{background:#292831}a{color:#b9adee}td,th{border-color:#444}input{background:#303038;color:white}td:last-child{color:#bbb}}
+</style><h1>NOPE 当前源码树与文件作用</h1><p>按实际工作树生成。源码在 main / engine / layout / skin / features，资源在 resources。Java 包名保持兼容 JNI；目录分类与包名是两件事。上游引擎的 Rust/C++ 源码以固定 tar.gz 保存在 vendor，本页逐项列出当前 Android 宿主源码，不展开归档内部文件。</p><p>下表覆盖 <b>180</b> 个源码、脚本、测试、资源和工程文件。新增但尚未接入的候选优化文件会标记状态。过滤框可按文件名、路径或功能搜索。</p><input id="q" placeholder="搜索，例如 候选、皮肤、剪贴板、NativeClient"><details><summary>展开完整 tree</summary><pre>mobile-ime-offline/
+├── .gitattributes
+├── .gitignore
+├── .gradle/  本机构建缓存（Git忽略）
+├── LICENSE
+├── README.md
+├── VERSION
+├── app/
+│   ├── build/  Android 构建产物（Git忽略）
+│   ├── build.gradle.kts
+│   └── src/
+│       ├── androidTest/
+│       │   └── java/
+│       │       └── app/
+│       │           └── msime/
+│       │               └── offline/
+│       │                   └── NopeDeviceSmoke.java
+│       ├── engine/
+│       │   ├── java/
+│       │   │   └── app/
+│       │   │       └── msime/
+│       │   │           ├── android/
+│       │   │           │   ├── BoundsPolicy.java
+│       │   │           │   ├── NativeClient.java
+│       │   │           │   └── SelectionEchoTracker.java
+│       │   │           └── offline/
+│       │   │               ├── ChineseConversion.java
+│       │   │               ├── EditorTransition.java
+│       │   │               ├── EngineInstall.java
+│       │   │               ├── FieldPolicy.java
+│       │   │               └── JapaneseInput.java
+│       │   └── jniLibs/
+│       │       └── arm64-v8a/
+│       │           ├── libc++_shared.so
+│       │           ├── libmsime_android.so
+│       │           └── libmsime_host_api.so
+│       ├── features/
+│       │   └── java/
+│       │       └── app/
+│       │           └── msime/
+│       │               └── offline/
+│       │                   ├── ClipboardPolicy.java
+│       │                   ├── ClipboardRetention.java
+│       │                   ├── ClipboardSettings.java
+│       │                   ├── ClipboardStore.java
+│       │                   ├── ClipboardSuggestion.java
+│       │                   ├── ClipboardText.java
+│       │                   ├── EmojiCatalog.java
+│       │                   └── EmojiCell.java
+│       ├── layout/
+│       │   └── java/
+│       │       └── app/
+│       │           └── msime/
+│       │               ├── android/
+│       │               │   ├── CodingCompletion.java
+│       │               │   ├── CodingInput.java
+│       │               │   ├── CodingKeyMap.java
+│       │               │   ├── CodingLayout.java
+│       │               │   ├── KeyboardGapPolicy.java
+│       │               │   └── KeyboardKeyArea.java
+│       │               └── offline/
+│       │                   ├── ArrowButton.java
+│       │                   ├── CandidateList.java
+│       │                   ├── CandidatePageSwipe.java
+│       │                   ├── CandidateRequest.java
+│       │                   ├── CandidateRows.java
+│       │                   ├── CandidateStrip.java
+│       │                   ├── DeleteSwipe.java
+│       │                   ├── EditingSwipe.java
+│       │                   ├── HapticStrength.java
+│       │                   ├── HintKey.java
+│       │                   ├── InputTouchPolicy.java
+│       │                   ├── KeyButton.java
+│       │                   ├── KeyFeedback.java
+│       │                   ├── KeyPreview.java
+│       │                   ├── KeyPreviewState.java
+│       │                   ├── KeyboardIcon.java
+│       │                   ├── KeyboardMetrics.java
+│       │                   ├── KeyboardText.java
+│       │                   ├── QuickLanguages.java
+│       │                   ├── SymbolLayouts.java
+│       │                   ├── VariantPanel.java
+│       │                   └── VariantSelection.java
+│       ├── main/
+│       │   ├── AndroidManifest.xml
+│       │   └── java/
+│       │       └── app/
+│       │           └── msime/
+│       │               └── offline/
+│       │                   ├── OfflineImeService.java
+│       │                   └── SetupActivity.java
+│       ├── resources/
+│       │   ├── assets/
+│       │   │   ├── client-LICENSE.txt
+│       │   │   ├── desktop-dictionary.lock.json
+│       │   │   ├── dictionary/
+│       │   │   │   ├── msime-bigram.bin
+│       │   │   │   ├── msime-dictionary-manifest.json
+│       │   │   │   ├── msime-english.db
+│       │   │   │   ├── msime-japanese.dat
+│       │   │   │   ├── msime-mozc_LICENSE.txt
+│       │   │   │   ├── msime-mozc_dictionary_oss_README.txt
+│       │   │   │   ├── msime-others.db
+│       │   │   │   ├── msime-pinyin.db
+│       │   │   │   ├── msime-scowl_Copyright.txt
+│       │   │   │   ├── msime-trigram.bin
+│       │   │   │   ├── msime-wubi.db
+│       │   │   │   └── sentence-model.safetensors
+│       │   │   ├── emoji/
+│       │   │   │   └── catalog.json
+│       │   │   ├── japanese-dictionary.lock.json
+│       │   │   ├── licenses/
+│       │   │   │   ├── NET-Nunito-OFL.txt
+│       │   │   │   └── UNICODE-LICENSE.txt
+│       │   │   ├── native-notices/
+│       │   │   │   └── arm64-v8a/
+│       │   │   │       ├── ewts.txt
+│       │   │   │       ├── libchewing-data.txt
+│       │   │   │       ├── libhangul-hanja.txt
+│       │   │   │       ├── ndk-sysroot.txt
+│       │   │   │       ├── ndk-toolchain.txt
+│       │   │   │       ├── nlohmann-json.txt
+│       │   │   │       ├── onnxruntime-third-party.txt
+│       │   │   │       ├── onnxruntime.txt
+│       │   │   │       ├── rime-cantonese.txt
+│       │   │   │       ├── rime-stroke.txt
+│       │   │   │       ├── sherpa-onnx.txt
+│       │   │   │       └── vi.txt
+│       │   │   ├── opencc/
+│       │   │   │   ├── CJK_Compatibility_Ideographs.txt
+│       │   │   │   ├── LICENSE
+│       │   │   │   ├── NOTICE.txt
+│       │   │   │   ├── STCharacters.txt
+│       │   │   │   ├── STPhrases.txt
+│       │   │   │   └── STPhrases_GeneratedFromRegionalPhrases.txt
+│       │   │   ├── provenance.json
+│       │   │   ├── runtime-dictionary.lock.json
+│       │   │   ├── skin/
+│       │   │   │   ├── S4U-FONT-NOTICE.txt
+│       │   │   │   ├── net/
+│       │   │   │   │   ├── assets.json
+│       │   │   │   │   ├── brand.png
+│       │   │   │   │   ├── clipboard.png
+│       │   │   │   │   ├── emoji.png
+│       │   │   │   │   ├── frosted-background.png
+│       │   │   │   │   ├── net-rounded.ttf
+│       │   │   │   │   └── settings.png
+│       │   │   │   └── s4u-keycaps.ttf
+│       │   │   └── skins/
+│       │   │       ├── cloud.json
+│       │   │       ├── color.json
+│       │   │       ├── ios.json
+│       │   │       ├── lavender.json
+│       │   │       ├── line.json
+│       │   │       ├── metal.json
+│       │   │       ├── mono.json
+│       │   │       ├── retro.json
+│       │   │       ├── schema-v1.json
+│       │   │       └── system.json
+│       │   └── res/
+│       │       ├── drawable/
+│       │       │   └── ic_keyboard.xml
+│       │       ├── values/
+│       │       │   ├── ids.xml
+│       │       │   ├── strings.xml
+│       │       │   └── styles.xml
+│       │       ├── values-night/
+│       │       │   └── styles.xml
+│       │       ├── values-night-v31/
+│       │       │   └── styles.xml
+│       │       ├── values-v31/
+│       │       │   └── styles.xml
+│       │       └── xml/
+│       │           ├── data_extraction_rules.xml
+│       │           └── method.xml
+│       └── skin/
+│           └── java/
+│               └── app/
+│                   └── msime/
+│                       └── offline/
+│                           ├── BrandMark.java
+│                           ├── BrandSymbols.java
+│                           ├── GlassWindow.java
+│                           ├── IosTheme.java
+│                           ├── MetalBackground.java
+│                           ├── NetAssets.java
+│                           ├── PixelGlassDrawable.java
+│                           ├── PixelGlyphs.java
+│                           ├── RetroDrawable.java
+│                           ├── RetroRecordDrawable.java
+│                           ├── RetroTypeface.java
+│                           ├── SettingsMaterial.java
+│                           ├── SkinConfig.java
+│                           ├── SkinFiles.java
+│                           ├── SkinKeyDrawable.java
+│                           ├── SkinPalette.java
+│                           └── SkinStack.java
+├── build/  根构建产物（Git忽略）
+├── build.gradle.kts
+├── dist/  安装包、源码包和摘要（Git忽略）
+├── docs/  示意图、源码导览与历史核验 JSON
+├── gradle.properties
+├── provenance.json
+├── scripts/
+│   ├── build_net_assets.py
+│   ├── build_s4u_font.py
+│   ├── extract_msime.py
+│   ├── import_emoji.py
+│   ├── import_japanese.py
+│   ├── import_net_font.py
+│   ├── package_release.py
+│   ├── package_source.py
+│   ├── project_paths.py
+│   ├── render_net.py
+│   ├── render_settings.py
+│   ├── render_skins.py
+│   ├── resource_profile.py
+│   ├── source_map.py
+│   ├── test_local.py
+│   └── verify_apk.py
+├── settings.gradle.kts
+├── target/  本机测试与工具缓存（Git忽略）
+├── tests/
+│   ├── CandidateExpansionSmoke.java
+│   ├── ClipboardTextSmoke.java
+│   ├── CodingKeyboardSmoke.java
+│   ├── EditorTransitionSmoke.java
+│   ├── FeedbackUpgradeSmoke.java
+│   ├── FieldPolicySmoke.java
+│   ├── JapaneseInputSmoke.java
+│   ├── KeyboardUpgradeSmoke.java
+│   ├── NopeUpgradeSmoke.java
+│   ├── QuickLanguagesSmoke.java
+│   ├── SkinTokens.java
+│   ├── emoji_catalog_test.py
+│   ├── japanese_assets_test.py
+│   ├── net_assets_test.py
+│   ├── resource_profile_test.py
+│   └── skin_contract_test.py
+└── vendor/  上游完整源码、字体源和原始数据
+    ├── msime-android-v0.3.1-source.tar.gz
+    ├── net-font/
+    │   ├── Nunito-Variable.ttf
+    │   └── provenance.json
+    └── unicode-17-emoji-test.txt</pre></details><table><thead><tr><th>文件</th><th>作用</th><th>字节</th></tr></thead><tbody><tr><td><a href="../.gitattributes">.gitattributes</a><small></small></td><td>文本换行与二进制文件属性。</td><td>211</td></tr><tr><td><a href="../.gitignore">.gitignore</a><small></small></td><td>排除缓存、安装包、密钥和本机配置。</td><td>169</td></tr><tr><td><a href="../app/build.gradle.kts">app/build.gradle.kts</a><small></small></td><td>Android 版本、ABI、源码根目录、打包、签名入口和 Lint 配置。</td><td>1,322</td></tr><tr><td><a href="../app/src/androidTest/java/app/msime/offline/NopeDeviceSmoke.java">app/src/androidTest/java/app/msime/offline/NopeDeviceSmoke.java</a><small></small></td><td>需手机执行的 instrumentation：真实 JNI、中日文、字体、材质图标及键盘几何检查。</td><td>15,483</td></tr><tr><td><a href="../app/src/engine/java/app/msime/android/BoundsPolicy.java">app/src/engine/java/app/msime/android/BoundsPolicy.java</a><small></small></td><td>纯 Java 数值上下界，供跨平台策略和几何计算使用。</td><td>1,724</td></tr><tr><td><a href="../app/src/engine/java/app/msime/android/NativeClient.java">app/src/engine/java/app/msime/android/NativeClient.java</a><small></small></td><td>匹配原生符号的 JNI 桥接，调用固定版本的本地引擎；不实现词典算法。</td><td>2,822</td></tr><tr><td><a href="../app/src/engine/java/app/msime/android/SelectionEchoTracker.java">app/src/engine/java/app/msime/android/SelectionEchoTracker.java</a><small></small></td><td>跟踪预期选区回报，区分迟到回声和真实光标移动，防止快速键入时首字母组字丢失。</td><td>11,439</td></tr><tr><td><a href="../app/src/engine/java/app/msime/offline/ChineseConversion.java">app/src/engine/java/app/msime/offline/ChineseConversion.java</a><small></small></td><td>用随包 OpenCC 字符和词组表转换中文候选与上屏文字。</td><td>2,639</td></tr><tr><td><a href="../app/src/engine/java/app/msime/offline/EditorTransition.java">app/src/engine/java/app/msime/offline/EditorTransition.java</a><small></small></td><td>处理输入框切换、焦点变化与会话迁移，避免把旧输入带进新编辑器。</td><td>1,029</td></tr><tr><td><a href="../app/src/engine/java/app/msime/offline/EngineInstall.java">app/src/engine/java/app/msime/offline/EngineInstall.java</a><small></small></td><td>安装并校验完整词库/模型、准备原生宿主和引擎会话配置。</td><td>6,368</td></tr><tr><td><a href="../app/src/engine/java/app/msime/offline/FieldPolicy.java">app/src/engine/java/app/msime/offline/FieldPolicy.java</a><small></small></td><td>识别密码、私密、普通和终端字段，决定直输、学习和剪贴板边界。</td><td>787</td></tr><tr><td><a href="../app/src/engine/java/app/msime/offline/JapaneseInput.java">app/src/engine/java/app/msime/offline/JapaneseInput.java</a><small></small></td><td>日文罗马字组字、假名读音、空格转换和回车确认的状态策略。</td><td>821</td></tr><tr><td><a href="../app/src/engine/jniLibs/arm64-v8a/libc%2B%2B_shared.so">app/src/engine/jniLibs/arm64-v8a/libc++_shared.so</a><small></small></td><td>ARM64 预编译原生引擎或运行库，由 JNI 使用。</td><td>1,253,544</td></tr><tr><td><a href="../app/src/engine/jniLibs/arm64-v8a/libmsime_android.so">app/src/engine/jniLibs/arm64-v8a/libmsime_android.so</a><small></small></td><td>ARM64 预编译原生引擎或运行库，由 JNI 使用。</td><td>761,216</td></tr><tr><td><a href="../app/src/engine/jniLibs/arm64-v8a/libmsime_host_api.so">app/src/engine/jniLibs/arm64-v8a/libmsime_host_api.so</a><small></small></td><td>ARM64 预编译原生引擎或运行库，由 JNI 使用。</td><td>22,653,312</td></tr><tr><td><a href="../app/src/features/java/app/msime/offline/ClipboardPolicy.java">app/src/features/java/app/msime/offline/ClipboardPolicy.java</a><small></small></td><td>筛选可记录的普通纯文本，排除敏感字段、敏感标记和非文本剪贴板。</td><td>460</td></tr><tr><td><a href="../app/src/features/java/app/msime/offline/ClipboardRetention.java">app/src/features/java/app/msime/offline/ClipboardRetention.java</a><small></small></td><td>剪贴板保留时间解析、过期判断和置顶豁免。</td><td>499</td></tr><tr><td><a href="../app/src/features/java/app/msime/offline/ClipboardSettings.java">app/src/features/java/app/msime/offline/ClipboardSettings.java</a><small></small></td><td>剪贴板保留时长选择及当前设置摘要。</td><td>1,888</td></tr><tr><td><a href="../app/src/features/java/app/msime/offline/ClipboardStore.java">app/src/features/java/app/msime/offline/ClipboardStore.java</a><small></small></td><td>应用私有剪贴板数据库：条目、置顶、去重、删除、容量及过期维护。</td><td>2,887</td></tr><tr><td><a href="../app/src/features/java/app/msime/offline/ClipboardSuggestion.java">app/src/features/java/app/msime/offline/ClipboardSuggestion.java</a><small></small></td><td>管理最近一次复制的临时提示，与历史排序及置顶相互独立。</td><td>812</td></tr><tr><td><a href="../app/src/features/java/app/msime/offline/ClipboardText.java">app/src/features/java/app/msime/offline/ClipboardText.java</a><small></small></td><td>限制预览排版开销、处理换行和 Unicode；保存与粘贴保持完整原文。</td><td>839</td></tr><tr><td><a href="../app/src/features/java/app/msime/offline/EmojiCatalog.java">app/src/features/java/app/msime/offline/EmojiCatalog.java</a><small></small></td><td>读取 Unicode 表情分类，按当前设备字体过滤不支持的序列。</td><td>2,166</td></tr><tr><td><a href="../app/src/features/java/app/msime/offline/EmojiCell.java">app/src/features/java/app/msime/offline/EmojiCell.java</a><small></small></td><td>独立绘制表情单元，避免回收按钮的省略和滚动状态影响显示。</td><td>1,603</td></tr><tr><td><a href="../app/src/layout/java/app/msime/android/CodingCompletion.java">app/src/layout/java/app/msime/android/CodingCompletion.java</a><small></small></td><td>本机静态代码/命令片段补全；只补缺失后缀，不执行命令。</td><td>7,179</td></tr><tr><td><a href="../app/src/layout/java/app/msime/android/CodingInput.java">app/src/layout/java/app/msime/android/CodingInput.java</a><small></small></td><td>成对发送按下/抬起与修饰键事件，异常路径也释放按键。</td><td>1,547</td></tr><tr><td><a href="../app/src/layout/java/app/msime/android/CodingKeyMap.java">app/src/layout/java/app/msime/android/CodingKeyMap.java</a><small></small></td><td>把半角字符、Ctrl、Alt、Shift 映射为 Android 按键代码与元状态。</td><td>1,458</td></tr><tr><td><a href="../app/src/layout/java/app/msime/android/CodingLayout.java">app/src/layout/java/app/msime/android/CodingLayout.java</a><small></small></td><td>Code 字母与标点布局数据，分层提供完整可达的 ASCII 字符。</td><td>570</td></tr><tr><td><a href="../app/src/layout/java/app/msime/android/KeyboardGapPolicy.java">app/src/layout/java/app/msime/android/KeyboardGapPolicy.java</a><small></small></td><td>将键间空隙中的落点分配给相邻键，避免触点落在边距时丢键。</td><td>1,725</td></tr><tr><td><a href="../app/src/layout/java/app/msime/android/KeyboardKeyArea.java">app/src/layout/java/app/msime/android/KeyboardKeyArea.java</a><small></small></td><td>键盘行/列触摸容器，负责键缝命中、指针坐标平移和取消派发。</td><td>11,648</td></tr><tr><td><a href="../app/src/layout/java/app/msime/offline/ArrowButton.java">app/src/layout/java/app/msime/offline/ArrowButton.java</a><small></small></td><td>方向控制按钮，使用原生文本绘制方向符号。</td><td>336</td></tr><tr><td><a href="../app/src/layout/java/app/msime/offline/CandidateList.java">app/src/layout/java/app/msime/offline/CandidateList.java</a><small></small></td><td>原生 ListView 候选列表，仅创建可见行的候选按钮，长词仍可折行。</td><td>2,775</td></tr><tr><td><a href="../app/src/layout/java/app/msime/offline/CandidatePageSwipe.java">app/src/layout/java/app/msime/offline/CandidatePageSwipe.java</a><small></small></td><td>候选横栏边缘翻页手势判定。</td><td>576</td></tr><tr><td><a href="../app/src/layout/java/app/msime/offline/CandidateRequest.java">app/src/layout/java/app/msime/offline/CandidateRequest.java</a><small></small></td><td>延迟候选查询票据，防止收起、编辑或换输入框后使用旧结果。</td><td>715</td></tr><tr><td><a href="../app/src/layout/java/app/msime/offline/CandidateRows.java">app/src/layout/java/app/msime/offline/CandidateRows.java</a><small></small></td><td>按实际词宽计算候选行与索引，不创建任何 Android View。</td><td>850</td></tr><tr><td><a href="../app/src/layout/java/app/msime/offline/CandidateStrip.java">app/src/layout/java/app/msime/offline/CandidateStrip.java</a><small></small></td><td>可横向滚动候选栏，滑到边缘后转交引擎翻页。</td><td>2,889</td></tr><tr><td><a href="../app/src/layout/java/app/msime/offline/DeleteSwipe.java">app/src/layout/java/app/msime/offline/DeleteSwipe.java</a><small></small></td><td>删除长按/上滑清空的可取消手势策略。</td><td>698</td></tr><tr><td><a href="../app/src/layout/java/app/msime/offline/EditingSwipe.java">app/src/layout/java/app/msime/offline/EditingSwipe.java</a><small></small></td><td>字母下滑的撤回、全选、剪切、复制、粘贴策略。</td><td>632</td></tr><tr><td><a href="../app/src/layout/java/app/msime/offline/HapticStrength.java">app/src/layout/java/app/msime/offline/HapticStrength.java</a><small></small></td><td>震动百分比到振幅/时长的映射。</td><td>401</td></tr><tr><td><a href="../app/src/layout/java/app/msime/offline/HintKey.java">app/src/layout/java/app/msime/offline/HintKey.java</a><small></small></td><td>显示数字或标点提示的字母键；NET. 的已绘制数字避免重复显示。</td><td>1,198</td></tr><tr><td><a href="../app/src/layout/java/app/msime/offline/InputTouchPolicy.java">app/src/layout/java/app/msime/offline/InputTouchPolicy.java</a><small></small></td><td>区分轻触抖动和主动的滑动手势。</td><td>408</td></tr><tr><td><a href="../app/src/layout/java/app/msime/offline/KeyboardIcon.java">app/src/layout/java/app/msime/offline/KeyboardIcon.java</a><small></small></td><td>工具、品牌和功能键图标；NET. 可使用独立 PNG。</td><td>7,694</td></tr><tr><td><a href="../app/src/layout/java/app/msime/offline/KeyboardMetrics.java">app/src/layout/java/app/msime/offline/KeyboardMetrics.java</a><small></small></td><td>普通/Code 键盘高度、行高和辅助控制区尺寸。</td><td>1,287</td></tr><tr><td><a href="../app/src/layout/java/app/msime/offline/KeyboardText.java">app/src/layout/java/app/msime/offline/KeyboardText.java</a><small></small></td><td>按键文字缩放上下界与固定候选字号。</td><td>449</td></tr><tr><td><a href="../app/src/layout/java/app/msime/offline/KeyButton.java">app/src/layout/java/app/msime/offline/KeyButton.java</a><small></small></td><td>按键文字测量、缩放、按压反馈、预览与触摸基础控件。</td><td>5,010</td></tr><tr><td><a href="../app/src/layout/java/app/msime/offline/KeyFeedback.java">app/src/layout/java/app/msime/offline/KeyFeedback.java</a><small></small></td><td>执行用户设置的按键震动，处理硬件与系统限制。</td><td>1,442</td></tr><tr><td><a href="../app/src/layout/java/app/msime/offline/KeyPreview.java">app/src/layout/java/app/msime/offline/KeyPreview.java</a><small></small></td><td>显示不拦截触摸的字母气泡，并处理屏幕边缘位置。</td><td>5,428</td></tr><tr><td><a href="../app/src/layout/java/app/msime/offline/KeyPreviewState.java">app/src/layout/java/app/msime/offline/KeyPreviewState.java</a><small></small></td><td>气泡的按键所有权与代数票据，防止旧松手隐藏新气泡。</td><td>957</td></tr><tr><td><a href="../app/src/layout/java/app/msime/offline/QuickLanguages.java">app/src/layout/java/app/msime/offline/QuickLanguages.java</a><small></small></td><td>默认中英互切及自定义快速语言循环。</td><td>1,510</td></tr><tr><td><a href="../app/src/layout/java/app/msime/offline/SymbolLayouts.java">app/src/layout/java/app/msime/offline/SymbolLayouts.java</a><small></small></td><td>符号页、数字上滑提示和长按变体数据。</td><td>3,330</td></tr><tr><td><a href="../app/src/layout/java/app/msime/offline/VariantPanel.java">app/src/layout/java/app/msime/offline/VariantPanel.java</a><small></small></td><td>跟随手指选择的长按/上滑变体弹窗。</td><td>2,104</td></tr><tr><td><a href="../app/src/layout/java/app/msime/offline/VariantSelection.java">app/src/layout/java/app/msime/offline/VariantSelection.java</a><small></small></td><td>变体弹窗定位、命中和滑回取消的几何计算。</td><td>1,271</td></tr><tr><td><a href="../app/src/main/AndroidManifest.xml">app/src/main/AndroidManifest.xml</a><small></small></td><td>注册设置 Activity、输入法服务及权限。</td><td>1,183</td></tr><tr><td><a href="../app/src/main/java/app/msime/offline/OfflineImeService.java">app/src/main/java/app/msime/offline/OfflineImeService.java</a><small></small></td><td>输入法主服务：组字、引擎会话、键盘构建、候选、语言切换、手势及各功能面板的入口。</td><td>104,608</td></tr><tr><td><a href="../app/src/main/java/app/msime/offline/SetupActivity.java">app/src/main/java/app/msime/offline/SetupActivity.java</a><small></small></td><td>应用设置与试打入口：启用输入法、语言、高度、文字、反馈、皮肤和本地数据设置。</td><td>18,713</td></tr><tr><td><a href="../app/src/resources/assets/client-LICENSE.txt">app/src/resources/assets/client-LICENSE.txt</a><small></small></td><td>资源或工程元数据；完整相对路径见文件列。</td><td>35,149</td></tr><tr><td><a href="../app/src/resources/assets/desktop-dictionary.lock.json">app/src/resources/assets/desktop-dictionary.lock.json</a><small></small></td><td>固定版本资源的清单、尺寸和摘要。</td><td>2,549</td></tr><tr><td><a href="../app/src/resources/assets/dictionary/msime-bigram.bin">app/src/resources/assets/dictionary/msime-bigram.bin</a><small></small></td><td>固定离线词库、语言模型或其来源/许可声明。</td><td>12,000,016</td></tr><tr><td><a href="../app/src/resources/assets/dictionary/msime-dictionary-manifest.json">app/src/resources/assets/dictionary/msime-dictionary-manifest.json</a><small></small></td><td>固定离线词库、语言模型或其来源/许可声明。</td><td>4,627</td></tr><tr><td><a href="../app/src/resources/assets/dictionary/msime-english.db">app/src/resources/assets/dictionary/msime-english.db</a><small></small></td><td>固定离线词库、语言模型或其来源/许可声明。</td><td>4,526,080</td></tr><tr><td><a href="../app/src/resources/assets/dictionary/msime-japanese.dat">app/src/resources/assets/dictionary/msime-japanese.dat</a><small></small></td><td>固定离线词库、语言模型或其来源/许可声明。</td><td>66,547,565</td></tr><tr><td><a href="../app/src/resources/assets/dictionary/msime-mozc_dictionary_oss_README.txt">app/src/resources/assets/dictionary/msime-mozc_dictionary_oss_README.txt</a><small></small></td><td>固定离线词库、语言模型或其来源/许可声明。</td><td>5,750</td></tr><tr><td><a href="../app/src/resources/assets/dictionary/msime-mozc_LICENSE.txt">app/src/resources/assets/dictionary/msime-mozc_LICENSE.txt</a><small></small></td><td>固定离线词库、语言模型或其来源/许可声明。</td><td>5,734</td></tr><tr><td><a href="../app/src/resources/assets/dictionary/msime-others.db">app/src/resources/assets/dictionary/msime-others.db</a><small></small></td><td>固定离线词库、语言模型或其来源/许可声明。</td><td>1,314,816</td></tr><tr><td><a href="../app/src/resources/assets/dictionary/msime-pinyin.db">app/src/resources/assets/dictionary/msime-pinyin.db</a><small></small></td><td>固定离线词库、语言模型或其来源/许可声明。</td><td>73,711,616</td></tr><tr><td><a href="../app/src/resources/assets/dictionary/msime-scowl_Copyright.txt">app/src/resources/assets/dictionary/msime-scowl_Copyright.txt</a><small></small></td><td>固定离线词库、语言模型或其来源/许可声明。</td><td>4,028</td></tr><tr><td><a href="../app/src/resources/assets/dictionary/msime-trigram.bin">app/src/resources/assets/dictionary/msime-trigram.bin</a><small></small></td><td>固定离线词库、语言模型或其来源/许可声明。</td><td>12,000,016</td></tr><tr><td><a href="../app/src/resources/assets/dictionary/msime-wubi.db">app/src/resources/assets/dictionary/msime-wubi.db</a><small></small></td><td>固定离线词库、语言模型或其来源/许可声明。</td><td>14,536,704</td></tr><tr><td><a href="../app/src/resources/assets/dictionary/sentence-model.safetensors">app/src/resources/assets/dictionary/sentence-model.safetensors</a><small></small></td><td>固定离线词库、语言模型或其来源/许可声明。</td><td>4,486,280</td></tr><tr><td><a href="../app/src/resources/assets/emoji/catalog.json">app/src/resources/assets/emoji/catalog.json</a><small></small></td><td>资源或工程元数据；完整相对路径见文件列。</td><td>182,676</td></tr><tr><td><a href="../app/src/resources/assets/japanese-dictionary.lock.json">app/src/resources/assets/japanese-dictionary.lock.json</a><small></small></td><td>固定版本资源的清单、尺寸和摘要。</td><td>965</td></tr><tr><td><a href="../app/src/resources/assets/licenses/NET-Nunito-OFL.txt">app/src/resources/assets/licenses/NET-Nunito-OFL.txt</a><small></small></td><td>随包第三方许可或来源声明，不能按普通说明文档删除。</td><td>4,385</td></tr><tr><td><a href="../app/src/resources/assets/licenses/UNICODE-LICENSE.txt">app/src/resources/assets/licenses/UNICODE-LICENSE.txt</a><small></small></td><td>随包第三方许可或来源声明，不能按普通说明文档删除。</td><td>1,995</td></tr><tr><td><a href="../app/src/resources/assets/native-notices/arm64-v8a/ewts.txt">app/src/resources/assets/native-notices/arm64-v8a/ewts.txt</a><small></small></td><td>随包第三方许可或来源声明，不能按普通说明文档删除。</td><td>12,644</td></tr><tr><td><a href="../app/src/resources/assets/native-notices/arm64-v8a/libchewing-data.txt">app/src/resources/assets/native-notices/arm64-v8a/libchewing-data.txt</a><small></small></td><td>随包第三方许可或来源声明，不能按普通说明文档删除。</td><td>29,753</td></tr><tr><td><a href="../app/src/resources/assets/native-notices/arm64-v8a/libhangul-hanja.txt">app/src/resources/assets/native-notices/arm64-v8a/libhangul-hanja.txt</a><small></small></td><td>随包第三方许可或来源声明，不能按普通说明文档删除。</td><td>1,489</td></tr><tr><td><a href="../app/src/resources/assets/native-notices/arm64-v8a/ndk-sysroot.txt">app/src/resources/assets/native-notices/arm64-v8a/ndk-sysroot.txt</a><small></small></td><td>随包第三方许可或来源声明，不能按普通说明文档删除。</td><td>494,921</td></tr><tr><td><a href="../app/src/resources/assets/native-notices/arm64-v8a/ndk-toolchain.txt">app/src/resources/assets/native-notices/arm64-v8a/ndk-toolchain.txt</a><small></small></td><td>随包第三方许可或来源声明，不能按普通说明文档删除。</td><td>130,424</td></tr><tr><td><a href="../app/src/resources/assets/native-notices/arm64-v8a/nlohmann-json.txt">app/src/resources/assets/native-notices/arm64-v8a/nlohmann-json.txt</a><small></small></td><td>随包第三方许可或来源声明，不能按普通说明文档删除。</td><td>1,076</td></tr><tr><td><a href="../app/src/resources/assets/native-notices/arm64-v8a/onnxruntime-third-party.txt">app/src/resources/assets/native-notices/arm64-v8a/onnxruntime-third-party.txt</a><small></small></td><td>随包第三方许可或来源声明，不能按普通说明文档删除。</td><td>325,236</td></tr><tr><td><a href="../app/src/resources/assets/native-notices/arm64-v8a/onnxruntime.txt">app/src/resources/assets/native-notices/arm64-v8a/onnxruntime.txt</a><small></small></td><td>随包第三方许可或来源声明，不能按普通说明文档删除。</td><td>1,601</td></tr><tr><td><a href="../app/src/resources/assets/native-notices/arm64-v8a/rime-cantonese.txt">app/src/resources/assets/native-notices/arm64-v8a/rime-cantonese.txt</a><small></small></td><td>随包第三方许可或来源声明，不能按普通说明文档删除。</td><td>21,204</td></tr><tr><td><a href="../app/src/resources/assets/native-notices/arm64-v8a/rime-stroke.txt">app/src/resources/assets/native-notices/arm64-v8a/rime-stroke.txt</a><small></small></td><td>随包第三方许可或来源声明，不能按普通说明文档删除。</td><td>10,086</td></tr><tr><td><a href="../app/src/resources/assets/native-notices/arm64-v8a/sherpa-onnx.txt">app/src/resources/assets/native-notices/arm64-v8a/sherpa-onnx.txt</a><small></small></td><td>随包第三方许可或来源声明，不能按普通说明文档删除。</td><td>11,358</td></tr><tr><td><a href="../app/src/resources/assets/native-notices/arm64-v8a/vi.txt">app/src/resources/assets/native-notices/arm64-v8a/vi.txt</a><small></small></td><td>随包第三方许可或来源声明，不能按普通说明文档删除。</td><td>1,052</td></tr><tr><td><a href="../app/src/resources/assets/opencc/CJK_Compatibility_Ideographs.txt">app/src/resources/assets/opencc/CJK_Compatibility_Ideographs.txt</a><small></small></td><td>中文繁简转换数据及其许可/声明。</td><td>41,118</td></tr><tr><td><a href="../app/src/resources/assets/opencc/LICENSE">app/src/resources/assets/opencc/LICENSE</a><small></small></td><td>中文繁简转换数据及其许可/声明。</td><td>9,221</td></tr><tr><td><a href="../app/src/resources/assets/opencc/NOTICE.txt">app/src/resources/assets/opencc/NOTICE.txt</a><small></small></td><td>中文繁简转换数据及其许可/声明。</td><td>616</td></tr><tr><td><a href="../app/src/resources/assets/opencc/STCharacters.txt">app/src/resources/assets/opencc/STCharacters.txt</a><small></small></td><td>中文繁简转换数据及其许可/声明。</td><td>40,055</td></tr><tr><td><a href="../app/src/resources/assets/opencc/STPhrases.txt">app/src/resources/assets/opencc/STPhrases.txt</a><small></small></td><td>中文繁简转换数据及其许可/声明。</td><td>1,057,104</td></tr><tr><td><a href="../app/src/resources/assets/opencc/STPhrases_GeneratedFromRegionalPhrases.txt">app/src/resources/assets/opencc/STPhrases_GeneratedFromRegionalPhrases.txt</a><small></small></td><td>中文繁简转换数据及其许可/声明。</td><td>16,283</td></tr><tr><td><a href="../app/src/resources/assets/provenance.json">app/src/resources/assets/provenance.json</a><small></small></td><td>资源或工程元数据；完整相对路径见文件列。</td><td>1,844</td></tr><tr><td><a href="../app/src/resources/assets/runtime-dictionary.lock.json">app/src/resources/assets/runtime-dictionary.lock.json</a><small></small></td><td>固定版本资源的清单、尺寸和摘要。</td><td>2,642</td></tr><tr><td><a href="../app/src/resources/assets/skin/net/assets.json">app/src/resources/assets/skin/net/assets.json</a><small></small></td><td>NET. 的纹理、字体、透明图标或资源清单。</td><td>1,181</td></tr><tr><td><a href="../app/src/resources/assets/skin/net/brand.png">app/src/resources/assets/skin/net/brand.png</a><small></small></td><td>NET. 的纹理、字体、透明图标或资源清单。</td><td>2,608</td></tr><tr><td><a href="../app/src/resources/assets/skin/net/clipboard.png">app/src/resources/assets/skin/net/clipboard.png</a><small></small></td><td>NET. 的纹理、字体、透明图标或资源清单。</td><td>406</td></tr><tr><td><a href="../app/src/resources/assets/skin/net/emoji.png">app/src/resources/assets/skin/net/emoji.png</a><small></small></td><td>NET. 的纹理、字体、透明图标或资源清单。</td><td>680</td></tr><tr><td><a href="../app/src/resources/assets/skin/net/frosted-background.png">app/src/resources/assets/skin/net/frosted-background.png</a><small></small></td><td>NET. 的纹理、字体、透明图标或资源清单。</td><td>2,789,111</td></tr><tr><td><a href="../app/src/resources/assets/skin/net/net-rounded.ttf">app/src/resources/assets/skin/net/net-rounded.ttf</a><small></small></td><td>NET. 的纹理、字体、透明图标或资源清单。</td><td>44,736</td></tr><tr><td><a href="../app/src/resources/assets/skin/net/settings.png">app/src/resources/assets/skin/net/settings.png</a><small></small></td><td>NET. 的纹理、字体、透明图标或资源清单。</td><td>962</td></tr><tr><td><a href="../app/src/resources/assets/skin/S4U-FONT-NOTICE.txt">app/src/resources/assets/skin/S4U-FONT-NOTICE.txt</a><small></small></td><td>资源或工程元数据；完整相对路径见文件列。</td><td>266</td></tr><tr><td><a href="../app/src/resources/assets/skin/s4u-keycaps.ttf">app/src/resources/assets/skin/s4u-keycaps.ttf</a><small></small></td><td>资源或工程元数据；完整相对路径见文件列。</td><td>13,628</td></tr><tr><td><a href="../app/src/resources/assets/skins/cloud.json">app/src/resources/assets/skins/cloud.json</a><small></small></td><td>皮肤参数与装饰配置。</td><td>568</td></tr><tr><td><a href="../app/src/resources/assets/skins/color.json">app/src/resources/assets/skins/color.json</a><small></small></td><td>皮肤参数与装饰配置。</td><td>921</td></tr><tr><td><a href="../app/src/resources/assets/skins/ios.json">app/src/resources/assets/skins/ios.json</a><small></small></td><td>皮肤参数与装饰配置。</td><td>908</td></tr><tr><td><a href="../app/src/resources/assets/skins/lavender.json">app/src/resources/assets/skins/lavender.json</a><small></small></td><td>皮肤参数与装饰配置。</td><td>7,791</td></tr><tr><td><a href="../app/src/resources/assets/skins/line.json">app/src/resources/assets/skins/line.json</a><small></small></td><td>皮肤参数与装饰配置。</td><td>572</td></tr><tr><td><a href="../app/src/resources/assets/skins/metal.json">app/src/resources/assets/skins/metal.json</a><small></small></td><td>皮肤参数与装饰配置。</td><td>571</td></tr><tr><td><a href="../app/src/resources/assets/skins/mono.json">app/src/resources/assets/skins/mono.json</a><small></small></td><td>皮肤参数与装饰配置。</td><td>572</td></tr><tr><td><a href="../app/src/resources/assets/skins/retro.json">app/src/resources/assets/skins/retro.json</a><small></small></td><td>皮肤参数与装饰配置。</td><td>1,762</td></tr><tr><td><a href="../app/src/resources/assets/skins/schema-v1.json">app/src/resources/assets/skins/schema-v1.json</a><small></small></td><td>皮肤 JSON 格式约束。</td><td>5,333</td></tr><tr><td><a href="../app/src/resources/assets/skins/system.json">app/src/resources/assets/skins/system.json</a><small></small></td><td>皮肤参数与装饰配置。</td><td>922</td></tr><tr><td><a href="../app/src/resources/res/drawable/ic_keyboard.xml">app/src/resources/res/drawable/ic_keyboard.xml</a><small></small></td><td>应用图标矢量资源。</td><td>868</td></tr><tr><td><a href="../app/src/resources/res/values/ids.xml">app/src/resources/res/values/ids.xml</a><small></small></td><td>试打和无障碍操作等资源 ID。</td><td>133</td></tr><tr><td><a href="../app/src/resources/res/values/strings.xml">app/src/resources/res/values/strings.xml</a><small></small></td><td>界面格式化文字资源。</td><td>98</td></tr><tr><td><a href="../app/src/resources/res/values/styles.xml">app/src/resources/res/values/styles.xml</a><small></small></td><td>系统明暗/Android 版本对应的主题配置。</td><td>1,132</td></tr><tr><td><a href="../app/src/resources/res/values-night/styles.xml">app/src/resources/res/values-night/styles.xml</a><small></small></td><td>系统明暗/Android 版本对应的主题配置。</td><td>430</td></tr><tr><td><a href="../app/src/resources/res/values-night-v31/styles.xml">app/src/resources/res/values-night-v31/styles.xml</a><small></small></td><td>系统明暗/Android 版本对应的主题配置。</td><td>430</td></tr><tr><td><a href="../app/src/resources/res/values-v31/styles.xml">app/src/resources/res/values-v31/styles.xml</a><small></small></td><td>系统明暗/Android 版本对应的主题配置。</td><td>434</td></tr><tr><td><a href="../app/src/resources/res/xml/data_extraction_rules.xml">app/src/resources/res/xml/data_extraction_rules.xml</a><small></small></td><td>限制本机数据备份/迁移。</td><td>1,011</td></tr><tr><td><a href="../app/src/resources/res/xml/method.xml">app/src/resources/res/xml/method.xml</a><small></small></td><td>系统输入法入口、设置页和语言 subtype。</td><td>537</td></tr><tr><td><a href="../app/src/skin/java/app/msime/offline/BrandMark.java">app/src/skin/java/app/msime/offline/BrandMark.java</a><small></small></td><td>默认 N 在上、ope 在下的方正标志路径。</td><td>1,155</td></tr><tr><td><a href="../app/src/skin/java/app/msime/offline/BrandSymbols.java">app/src/skin/java/app/msime/offline/BrandSymbols.java</a><small></small></td><td>各皮肤专属的云朵、命令键及咬痕梨子原生图标。</td><td>1,919</td></tr><tr><td><a href="../app/src/skin/java/app/msime/offline/GlassWindow.java">app/src/skin/java/app/msime/offline/GlassWindow.java</a><small></small></td><td>在可安全限定到键盘窗口时使用系统模糊，并提供回退。</td><td>3,415</td></tr><tr><td><a href="../app/src/skin/java/app/msime/offline/IosTheme.java">app/src/skin/java/app/msime/offline/IosTheme.java</a><small></small></td><td>整合皮肤配置、色板、候选颜色和材质资源。</td><td>2,619</td></tr><tr><td><a href="../app/src/skin/java/app/msime/offline/MetalBackground.java">app/src/skin/java/app/msime/offline/MetalBackground.java</a><small></small></td><td>原生绘制 mac 拟物的拉丝金属背景。</td><td>942</td></tr><tr><td><a href="../app/src/skin/java/app/msime/offline/NetAssets.java">app/src/skin/java/app/msime/offline/NetAssets.java</a><small></small></td><td>缓存 NET. 雾面纹理、透明图标和圆润字体，避免逐键重复解码。</td><td>2,154</td></tr><tr><td><a href="../app/src/skin/java/app/msime/offline/PixelGlassDrawable.java">app/src/skin/java/app/msime/offline/PixelGlassDrawable.java</a><small></small></td><td>绘制 NET. 雾面背景、圆角玻璃键帽及首排 1–0。</td><td>5,127</td></tr><tr><td><a href="../app/src/skin/java/app/msime/offline/PixelGlyphs.java">app/src/skin/java/app/msime/offline/PixelGlyphs.java</a><small></small></td><td>项目自制的像素字形数据与绘制，主要用于 S4U 气泡及字体源。</td><td>2,969</td></tr><tr><td><a href="../app/src/skin/java/app/msime/offline/RetroDrawable.java">app/src/skin/java/app/msime/offline/RetroDrawable.java</a><small></small></td><td>绘制 S4U 米色机壳、厚键帽和墨绿 LCD 槽。</td><td>6,528</td></tr><tr><td><a href="../app/src/skin/java/app/msime/offline/RetroRecordDrawable.java">app/src/skin/java/app/msime/offline/RetroRecordDrawable.java</a><small></small></td><td>S4U 独立全彩唱片图标，按按钮可用区域居中，不参与文字排版和染色。</td><td>1,802</td></tr><tr><td><a href="../app/src/skin/java/app/msime/offline/RetroTypeface.java">app/src/skin/java/app/msime/offline/RetroTypeface.java</a><small></small></td><td>加载并缓存 S4U 随包像素 TTF。</td><td>453</td></tr><tr><td><a href="../app/src/skin/java/app/msime/offline/SettingsMaterial.java">app/src/skin/java/app/msime/offline/SettingsMaterial.java</a><small></small></td><td>设置页的明暗雾面背景、细纹理及圆角功能按钮材质。</td><td>2,750</td></tr><tr><td><a href="../app/src/skin/java/app/msime/offline/SkinConfig.java">app/src/skin/java/app/msime/offline/SkinConfig.java</a><small></small></td><td>校验并读取皮肤 JSON：色板、角色、图层、装饰和背景透视。</td><td>7,610</td></tr><tr><td><a href="../app/src/skin/java/app/msime/offline/SkinFiles.java">app/src/skin/java/app/msime/offline/SkinFiles.java</a><small></small></td><td>把用户选择的 JSON 配置导入应用私有目录，支持恢复默认。</td><td>1,849</td></tr><tr><td><a href="../app/src/skin/java/app/msime/offline/SkinKeyDrawable.java">app/src/skin/java/app/msime/offline/SkinKeyDrawable.java</a><small></small></td><td>按角色和状态选择键帽材质，绘制阴影、轮廓和按下状态。</td><td>4,139</td></tr><tr><td><a href="../app/src/skin/java/app/msime/offline/SkinPalette.java">app/src/skin/java/app/msime/offline/SkinPalette.java</a><small></small></td><td>九种皮肤的名称、基础颜色、前景对比、圆角及深度参数。</td><td>4,424</td></tr><tr><td><a href="../app/src/skin/java/app/msime/offline/SkinStack.java">app/src/skin/java/app/msime/offline/SkinStack.java</a><small></small></td><td>共用图层栈：背景、下装饰、键帽/文字、上装饰和反馈；透视仅作用于背景。</td><td>6,465</td></tr><tr><td><a href="../build.gradle.kts">build.gradle.kts</a><small></small></td><td>根目录 Android 构建插件配置。</td><td>71</td></tr><tr><td><a href="../gradle.properties">gradle.properties</a><small></small></td><td>Gradle/Android 构建参数。</td><td>74</td></tr><tr><td><a href="../LICENSE">LICENSE</a><small></small></td><td>项目主许可证。</td><td>35,823</td></tr><tr><td><a href="../provenance.json">provenance.json</a><small></small></td><td>原始引擎库与资源来源及摘要。</td><td>1,844</td></tr><tr><td><a href="../README.md">README.md</a><small></small></td><td>保留的功能介绍。</td><td>2,772</td></tr><tr><td><a href="../scripts/build_net_assets.py">scripts/build_net_assets.py</a><small></small></td><td>从固定 Nunito 源生成圆润字体子集与 NET. 透明工具图标。</td><td>3,472</td></tr><tr><td><a href="../scripts/build_s4u_font.py">scripts/build_s4u_font.py</a><small></small></td><td>从项目自制像素字形生成 S4U TTF。</td><td>3,827</td></tr><tr><td><a href="../scripts/extract_msime.py">scripts/extract_msime.py</a><small></small></td><td>从指定上游 APK 提取固定原生库、词库与许可。</td><td>4,823</td></tr><tr><td><a href="../scripts/import_emoji.py">scripts/import_emoji.py</a><small></small></td><td>导入固定 Unicode 表情目录与许可。</td><td>1,696</td></tr><tr><td><a href="../scripts/import_japanese.py">scripts/import_japanese.py</a><small></small></td><td>按固定上游清单导入离线日文模型和声明。</td><td>2,582</td></tr><tr><td><a href="../scripts/import_net_font.py">scripts/import_net_font.py</a><small></small></td><td>更新时下载固定版本 Nunito 字体源与 OFL 许可；运行时不联网。</td><td>1,437</td></tr><tr><td><a href="../scripts/package_release.py">scripts/package_release.py</a><small></small></td><td>核对当前 APK/源码并组合完整交付包与 SHA-256。</td><td>5,148</td></tr><tr><td><a href="../scripts/package_source.py">scripts/package_source.py</a><small></small></td><td>打包源码、资源、脚本和许可，排除密钥、缓存与临时文件。</td><td>1,532</td></tr><tr><td><a href="../scripts/project_paths.py">scripts/project_paths.py</a><small></small></td><td>统一定位工程根目录、版本号和多个 Java 源码目录。</td><td>492</td></tr><tr><td><a href="../scripts/render_net.py">scripts/render_net.py</a><small></small></td><td>用实际 NET. 资源生成示意图，不是 Android 截图。</td><td>4,433</td></tr><tr><td><a href="../scripts/render_settings.py">scripts/render_settings.py</a><small></small></td><td>用实际设置颜色与精简文案生成明暗雾面示意，非 Android 截图。</td><td>2,647</td></tr><tr><td><a href="../scripts/render_skins.py">scripts/render_skins.py</a><small></small></td><td>生成皮肤色板及标准键位的静态对比示意。</td><td>10,692</td></tr><tr><td><a href="../scripts/resource_profile.py">scripts/resource_profile.py</a><small></small></td><td>维护原生 full 启动资源契约，避免误删模型或词库。</td><td>1,137</td></tr><tr><td><a href="../scripts/source_map.py">scripts/source_map.py</a><small></small></td><td>生成此源码树与逐文件用途导览。</td><td>16,560</td></tr><tr><td><a href="../scripts/test_local.py">scripts/test_local.py</a><small></small></td><td>编译并运行纯 Java 回归，再运行 Python 资源检查。</td><td>2,322</td></tr><tr><td><a href="../scripts/verify_apk.py">scripts/verify_apk.py</a><small></small></td><td>核验最终 APK 的版本、权限、原生依赖、资源、签名和对齐。</td><td>10,674</td></tr><tr><td><a href="../settings.gradle.kts">settings.gradle.kts</a><small></small></td><td>工程模块与依赖仓库配置。</td><td>196</td></tr><tr><td><a href="../tests/CandidateExpansionSmoke.java">tests/CandidateExpansionSmoke.java</a><small></small></td><td>验证候选行打包、大列表索引与过期请求取消。</td><td>1,818</td></tr><tr><td><a href="../tests/ClipboardTextSmoke.java">tests/ClipboardTextSmoke.java</a><small></small></td><td>验证长文本、换行、Unicode 和可读缩放。</td><td>1,599</td></tr><tr><td><a href="../tests/CodingKeyboardSmoke.java">tests/CodingKeyboardSmoke.java</a><small></small></td><td>验证补全后缀、隐私、过期建议、ASCII 映射与终端按键派发。</td><td>6,658</td></tr><tr><td><a href="../tests/EditorTransitionSmoke.java">tests/EditorTransitionSmoke.java</a><small></small></td><td>验证输入框切换边界。</td><td>4,304</td></tr><tr><td><a href="../tests/emoji_catalog_test.py">tests/emoji_catalog_test.py</a><small></small></td><td>检查表情条目、分类、序列与许可证。</td><td>1,625</td></tr><tr><td><a href="../tests/FeedbackUpgradeSmoke.java">tests/FeedbackUpgradeSmoke.java</a><small></small></td><td>验证气泡所有权、快速连按、边缘位置与字号策略。</td><td>2,013</td></tr><tr><td><a href="../tests/FieldPolicySmoke.java">tests/FieldPolicySmoke.java</a><small></small></td><td>验证私密/密码字段及学习策略。</td><td>1,292</td></tr><tr><td><a href="../tests/japanese_assets_test.py">tests/japanese_assets_test.py</a><small></small></td><td>检查日文模型固定摘要及声明。</td><td>1,012</td></tr><tr><td><a href="../tests/JapaneseInputSmoke.java">tests/JapaneseInputSmoke.java</a><small></small></td><td>验证日文组字、转换、确认和会话重置。</td><td>1,820</td></tr><tr><td><a href="../tests/KeyboardUpgradeSmoke.java">tests/KeyboardUpgradeSmoke.java</a><small></small></td><td>验证高度、可取消滑动、变体、ASCII 与剪贴板隐私。</td><td>7,368</td></tr><tr><td><a href="../tests/net_assets_test.py">tests/net_assets_test.py</a><small></small></td><td>检查 NET. 图片/字体摘要、字形覆盖和 OFL 来源。</td><td>2,604</td></tr><tr><td><a href="../tests/NopeUpgradeSmoke.java">tests/NopeUpgradeSmoke.java</a><small></small></td><td>验证首字母回声、触点抖动、编辑手势、繁简及皮肤对比。</td><td>4,756</td></tr><tr><td><a href="../tests/QuickLanguagesSmoke.java">tests/QuickLanguagesSmoke.java</a><small></small></td><td>验证默认中英、自定义循环与无效配置回退。</td><td>1,674</td></tr><tr><td><a href="../tests/resource_profile_test.py">tests/resource_profile_test.py</a><small></small></td><td>检查完整启动资源契约与原始资源摘要。</td><td>1,848</td></tr><tr><td><a href="../tests/skin_contract_test.py">tests/skin_contract_test.py</a><small></small></td><td>检查九种皮肤的图层、区域、透视与像素字体轮廓。</td><td>2,680</td></tr><tr><td><a href="../tests/SkinTokens.java">tests/SkinTokens.java</a><small></small></td><td>导出皮肤参数，供示意图脚本使用。</td><td>1,030</td></tr><tr><td><a href="../vendor/msime-android-v0.3.1-source.tar.gz">vendor/msime-android-v0.3.1-source.tar.gz</a><small></small></td><td>固定版本引擎完整 Rust/C++ 上游源码归档；未展开进 Android 宿主目录。</td><td>23,447,424</td></tr><tr><td><a href="../vendor/net-font/Nunito-Variable.ttf">vendor/net-font/Nunito-Variable.ttf</a><small></small></td><td>NET. 圆润字体的原始上游字体源，用于生成随包子集。</td><td>276,932</td></tr><tr><td><a href="../vendor/net-font/provenance.json">vendor/net-font/provenance.json</a><small></small></td><td>字体上游提交、下载地址、许可与摘要。</td><td>758</td></tr><tr><td><a href="../vendor/unicode-17-emoji-test.txt">vendor/unicode-17-emoji-test.txt</a><small></small></td><td>固定版本上游原始数据。</td><td>669,326</td></tr><tr><td><a href="../VERSION">VERSION</a><small></small></td><td>交付版本号来源。</td><td>6</td></tr></tbody></table><script>document.getElementById('q').addEventListener('input',e=>{let q=e.target.value.toLowerCase();document.querySelectorAll('tbody tr').forEach(r=>r.hidden=!r.textContent.toLowerCase().includes(q))})</script></html>

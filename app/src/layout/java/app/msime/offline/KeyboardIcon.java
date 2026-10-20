@@ -12,6 +12,8 @@ import android.graphics.drawable.Drawable;
 final class KeyboardIcon extends KeyButton {
     enum Kind { BRAND, TOOLS, CLIPBOARD, EMOJI, SETTINGS, DOWN, UP, BACK, SHIFT, DELETE, ENTER, NUMBERS }
     private Glyph glyph;
+    private Drawable imageGlyph;
+    private RetroRecordDrawable recordGlyph;
     final Kind kind;
     KeyboardIcon(Context context, Kind kind) {
         super(context);
@@ -30,14 +32,50 @@ final class KeyboardIcon extends KeyButton {
             default -> "";
         };
     }
-    void glyphColor(int color) { if (glyph != null) { glyph.color = color; glyph.invalidateSelf(); } }
+    void glyphColor(int color) { if (glyph != null) { glyph.color = color; glyph.invalidateSelf(); } if(imageGlyph!=null)imageGlyph.setTint(color); }
+    void netStyle(NetAssets assets) {
+        imageGlyph=assets.icon(getContext(),kind);
+        if(imageGlyph!=null){
+            int size=Math.round((kind==Kind.BRAND?28:24)*getResources().getDisplayMetrics().density);
+            imageGlyph.setBounds(0,0,size,size);setCompoundDrawables(imageGlyph,null,null,null);
+        }
+    }
     void glyphSelected(boolean selected) { if (glyph != null) { glyph.selected = selected; glyph.invalidateSelf(); } }
-    void retroBrand(boolean enabled) { if (glyph != null) { glyph.retroBrand = enabled; glyph.invalidateSelf(); } }
+    void retroBrand(boolean enabled) {
+        if (glyph == null) return;
+        glyph.retroBrand = enabled;
+        if (kind == Kind.BRAND) {
+            // A manually drawn record must not also participate in TextView's
+            // compound-drawable measurement, tinting and single-line scrolling.
+            recordGlyph = enabled ? new RetroRecordDrawable() : null;
+            setCompoundDrawables(enabled ? null : glyph, null, null, null);
+            scrollTo(0, 0);
+        }
+        invalidate();
+    }
+    void brandSkin(String skin){if(glyph!=null)glyph.skin=skin;}
+    @Override protected void onDraw(Canvas canvas){
+        if(recordGlyph!=null){
+            float density=getResources().getDisplayMetrics().density;
+            int size=Math.max(0,Math.min(Math.round(32*density),
+                Math.min(getWidth()-Math.round(12*density),getHeight()-Math.round(16*density))));
+            if(size==0)return;
+            int x=(getWidth()-size)/2,y=(getHeight()-size)/2;
+            int save=canvas.save();
+            // View's content canvas includes scroll offsets; the logo belongs
+            // to the fixed button face, independent of any stale text scroll.
+            canvas.translate(getScrollX(),getScrollY());
+            recordGlyph.setBounds(x,y,x+size,y+size);recordGlyph.draw(canvas);
+            canvas.restoreToCount(save);return;
+        }
+        super.onDraw(canvas);
+    }
     private static final class Glyph extends Drawable {
     private final Kind kind;
     private int color;
     private boolean selected;
     private boolean retroBrand;
+    private String skin="system";
     private final Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Path path = new Path();
     Glyph(Kind kind) { this.kind = kind; }
@@ -51,26 +89,19 @@ final class KeyboardIcon extends KeyButton {
         float size = Math.min(getBounds().width(), getBounds().height());
         c.translate(getBounds().left, getBounds().top); c.scale(size / 24, size / 24);
         paint.setAntiAlias(!retroBrand);
-        paint.setColor(color); paint.setStrokeWidth(retroBrand?2.2f:1.6f); paint.setStrokeCap(retroBrand?Paint.Cap.SQUARE:Paint.Cap.ROUND);
+        paint.setColor(color); paint.setStrokeWidth(1.6f); paint.setStrokeCap(retroBrand?Paint.Cap.SQUARE:Paint.Cap.ROUND);
         paint.setStrokeJoin(Paint.Join.ROUND); paint.setStyle(Paint.Style.STROKE);
+        if(retroBrand&&(kind==Kind.CLIPBOARD||kind==Kind.EMOJI||kind==Kind.SETTINGS)){
+            paint.setStrokeJoin(Paint.Join.MITER);
+            if(kind==Kind.CLIPBOARD){line(c,8,5,5,5,5,21,19,21,19,5,16,5);line(c,9,3,15,3,15,7,9,7,9,3);line(c,9,12,15,12);line(c,9,16,15,16);}
+            if(kind==Kind.EMOJI){line(c,7,3,17,3,21,7,21,17,17,21,7,21,3,17,3,7,7,3);line(c,8,14,10,17,14,17,17,14);paint.setStyle(Paint.Style.FILL);c.drawRect(7,8,9,10,paint);c.drawRect(15,8,17,10,paint);}
+            if(kind==Kind.SETTINGS){line(c,3,6,21,6);line(c,3,12,21,12);line(c,3,18,21,18);line(c,8,3,8,9);line(c,16,9,16,15);line(c,10,15,10,21);}
+            c.restoreToCount(save);return;
+        }
         switch (kind) {
             case BRAND:
-                if (!retroBrand) {
-                    BrandMark.draw(c,paint,color);
-                    break;
-                }
-                paint.setAntiAlias(false);paint.setStyle(Paint.Style.FILL);paint.setColor(0xff6a5845);c.drawRect(1,1,23,23,paint);
-                paint.setColor(0xffeee3cb);c.drawRect(2,2,22,22,paint);
-                paint.setColor(0xffa8aba2);c.drawCircle(10,11,7,paint);
-                paint.setColor(0xffd9ddd0);c.drawArc(3,4,17,18,210,80,true,paint);
-                paint.setColor(0xffb0c7c9);c.drawArc(3,4,17,18,40,65,true,paint);
-                paint.setColor(0xffc4adb5);c.drawArc(3,4,17,18,125,30,true,paint);
-                paint.setColor(0xfff1e8d6);c.drawCircle(10,11,2,paint);
-                paint.setColor(0xff536055);c.drawCircle(10,11,1,paint);
-                paint.setColor(0xffece2cf);c.drawRect(13,8,23,17,paint);
-                paint.setColor(0xff35483d);c.drawRect(14,9,22,15,paint);
-                paint.setColor(0xff998b76);for(int x=5;x<=17;x+=4)c.drawRect(x,20,x+2,21,paint);
-                paint.setAntiAlias(true);break;
+                if(BrandSymbols.draw(c,paint,path,skin))break;
+                BrandMark.draw(c,paint,color);break;
             case TOOLS:
                 paint.setStyle(Paint.Style.FILL);
                 for (int x = 3; x <= 14; x += 11) for (int y = 3; y <= 14; y += 11) c.drawRoundRect(x, y, x + 7, y + 7, 2, 2, paint);

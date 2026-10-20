@@ -6,4 +6,16 @@
         <item name="android:windowLightStatusBar">true</item>
         <item name="android:windowLightNavigationBar">true</item>
     </style>
+    <style name="SettingsDayTheme" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="android:colorAccent">#665383</item>
+        <item name="android:windowBackground">#FAF9F5</item>
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
+    </style>
+    <style name="SettingsNightTheme" parent="android:style/Theme.Material.NoActionBar">
+        <item name="android:colorAccent">#C6B3EF</item>
+        <item name="android:windowBackground">#25252C</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
 </resources>

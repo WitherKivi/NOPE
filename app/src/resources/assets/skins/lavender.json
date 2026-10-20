@@ -1,7 +1,7 @@
 {
   "version": 1,
   "id": "lavender",
-  "name": "淡紫像素",
+  "name": "NET.",
   "variants": {
     "light": {
       "palette": {
@@ -14,25 +14,25 @@
         "shadow": "#ac91d2",
         "outline": "#5142ce"
       },
-      "radiusDp": 1,
+      "radiusDp": 7,
       "depthDp": 2
     }
   },
   "keys": {
     "letter": {
-      "font": "pixel"
+      "font": "rounded"
     },
     "number": {
-      "font": "pixel"
+      "font": "rounded"
     },
     "function": {
-      "font": "pixel"
+      "font": "rounded"
     },
     "mode": {
-      "font": "pixel"
+      "font": "rounded"
     },
     "space": {
-      "font": "pixel"
+      "font": "rounded"
     }
   },
   "perspective": {
@@ -41,19 +41,6 @@
     "target": "background"
   },
   "layers": [
-    {
-      "id": "glass-grain",
-      "z": 5,
-      "order": 0,
-      "region": "frame",
-      "type": "dots",
-      "x": 0,
-      "y": 0,
-      "width": 1,
-      "height": 1,
-      "stepDp": 7,
-      "color": "#38ffffff"
-    },
     {
       "id": "footer-star-a",
       "z": 30,

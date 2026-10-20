@@ -56,7 +56,7 @@ final class KeyPreview {
         Bubble(Context context,String text,IosTheme theme,float tail){
             super(context);this.text=text;this.theme=theme;this.tail=tail;
             cap=theme.palette.id.equals("retro")?new RetroDrawable(theme.palette,RetroDrawable.Surface.KEY,false,theme.key,getResources().getDisplayMetrics().density):null;
-            pixelGlass=theme.palette.id.equals("lavender")?new PixelGlassDrawable(PixelGlassDrawable.Surface.KEY,theme.key,false,getResources().getDisplayMetrics().density):null;
+            pixelGlass=theme.palette.id.equals("lavender")?new PixelGlassDrawable(theme,PixelGlassDrawable.Surface.KEY,theme.key,false):null;
         }
         @Override protected void onDraw(Canvas canvas){
             float d=getResources().getDisplayMetrics().density,w=getWidth(),body=getHeight()-12*d;
@@ -73,8 +73,8 @@ final class KeyPreview {
                 paint.setColor(theme.key);canvas.drawRoundRect(0,0,w,body,9*d,9*d,paint);
                 shape.reset();shape.moveTo(center-8*d,body-d);shape.lineTo(center,body+10*d);shape.lineTo(center+8*d,body-d);shape.close();canvas.drawPath(shape,paint);
             }
-            if(pixel&&PixelGlyphs.supports(text))PixelGlyphs.draw(canvas,text,w/2,body/2-2*d,w-18*d,34*getResources().getDisplayMetrics().scaledDensity,theme.keyInk);
-            else{paint.setColor(theme.keyInk);paint.setTextAlign(Paint.Align.CENTER);paint.setTypeface(android.graphics.Typeface.DEFAULT);
+            if(retro&&PixelGlyphs.supports(text))PixelGlyphs.draw(canvas,text,w/2,body/2-2*d,w-18*d,34*getResources().getDisplayMetrics().scaledDensity,theme.keyInk);
+            else{paint.setColor(theme.keyInk);paint.setTextAlign(Paint.Align.CENTER);paint.setTypeface(theme.net!=null?theme.net.rounded:android.graphics.Typeface.DEFAULT);paint.setAntiAlias(true);
                 paint.setTextSize(Math.min(34*getResources().getDisplayMetrics().scaledDensity,body*.7f));
                 paint.setTextSize(paint.getTextSize()*Math.min(1,(w-16*d)/Math.max(1,paint.measureText(text))));Paint.FontMetrics fm=paint.getFontMetrics();
                 canvas.drawText(text,w/2,body/2-(fm.ascent+fm.descent)/2,paint);}

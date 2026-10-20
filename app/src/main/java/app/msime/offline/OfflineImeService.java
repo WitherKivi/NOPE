@@ -50,7 +50,10 @@ public final class OfflineImeService extends InputMethodService {
     private View skinFooter;
     private CandidateStrip candidateScroll;
     private FrameLayout body;
-    private ScrollView expandedCandidates;
+    private CandidateList expandedCandidates;
+    private final CandidateRequest candidateRequest=new CandidateRequest();
+    private JSONObject expandedSnapshot;
+    private long expandedEditor=-1;
     private boolean candidateExpanded;
     private JSONObject candidateSnapshot;
     private long snapshotSession, expandedGeneration = -1;
@@ -195,7 +198,7 @@ public final class OfflineImeService extends InputMethodService {
         if (session != 0) {
             try { NativeClient.destroy(session); } catch (RuntimeException | LinkageError ignored) { }
         }
-        session = 0; view = null; candidateSnapshot = null; candidateExpanded = false; japanese.reset();
+        session = 0; view = null; candidateSnapshot = null; candidateExpanded = false; candidateRequest.cancel(); japanese.reset();
     }
     private void reset() {
         dismissPopover(); stopRepeat(); modifiers = 0; shift = false; caps = false; symbols = false; extraSymbols = false;
@@ -279,7 +282,7 @@ public final class OfflineImeService extends InputMethodService {
     }
     private void build() {
         if (root == null) return;
-        dismissPopover(); stopRepeat(); root.removeAllViews();
+        dismissPopover(); stopRepeat(); candidateRequest.cancel(); root.removeAllViews();
         ctrlKey = null; altKey = null; shiftKey = null; expandedCandidates = null;
         theme = new IosTheme(this);
         background = theme.background; foreground = theme.foreground;
@@ -291,7 +294,8 @@ public final class OfflineImeService extends InputMethodService {
         rowHeight = KeyboardMetrics.row(keyboardHeight, mode == Mode.CODING);
         top = new LinearLayout(this); top.setOrientation(LinearLayout.HORIZONTAL);
         top.setGravity(android.view.Gravity.CENTER_VERTICAL); top.setPadding(dp(6), 0, dp(6), 0);
-        if(theme.palette.id.equals("lavender"))top.setBackground(new PixelGlassDrawable(PixelGlassDrawable.Surface.PANEL,0xffe9e6f0,false,theme.density));
+        if(theme.palette.id.equals("retro"))top.setBackground(new RetroDrawable(theme.palette,RetroDrawable.Surface.HEADER,false,theme.background,theme.density));
+        if(theme.palette.id.equals("lavender"))top.setBackground(new PixelGlassDrawable(theme,PixelGlassDrawable.Surface.PANEL,0xffe9e6f0,false));
         root.addView(top, new LinearLayout.LayoutParams(-1, candidateHeight()));
         body = new FrameLayout(this); body.setPadding(dp(3), 0, dp(3), 0);
         root.addView(body, new LinearLayout.LayoutParams(-1, dp(KeyboardMetrics.body(keyboardHeight))));
@@ -378,7 +382,7 @@ public final class OfflineImeService extends InputMethodService {
         String quick = getSharedPreferences("offline", MODE_PRIVATE).getString("quick_languages", QuickLanguages.DEFAULT);
         Button button = key(label, "当前" + name + "；点按切换到" + QuickLanguages.name(QuickLanguages.next(mode.name(), quick)) + "；可在设置调整快速切换语言",
             () -> changeMode(Mode.valueOf(QuickLanguages.next(mode.name(), getSharedPreferences("offline", MODE_PRIVATE).getString("quick_languages", QuickLanguages.DEFAULT)))), false);
-        ((KeyButton)button).skinRole("mode");button.setTextSize(mode == Mode.CODING ? 12 : 17); button.setTypeface(theme.palette.id.equals("retro")?RetroTypeface.get(this):Typeface.DEFAULT, Typeface.BOLD); button.setSelected(true); return button;
+        ((KeyButton)button).skinRole("mode");button.setTextSize(mode == Mode.CODING ? 12 : 17); button.setTypeface(theme.net!=null?theme.net.rounded:theme.palette.id.equals("retro")?RetroTypeface.get(this):Typeface.DEFAULT, Typeface.BOLD); button.setSelected(true); return button;
     }
 
     private void codeNavigation() {
@@ -444,7 +448,7 @@ public final class OfflineImeService extends InputMethodService {
         String editing = mode != Mode.CODING && !symbols && !numeric ? EditingSwipe.action(text) : "";
         configure(button, text, "输入 " + text + (variants.length > 0 ? "；上滑或长按选择变体" : "")
             + (editing.isEmpty() ? "" : "；下滑" + editing), () -> type(text), false);
-        if(button instanceof HintKey hinted)hinted.retroHint(theme.palette.id.equals("retro"));
+        if(button instanceof HintKey hinted){hinted.retroHint(theme.palette.id.equals("retro"));hinted.bakedDigits(theme.palette.id.equals("lavender"));}
         variantGesture(button, text, variants);
         KeyButton input=(KeyButton)button;
         input.preview(() -> {
@@ -562,17 +566,19 @@ public final class OfflineImeService extends InputMethodService {
         button.setAllCaps(false); button.setText(theme != null && !theme.palette.id.equals("ios") && text.length()==1 && Character.isLetter(text.charAt(0)) ? text.toUpperCase(java.util.Locale.ROOT) : text);
         button.setTextSize(text.length() > 2 ? 13 : theme!=null && theme.palette.id.equals("cloud") ? 24 : theme!=null&&theme.palette.id.equals("retro")?30:26); button.setSingleLine(true);
         button.setMinWidth(0); button.setMinimumWidth(0); button.setMinHeight(0); button.setMinimumHeight(0);
-        button.setPadding(dp(2), 0, dp(2), 0); button.setContentDescription(label); button.setTypeface(Typeface.DEFAULT);
+        boolean netDigit=theme.palette.id.equals("lavender")&&text.length()==1&&"qwertyuiopQWERTYUIOP".contains(text);
+        button.setPadding(dp(2), netDigit?dp(8):0, dp(2), 0); button.setContentDescription(label); button.setTypeface(Typeface.DEFAULT);
         button.setGravity(android.view.Gravity.CENTER); button.setIncludeFontPadding(false);
         button.setLetterSpacing(0);
         if(theme.palette.id.equals("retro")||theme.palette.id.equals("lavender"))button.setBackgroundTintList(null);
-        if (button instanceof KeyboardIcon icon) icon.retroBrand(theme.palette.id.equals("retro"));
+        if (button instanceof KeyboardIcon icon){icon.retroBrand(theme.palette.id.equals("retro"));icon.brandSkin(theme.palette.id);if(theme.net!=null)icon.netStyle(theme.net);}
         button.setHapticFeedbackEnabled(false);
         if (button instanceof KeyButton input) {
             input.skinRole(button instanceof KeyboardIcon icon?KeyboardIcon.toolbar(icon.kind)?"toolbar":"function":text.isEmpty()?"space":text.length()==1&&Character.isDigit(text.charAt(0))?"number":text.length()==1&&Character.isLetter(text.charAt(0))?"letter":"other");
             input.feedback(() -> keyFeedback.pulse());
             input.pressFeedback(getSharedPreferences("offline",MODE_PRIVATE).getBoolean("press_effects",true),theme.palette.id.equals("retro")||theme.palette.id.equals("lavender"));
-            input.pixelLetters(theme.palette.id.equals("retro")||theme.palette.id.equals("lavender"));
+            input.pixelLetters(theme.palette.id.equals("retro"));
+            if(theme.net!=null)input.setTypeface(theme.net.rounded);
             input.textScale(KeyboardText.scale(getSharedPreferences("offline", MODE_PRIVATE).getInt("key_text_scale", KeyboardText.DEFAULT_PERCENT)));
         }
         button.setStateListAnimator(null); button.setElevation(0); button.setTranslationZ(0);
@@ -589,7 +595,7 @@ public final class OfflineImeService extends InputMethodService {
         states.addState(new int[]{android.R.attr.state_pressed}, pressed); states.addState(new int[0], fill); return states;
     }
     private android.graphics.drawable.Drawable keycap(int color, int radius) {
-        if(theme.palette.id.equals("lavender"))return new PixelGlassDrawable(PixelGlassDrawable.Surface.KEY,color,false,theme.density);
+        if(theme.palette.id.equals("lavender"))return new PixelGlassDrawable(theme,PixelGlassDrawable.Surface.KEY,color,false);
         if(theme.palette.id.equals("retro"))return new RetroDrawable(theme.palette,RetroDrawable.Surface.KEY,false,color,theme.density);
         GradientDrawable shadow = new GradientDrawable(); shadow.setCornerRadius(dp(radius));
         shadow.setColor(IosTheme.mix(color, theme.shadow, .65f));
@@ -616,7 +622,7 @@ public final class OfflineImeService extends InputMethodService {
             top.addView(tool(KeyboardIcon.Kind.BRAND,"NOPE 工具",this::tools),new LinearLayout.LayoutParams(dp(44),-1));
             LinearLayout lcd=new LinearLayout(this);lcd.setGravity(android.view.Gravity.CENTER_VERTICAL);
             lcd.setPadding(dp(4),0,dp(4),0);
-            lcd.setBackground(new RetroDrawable(theme.palette,RetroDrawable.Surface.DISPLAY,false,theme.candidateFill,theme.density));
+            lcd.setBackground(new android.graphics.drawable.InsetDrawable(new RetroDrawable(theme.palette,RetroDrawable.Surface.DISPLAY,false,theme.candidateFill,theme.density),0,dp(4),0,dp(4)));
             add(lcd,lcdTool(KeyboardIcon.Kind.CLIPBOARD,"剪贴板历史",this::showClipboard),1);
             add(lcd,lcdTool(KeyboardIcon.Kind.EMOJI,"表情",this::showEmoji),1);
             add(lcd,lcdTool(KeyboardIcon.Kind.SETTINGS,"输入法设置与高度",this::settings),1);
@@ -638,7 +644,10 @@ public final class OfflineImeService extends InputMethodService {
     private Button tool(KeyboardIcon.Kind kind, String label, Runnable action) {
         Button button = icon(kind, label, action, false); button.setTextColor(foreground);
         ((KeyboardIcon)button).glyphColor(foreground);
-        button.setBackground(theme.palette.id.equals("retro")?surface(theme.key,3):chrome(Color.TRANSPARENT,6));return button;
+        if(theme.palette.id.equals("retro")){
+            if(kind==KeyboardIcon.Kind.BRAND)button.setBackground(new RetroDrawable(theme.palette,RetroDrawable.Surface.SOCKET,false,theme.key,theme.density));
+            else button.setBackground(new android.graphics.drawable.InsetDrawable(surface(theme.key,3),dp(1),dp(4),dp(1),dp(4)));
+        }else button.setBackground(chrome(Color.TRANSPARENT,6));return button;
     }
     private TextView label(String text, int size) {
         TextView value = new TextView(this); value.setText(text); value.setTextColor(foreground); value.setTextSize(size);
@@ -814,18 +823,18 @@ public final class OfflineImeService extends InputMethodService {
         if (!getSharedPreferences("offline", MODE_PRIVATE).getBoolean("clipboard", true)) {
             content.addView(label("剪贴板记录已关闭，可在设置中开启", 14)); return;
         }
-        if (clipItems.isEmpty()) { TextView empty = label("复制的文字会保存在这里\n长按置顶 · 仅本机保存 · 不自动过期", 15); empty.setGravity(android.view.Gravity.CENTER); content.addView(empty, new LinearLayout.LayoutParams(-1, -1)); return; }
+        if (clipItems.isEmpty()) { TextView empty = label("暂无剪贴板记录", 15); empty.setGravity(android.view.Gravity.CENTER); content.addView(empty, new LinearLayout.LayoutParams(-1, -1)); return; }
         TextView hint = label("仅本机保存 · 长按置顶或删除", 12); content.addView(hint, new LinearLayout.LayoutParams(-1, dp(32)));
         for (int i = 0; i < clipItems.size(); i += 2) {
             LinearLayout line = new LinearLayout(this); line.setOrientation(LinearLayout.HORIZONTAL); content.addView(line);
             for (int j = i; j < Math.min(i + 2, clipItems.size()); j++) {
                 ClipboardStore.Item item = clipItems.get(j);
-                Button card = key((item.pinned ? "置顶 · " : "") + item.text, "粘贴" + (item.pinned ? "置顶条目，" : "历史条目，") + preview(item.text), () -> paste(item.text), false);
-                clipboardText(card,(item.pinned ? "置顶 · " : "") + item.text,false);
+                Button card = key((item.pinned ? "📌 " : "") + item.text, "粘贴" + (item.pinned ? "置顶条目，" : "历史条目，") + preview(item.text), () -> paste(item.text), false);
+                clipboardText(card,(item.pinned ? "📌 " : "") + item.text,false);
                 card.setGravity(android.view.Gravity.START | android.view.Gravity.CENTER_VERTICAL); card.setPadding(dp(12), dp(10), dp(12), dp(10));
                 card.setBackground(surface(keyFill, 10));
                 card.setOnLongClickListener(v -> { keyFeedback.pulse();
-                    choices(v, "剪贴板条目", new String[]{item.pinned ? "取消置顶" : "置顶", "删除"}, -1,
+                    choices(v, "剪贴板条目", new String[]{item.pinned ? "📌 取消置顶" : "📌 置顶", "删除"}, -1,
                         which -> clipTask(() -> { if (which == 0) clips.pin(item.id, !item.pinned); else clips.delete(item.id); })); return true; });
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0,ClipboardText.cardHeight(getResources().getDisplayMetrics().density,getResources().getDisplayMetrics().scaledDensity),1); params.setMargins(dp(3), dp(3), dp(3), dp(3)); line.addView(card, params);
             }
@@ -993,7 +1002,7 @@ public final class OfflineImeService extends InputMethodService {
         if(button instanceof KeyButton key){
             key.skinTextScale(role.equals("candidate")?1:theme.config.keyScale(role));
             String font=theme.config.keyFont(role);
-            if(!font.isEmpty())button.setTypeface(font.equals("pixel")?RetroTypeface.get(this):Typeface.DEFAULT,button.getTypeface()==null?Typeface.NORMAL:button.getTypeface().getStyle());
+            if(!font.isEmpty())button.setTypeface(font.equals("pixel")?RetroTypeface.get(this):font.equals("rounded")?NetAssets.get(this).rounded:Typeface.DEFAULT,button.getTypeface()==null?Typeface.NORMAL:button.getTypeface().getStyle());
         }
         button.setTextColor(!selected?theme.config.keyColor(role,"ink",theme.palette.faceInk(false,isShift,function)):retroMode?theme.foreground:theme.palette.faceInk(true,isShift,function));button.setSelected(selected);
         if (button instanceof KeyboardIcon icon) { icon.glyphColor(button.getCurrentTextColor()); icon.glyphSelected(selected); }
@@ -1007,7 +1016,8 @@ public final class OfflineImeService extends InputMethodService {
     private int dp(int value) { return Math.round(value * getResources().getDisplayMetrics().density); }
     private void add(LinearLayout row, Button button, float weight) {
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(0, -1, weight);
-        params.setMargins(dp(2), dp(2), dp(2), dp(2)); row.addView(button, params);
+        int margin=theme.palette.id.equals("retro")?dp(1):dp(2);
+        params.setMargins(margin,margin,margin,margin); row.addView(button, params);
     }
     private void control(LinearLayout row, String label, String description, int code) {
         Button button = key(label, description, () -> stroke(code), false);
@@ -1194,16 +1204,6 @@ public final class OfflineImeService extends InputMethodService {
         top.setVisibility(View.VISIBLE);
         candidateOptions.clear();
         if (!composition() && mode != Mode.CODING || !feedback.isEmpty()) candidateExpanded = false;
-        if (candidateExpanded && engineMode()) {
-            try {
-                if (candidateSnapshot == null || snapshotSession != session || candidateSnapshot.optLong("generation", -1) != view.optLong("generation", -2)) {
-                    candidateSnapshot = EngineInstall.value(NativeClient.allCandidates(session));
-                    snapshotSession = session;
-                    // 全部候选释放后会重新排序，横栏也必须使用新的 ID。
-                    view = EngineInstall.value(NativeClient.view(session));
-                }
-            } catch (Exception | LinkageError error) { candidateExpanded = false; feedback = "候选展开失败，请收起后重试"; }
-        }
         if (!candidateExpanded) restoreCandidateBody();
         face(ctrlKey, (modifiers & CodingKeyMap.CTRL) != 0); face(altKey, (modifiers & CodingKeyMap.ALT) != 0);
         completion.setEnabled(!privateField);
@@ -1212,6 +1212,7 @@ public final class OfflineImeService extends InputMethodService {
             candidateExpanded = false; restoreCandidateBody();
             top.removeAllViews(); top.setVisibility(View.GONE); return;
         }
+        if(theme.palette.id.equals("retro")&&mode==Mode.ENGLISH&&feedback.isEmpty()){toolbar();return;}
         boolean suggestions = composition() || typing || modifiers != 0 || !feedback.isEmpty();
         String visibleText = clipSuggestion.text();
         if (!suggestions && (visibleText == null || privateField || !getSharedPreferences("offline", MODE_PRIVATE).getBoolean("clipboard", true))) { toolbar(); return; }
@@ -1238,11 +1239,11 @@ public final class OfflineImeService extends InputMethodService {
         if(theme.palette.id.equals("retro")){
             Button brand=tool(KeyboardIcon.Kind.BRAND,"NOPE 工具",this::tools);
             top.addView(brand,new LinearLayout.LayoutParams(dp(44),-1));
-            scroll.setBackground(new RetroDrawable(theme.palette,RetroDrawable.Surface.DISPLAY,false,theme.candidateFill,theme.density));
-        }else if(theme.palette.id.equals("lavender"))scroll.setBackground(new PixelGlassDrawable(PixelGlassDrawable.Surface.PANEL,theme.candidateFill,false,theme.density));
+            scroll.setBackground(new android.graphics.drawable.InsetDrawable(new RetroDrawable(theme.palette,RetroDrawable.Surface.DISPLAY,false,theme.candidateFill,theme.density),0,dp(4),0,dp(4)));
+        }else if(theme.palette.id.equals("lavender"))scroll.setBackground(new PixelGlassDrawable(theme,PixelGlassDrawable.Surface.PANEL,theme.candidateFill,false));
         else if(theme.candidateFill!=theme.palette.candidateFill())scroll.setBackgroundColor(theme.candidateFill);
         candidates = new LinearLayout(this); candidates.setGravity(android.view.Gravity.CENTER_VERTICAL); scroll.addView(candidates);
-        if(theme.palette.id.equals("retro")&&composition()&&feedback.isEmpty()){
+        if(theme.palette.id.equals("retro")&&mode==Mode.JAPANESE&&composition()&&feedback.isEmpty()){
             String editing=view.optString("editing_text");
             if(mode==Mode.JAPANESE)editing=JapaneseInput.preedit(editing,view.optString("reading"));
             TextView reading=label(editing,22);reading.setTextColor(theme.candidateInk);reading.setTypeface(RetroTypeface.get(this));
@@ -1315,38 +1316,62 @@ public final class OfflineImeService extends InputMethodService {
         if (body == null) return;
         if (expandedCandidates != null) { body.removeView(expandedCandidates); expandedCandidates = null; }
         if (keys != null) keys.setVisibility(View.VISIBLE);
-        expandedGeneration = -1;
+        expandedGeneration = -1;expandedSnapshot=null;expandedEditor=-1;
+        if(!candidateExpanded)candidateRequest.cancel();
+    }
+    private boolean fullCandidatesReady(){
+        return candidateSnapshot!=null&&view!=null&&snapshotSession==session&&candidateSnapshot.optLong("generation",-1)==view.optLong("generation",-2);
+    }
+    private void requestCandidateSnapshot(){
+        if(!candidateExpanded||!engineMode()||view==null||fullCandidatesReady())return;
+        long requestedSession=session,editor=editorGeneration,generation=view.optLong("generation",-1);
+        if(candidateRequest.matches(requestedSession,editor,generation))return;
+        long ticket=candidateRequest.begin(requestedSession,editor,generation);
+        // JNI sessions are thread-local. Let the first expanded frame draw, then query on its owner thread.
+        top.postOnAnimation(()->main.post(()->{
+            if(!alive||!candidateExpanded||view==null||!candidateRequest.accepts(ticket,session,editorGeneration,view.optLong("generation",-1)))return;
+            try{
+                long started=SystemClock.uptimeMillis();
+                JSONObject complete=EngineInstall.value(NativeClient.allCandidates(requestedSession));
+                JSONObject latest=EngineInstall.value(NativeClient.view(requestedSession));
+                candidateSnapshot=complete;snapshotSession=requestedSession;view=latest;
+                android.util.Log.d("NopeCandidates","snapshot_ms="+(SystemClock.uptimeMillis()-started)+" count="+(complete.optJSONArray("candidates")==null?0:complete.optJSONArray("candidates").length()));
+                candidateRequest.cancel();render();
+            }catch(Exception|LinkageError error){candidateRequest.cancel();candidateExpanded=false;feedback="候选展开失败，请重试";render();}
+        }));
     }
     private void updateCandidateBody() {
         if (!candidateExpanded) { restoreCandidateBody(); return; }
         if (body == null || keys == null) return;
-        long generation = view == null ? -1 : view.optLong("generation", -1);
-        int previousY = expandedCandidates != null && expandedGeneration == generation ? expandedCandidates.getScrollY() : 0;
-        if (expandedCandidates != null) body.removeView(expandedCandidates);
-        ScrollView scroll = new ScrollView(this); scroll.setFillViewport(true); scroll.setContentDescription("全部候选，上下滑动浏览");
-        expandedCandidates = scroll; expandedGeneration = generation;
-        if(theme.palette.id.equals("retro"))scroll.setBackground(new RetroDrawable(theme.palette,RetroDrawable.Surface.DISPLAY,false,theme.candidateFill,theme.density));
-        CandidateFlow flow = new CandidateFlow(this); flow.setPadding(dp(4), dp(4), dp(4), dp(4));
-        scroll.addView(flow, new ScrollView.LayoutParams(-1, -2));
-        if (engineMode() && candidateSnapshot != null) {
-            JSONArray values = candidateSnapshot.optJSONArray("candidates");
-            long editor = editorGeneration, targetSession = session, targetGeneration = candidateSnapshot.optLong("generation", -1);
-            if (values != null) for (int i = 0; i < values.length(); i++) {
-                JSONObject value = values.optJSONObject(i); if (value == null) continue;
-                JSONObject id = value.optJSONObject("id"); if (id == null) continue;
-                long index = id.optLong("index", -1); String text = output(value.optString("text"));
-                flow.addView(candidateButton(text, "选择 " + text, () -> {
-                    if (editor != editorGeneration || targetSession != session || view == null || targetGeneration != view.optLong("generation", -2)) return;
-                    candidateExpanded = false;
-                    try { apply(NativeClient.selectAnyCandidate(session, targetGeneration, index)); typing = composition(); render(); }
-                    catch (Exception | LinkageError error) { engineFailure(); render(); }
-                }, true));
+        long generation=view==null?-1:view.optLong("generation",-1);
+        boolean full=engineMode()&&fullCandidatesReady();
+        JSONObject snapshot=full?candidateSnapshot:null;
+        if(engineMode()&&expandedCandidates!=null&&expandedGeneration==generation&&expandedEditor==editorGeneration&&expandedSnapshot==snapshot)return;
+        if(expandedCandidates!=null)body.removeView(expandedCandidates);
+        java.util.ArrayList<CandidateList.Item> items=new java.util.ArrayList<>();
+        if(full){
+            JSONArray values=snapshot.optJSONArray("candidates");
+            long editor=editorGeneration,targetSession=session,targetGeneration=snapshot.optLong("generation",-1);
+            if(values!=null)for(int i=0;i<values.length();i++){
+                JSONObject value=values.optJSONObject(i);if(value==null)continue;
+                JSONObject id=value.optJSONObject("id");if(id==null)continue;
+                long index=id.optLong("index",-1);String text=output(value.optString("text"));
+                items.add(new CandidateList.Item(text,"选择 "+text,()->{
+                    if(editor!=editorGeneration||targetSession!=session||view==null||targetGeneration!=view.optLong("generation",-2))return;
+                    candidateExpanded=false;
+                    try{apply(NativeClient.selectAnyCandidate(session,targetGeneration,index));typing=composition();render();}
+                    catch(Exception|LinkageError error){engineFailure();render();}
+                }));
             }
-        } else for (CandidateOption option : candidateOptions) {
-            flow.addView(candidateButton(option.text(), option.description(), () -> { candidateExpanded = false; option.action().run(); }, true));
-        }
-        keys.setVisibility(View.GONE); body.addView(scroll, new FrameLayout.LayoutParams(-1, -1));
-        scroll.post(() -> { if (expandedCandidates == scroll && scroll.isAttachedToWindow()) scroll.scrollTo(0, previousY); });
+        }else for(CandidateOption option:candidateOptions)items.add(new CandidateList.Item(option.text(),option.description(),()->{candidateExpanded=false;option.action().run();}));
+        android.graphics.Paint measure=new android.graphics.Paint();measure.setTextSize(KeyboardText.CANDIDATE_SP*getResources().getDisplayMetrics().scaledDensity);
+        if(theme.config.keyFont("candidate").equals("pixel"))measure.setTypeface(RetroTypeface.get(this));
+        CandidateList list=new CandidateList(this,items,item->candidateButton(item.text(),item.description(),item.action(),true),measure,candidateHeight());
+        expandedCandidates=list;expandedGeneration=generation;expandedEditor=editorGeneration;expandedSnapshot=snapshot;
+        if(theme.palette.id.equals("retro"))list.setBackground(new RetroDrawable(theme.palette,RetroDrawable.Surface.DISPLAY,false,theme.candidateFill,theme.density));
+        if(engineMode()&&!full){TextView loading=label("正在展开…",14);loading.setTextColor(theme.candidateInk);list.addFooterView(loading,null,false);}
+        keys.setVisibility(View.GONE);body.addView(list,new FrameLayout.LayoutParams(-1,-1));
+        if(engineMode()&&!full)requestCandidateSnapshot();
     }
     @Override public void onUpdateSelection(int oldStart, int oldEnd, int newStart, int newEnd, int composingStart, int composingEnd) {
         super.onUpdateSelection(oldStart, oldEnd, newStart, newEnd, composingStart, composingEnd);
